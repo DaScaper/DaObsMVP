@@ -15,23 +15,19 @@
       theme: {
         extend: {
           colors: {
-            "primary": "#8cf6c1", "primary-container": "#6fd9a6", "primary-fixed": "#8df7c2", "primary-fixed-dim": "#71daa7",
-            "on-primary": "#003824", "on-primary-container": "#005e3e", "on-primary-fixed": "#002113", "on-primary-fixed-variant": "#005235",
-            "inverse-primary": "#006c48",
-            "secondary": "#dfc38a", "secondary-container": "#594719", "secondary-fixed": "#fcdfa3", "secondary-fixed-dim": "#dfc38a",
-            "on-secondary": "#3e2e02", "on-secondary-container": "#d0b57d", "on-secondary-fixed": "#251a00", "on-secondary-fixed-variant": "#574417",
-            "tertiary": "#ffd9c6", "tertiary-container": "#ffb489", "tertiary-fixed": "#ffdbc9", "tertiary-fixed-dim": "#ffb68d",
-            "on-tertiary": "#512404", "on-tertiary-container": "#794422", "on-tertiary-fixed": "#321200", "on-tertiary-fixed-variant": "#6c3918",
-            "error": "#e5604f", "error-container": "#93000a", "on-error": "#690005", "on-error-container": "#ffdad6",
-            "success": "#3ddc97",
-            "background": "#0f1511", "on-background": "#dee4de",
-            "surface": "#070b09", "on-surface": "#e9efeb", "surface-variant": "#303632", "on-surface-variant": "#bdcac0",
-            "surface-dim": "#0f1511", "surface-bright": "#16201b",
-            "surface-container-lowest": "#0a0f0c", "surface-container-low": "#171d19", "surface-container": "#1b211d",
-            "surface-container-high": "#262b27", "surface-container-highest": "#303632",
-            "inverse-surface": "#dee4de", "inverse-on-surface": "#2c322e",
-            "outline": "#87948b", "outline-variant": "#3e4942", "outline-emerald": "rgba(111, 217, 166, 0.16)",
-            "surface-tint": "#71daa7"
+            // Joyful, elegant dark theme palette (Midnight Indigo & Vibrant Cyan/Pink)
+            "primary": "#38bdf8", "primary-container": "#0284c7",
+            "on-primary": "#0f172a",
+            "secondary": "#f472b6", "secondary-container": "#db2777",
+            "on-secondary": "#4a044e",
+            "tertiary": "#a78bfa",
+            "error": "#fb7185", "on-error": "#690005",
+            "success": "#34d399",
+            "background": "#0f172a", "on-background": "#f8fafc",
+            "surface": "#1e293b", "on-surface": "#f1f5f9", "surface-variant": "#334155", "on-surface-variant": "#cbd5e1",
+            "surface-container-lowest": "#0b0f19", "surface-container-low": "#0f172a", "surface-container": "#1e293b",
+            "surface-container-high": "#334155", "surface-container-highest": "#475569",
+            "outline": "#64748b", "outline-variant": "#475569", "outline-emerald": "rgba(56, 189, 248, 0.15)"
           },
           borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
           spacing: { "container-padding": "16px", "padding-container": "16px", "gap-md": "16px", "max-width": "440px", "gap-lg": "24px", "base": "4px", "gap-sm": "8px" },
@@ -52,34 +48,40 @@
     }
   </script>
   <style>
-    body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #0f1511; color: #dee4de; -webkit-tap-highlight-color: transparent; }
+    body { font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif; background-color: #0f172a; color: #f8fafc; -webkit-tap-highlight-color: transparent; }
     .naskh { font-family: 'Noto Naskh Arabic', serif; }
-    .hairline-border { border: 1px solid rgba(111, 217, 166, 0.16); }
-    .hairline-border-active { border: 1px solid rgba(111, 217, 166, 0.4); }
-    .hairline-border-b { border-bottom: 1px solid rgba(111, 217, 166, 0.16); }
-    .emerald-gradient { background: radial-gradient(circle at top right, rgba(111, 217, 166, 0.05) 0%, transparent 70%); }
+    .hairline-border { border: 1px solid rgba(56, 189, 248, 0.15); }
+    .hairline-border-active { border: 1px solid rgba(56, 189, 248, 0.4); }
+    .hairline-border-b { border-bottom: 1px solid rgba(56, 189, 248, 0.15); }
     .no-scrollbar::-webkit-scrollbar { display: none; }
     .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     .screen { display: none; }
     .screen.active { display: flex; }
+    
+    /* Elegant Slide Transitions */
     .pane { display: none; }
     .pane.active { display: flex; }
+    @keyframes slideFromLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideFromRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    .pane.active.slide-left { animation: slideFromLeft 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    .pane.active.slide-right { animation: slideFromRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+    
     #toast-container { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); width: calc(100% - 32px); max-width: 392px; z-index: 100; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
-    .toast { background: #262b27; border: 1px solid #3e4942; color: #e9efeb; padding: 16px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); font-size: 14px; display: flex; align-items: center; animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; pointer-events: auto;}
-    .toast.error { border-right: 4px solid #e5604f; }
-    .toast.success { border-right: 4px solid #3ddc97; }
+    .toast { background: #1e293b; border: 1px solid #334155; color: #f1f5f9; padding: 16px; border-radius: 8px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); font-size: 14px; display: flex; align-items: center; animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; pointer-events: auto;}
+    .toast.error { border-right: 4px solid #fb7185; }
+    .toast.success { border-right: 4px solid #34d399; }
     .toast.fade-out { animation: toastOut 0.3s ease forwards; }
     @keyframes toastIn { from { opacity: 0; transform: translateY(-20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
     @keyframes toastOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(-20px) scale(0.95); } }
-    .progress-bar { height: 6px; border-radius: 3px; background: #303632; overflow: hidden; }
+    .progress-bar { height: 6px; border-radius: 3px; background: #334155; overflow: hidden; }
     .progress-bar .fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
     .dot-grid { display: flex; gap: 3px; flex-wrap: wrap; }
     .dot-grid .dot { width: 10px; height: 10px; border-radius: 2px; }
-    .note-editor { min-height: 200px; outline: none; padding: 16px; font-size: 15px; line-height: 1.7; color: #e9efeb; }
-    .note-editor:empty:before { content: attr(data-placeholder); color: #87948b; }
-    .input-ds { width: 100%; background: #262b27; border: 1px solid rgba(111,217,166,0.16); color: #e9efeb; padding: 12px 14px; border-radius: 11px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
-    .input-ds:focus { border-color: #8cf6c1; box-shadow: 0 0 0 2px rgba(140,246,193,0.15); }
-    .input-ds::placeholder { color: #87948b; }
+    .note-editor { min-height: 200px; outline: none; padding: 16px; font-size: 15px; line-height: 1.7; color: #f1f5f9; }
+    .note-editor:empty:before { content: attr(data-placeholder); color: #94a3b8; }
+    .input-ds { width: 100%; background: #1e293b; border: 1px solid rgba(56, 189, 248, 0.15); color: #f1f5f9; padding: 12px 14px; border-radius: 11px; font-size: 14px; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .input-ds:focus { border-color: #38bdf8; box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15); }
+    .input-ds::placeholder { color: #94a3b8; }
   </style>
 </head>
 <body class="bg-background text-on-background antialiased min-h-screen flex flex-col items-center">
@@ -119,7 +121,7 @@
         <!-- ═══════════════ TODAY PANE ═══════════════ -->
         <div id="pane-today" class="pane active flex-col w-full">
           <header class="relative w-full h-48 overflow-hidden rounded-b-xl shrink-0">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #101613;">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #0f172a;">
               <div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div>
             </div>
             <div class="relative z-10 w-full h-full flex flex-col justify-between p-4">
@@ -164,7 +166,7 @@
         <!-- ═══════════════ MONEY PANE ═══════════════ -->
         <div id="pane-money" class="pane hidden flex-col w-full pt-16">
           <header class="relative w-full h-40 overflow-hidden shrink-0">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #101613;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #0f172a;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
             <div class="relative z-10 w-full h-full flex items-end p-4"><span class="font-headline-lg text-headline-lg text-secondary naskh">كل ريال له وجهة</span></div>
           </header>
           <!-- Summary Cards -->
@@ -204,7 +206,7 @@
         <!-- ═══════════════ BODY PANE ═══════════════ -->
         <div id="pane-body" class="pane hidden flex-col w-full pt-16">
           <header class="relative w-full h-40 overflow-hidden shrink-0">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #101613;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #0f172a;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
             <div class="relative z-10 w-full h-full flex items-end p-4"><span class="font-headline-lg text-headline-lg text-primary naskh">الجسد أمانة</span></div>
           </header>
           <!-- Stats -->
@@ -241,7 +243,7 @@
         <!-- ═══════════════ HABITS PANE ═══════════════ -->
         <div id="pane-habits" class="pane hidden flex-col w-full pt-16">
           <header class="relative w-full h-40 overflow-hidden shrink-0">
-            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #101613;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./hero.jpg'); background-color: #0f172a;"><div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background"></div></div>
             <div class="relative z-10 w-full h-full flex items-end p-4"><span class="font-headline-lg text-headline-lg text-primary naskh">«الصغير المتكرر يصنعك»</span></div>
           </header>
           <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
@@ -400,11 +402,19 @@
     function setLang(l){state.lang=l;localStorage.setItem('ds_lang',l);document.documentElement.lang=l;document.documentElement.dir=l==='ar'?'rtl':'ltr';document.getElementById('btn-lang-ar')?.classList.toggle('bg-primary/10',l==='ar');document.getElementById('btn-lang-ar')?.classList.toggle('text-primary',l==='ar');document.getElementById('btn-lang-ar')?.classList.toggle('hairline-border-active',l==='ar');document.getElementById('btn-lang-en')?.classList.toggle('bg-primary/10',l==='en');document.getElementById('btn-lang-en')?.classList.toggle('text-primary',l==='en');document.getElementById('btn-lang-en')?.classList.toggle('hairline-border-active',l==='en');}
 
     // ─── TAB SWITCHING ───
+    const tabOrder = ['today', 'money', 'body', 'habits', 'brainstorm', 'settings'];
     function switchTab(tabName){
+      const currentIndex = tabOrder.indexOf(state.activeTab);
+      const newIndex = tabOrder.indexOf(tabName);
+      const direction = newIndex > currentIndex ? 'left' : 'right';
+
       if(tabName!=='settings'){state.previousTab=state.activeTab;state.activeTab=tabName;localStorage.setItem('ds_tab',tabName);document.getElementById('bottom-nav').classList.remove('hidden');document.getElementById('global-header').classList.toggle('hidden',tabName==='today');}
       else{document.getElementById('bottom-nav').classList.add('hidden');document.getElementById('global-header').classList.add('hidden');}
-      document.querySelectorAll('.pane').forEach(p=>{p.classList.add('hidden');p.classList.remove('active');});
-      const pane=document.getElementById(`pane-${tabName}`);if(pane){pane.classList.remove('hidden');pane.classList.add('active');}
+      
+      document.querySelectorAll('.pane').forEach(p=>{p.classList.remove('active', 'slide-left', 'slide-right'); p.classList.add('hidden');});
+      const pane=document.getElementById(`pane-${tabName}`);
+      if(pane){pane.classList.remove('hidden'); pane.classList.add('active', `slide-${direction}`);}
+      
       document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.remove('text-primary','font-bold');b.classList.add('text-on-surface-variant');const s=b.querySelector('.material-symbols-outlined');if(s)s.style.fontVariationSettings="'FILL' 0";});
       const ab=document.querySelector(`.nav-btn[data-tab="${tabName}"]`);if(ab){ab.classList.remove('text-on-surface-variant');ab.classList.add('text-primary','font-bold');const s=ab.querySelector('.material-symbols-outlined');if(s)s.style.fontVariationSettings="'FILL' 1";}
       // Build top tab bar for Today pane
