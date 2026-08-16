@@ -436,8 +436,12 @@
 
     // ─── AUTH ───
     async function handleGoogleLogin(){await withBusyLock(async()=>{if(!auth)return;try{const p=new GoogleAuthProvider();await signInWithPopup(auth,p);showToast('تم تسجيل الدخول بنجاح');}catch(e){showError(e.message);}});}
-    async function confirmLogout(){if(confirm('هل أنت متأكد من تسجيل الخروج؟')){if(auth)await signOut(auth);state.session=null;state.user=null;document.getElementById('app-screen').classList.remove('active');document.getElementById('app-screen').classList.add('hidden');document.getElementById('login-screen').classList.remove('hidden');document.getElementById('login-screen').classList.add('active');}}
-
+    async function confirmLogout(){
+      if(!confirm('هل أنت متأكد من تسجيل الخروج؟')) return;
+      try { if(auth) await signOut(auth); } catch(e) { showError('تعذّر تسجيل الخروج'); return; }
+      state.session=null; state.user=null;
+      location.replace('./index.html');
+    }
     // ═══════════════════════════════════════════
     //  TODAY TAB
     // ═══════════════════════════════════════════
