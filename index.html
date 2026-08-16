@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>DaObserver</title>
+  
+  <!-- CDNs -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* CSS Custom Properties */
+    :root, [data-theme="dark"] {
+      --bg: #070b09;
+      --card: #101613;
+      --card-alt: #16201b;
+      --text: #e8ede9;
+      --text-muted: #7a8f84;
+      --text-dim: #4a5c54;
+      --accent: #6fd9a6;
+      --accent-light: #9ae8c4;
+      --accent-dark: #3fa876;
+      --gold: #d8bd84;
+      --red: #e5604f;
+      --green: #3ddc97;
+      --border: rgba(111, 217, 166, 0.12);
+      --border-strong: rgba(111, 217, 166, 0.2);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+      --radius: 16px;
+      --radius-sm: 10px;
+      --font-ui: 'IBM Plex Sans Arabic', sans-serif;
+      --font-serif: 'Noto Naskh Arabic', serif;
+    }
+
+    [data-theme="light"] {
+      --bg: #f2f4f3;
+      --card: #ffffff;
+      --card-alt: #eef1ef;
+      --text: #1a2420;
+      --text-muted: #5a6b63;
+      --text-dim: #8a9b93;
+      --accent: #2a9d6e;
+      --accent-light: #3fa876;
+      --accent-dark: #1d7a55;
+      --gold: #a67c2e;
+      --red: #d4453a;
+      --green: #2bb87a;
+      --border: rgba(42, 157, 110, 0.15);
+      --border-strong: rgba(42, 157, 110, 0.25);
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: var(--font-ui);
+      background-color: var(--bg);
+      color: var(--text);
+      max-width: 440px;
+      margin: 0 auto;
+      min-height: 100dvh;
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 80px);
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Typography */
+    h1, h2, h3 { font-weight: 600; }
+    .serif { font-family: var(--font-serif); }
+    
+    /* Layouts */
+    .screen {
+      display: none;
+      flex-direction: column;
+      min-height: 100dvh;
+      animation: fadeIn 0.4s ease forwards;
+    }
+    .screen.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Login Screen */
+    #login-screen {
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+    }
+
+    .login-controls {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      right: 24px;
+      display: flex;
+      justify-content: space-between;
+      z-index: 10;
+    }
+
+    .icon-btn {
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .icon-btn:hover { background: var(--border); }
+
+    .login-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .app-title {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .app-motto {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    .input-group {
+      margin-bottom: 16px;
+      text-align: start;
+    }
+
+    .input-label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .input-field {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-family: var(--font-ui);
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input-field:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(111, 217, 166, 0.2);
+    }
+
+    .btn {
+      width: 100%;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--font-ui);
+      transition: transform 0.1s, background 0.2s;
+      margin-top: 8px;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:hover { background: var(--accent-light); }
+    
+    .btn.danger {
+      background: rgba(229, 96, 79, 0.1);
+      color: var(--red);
+      border: 1px solid rgba(229, 96, 79, 0.3);
+    }
+    .btn.danger:hover {
+      background: rgba(229, 96, 79, 0.2);
+    }
+
+    /* Main App Header */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background: var(--bg);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    /* Panes */
+    .pane {
+      display: none;
+      padding: 16px 24px;
+      flex: 1;
+      animation: fadeIn 0.3s ease forwards;
+    }
+    .pane.active { display: block; }
+
+    .placeholder-card {
+      background: var(--card);
+      border: 1px dashed var(--border-strong);
+      border-radius: var(--radius);
+      padding: 48px 24px;
+      text-align: center;
+      margin-top: 32px;
+    }
+    .placeholder-emoji {
+      font-size: 48px;
+      margin-bottom: 16px;
+      display: inline-block;
+    }
+    .placeholder-title {
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    .placeholder-text {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    /* Settings Pane */
+    .settings-section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .settings-title {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .toggle-group {
+      display: flex;
+      gap: 8px;
+    }
+    .toggle-btn {
+      flex: 1;
+      padding: 12px;
+      background: var(--card-alt);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-family: var(--font-ui);
+      font-size: 15px;
+      transition: all 0.2s;
+    }
+    .toggle-btn.active {
+      background: var(--accent);
+      color: #000;
+      border-color: var(--accent);
+      font-weight: 500;
+    }
+
+    /* Tab Bar */
+    .tab-bar {
+      position: fixed;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 440px;
+      background: rgba(16, 22, 19, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-around;
+      padding: 12px 8px calc(env(safe-area-inset-bottom, 12px) + 12px);
+      z-index: 50;
+    }
+    
+    [data-theme="light"] .tab-bar {
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .tab-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 8px;
+      transition: all 0.2s;
+      min-width: 64px;
+    }
+    .tab-item .emoji {
+      font-size: 20px;
+      transition: transform 0.2s;
+    }
+    .tab-item.active {
+      color: var(--accent);
+    }
+    .tab-item.active .emoji {
+      transform: translateY(-2px);
+    }
+
+    /* Toasts */
+    #toast-container {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 48px);
+      max-width: 392px;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      pointer-events: none;
+    }
+
+    .toast {
+      background: var(--card);
+      border: 1px solid var(--border-strong);
+      color: var(--text);
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .toast.error {
+      border-left: 4px solid var(--red);
+    }
+    [dir="rtl"] .toast.error {
+      border-left: none;
+      border-right: 4px solid var(--red);
+    }
+    .toast.success {
+      border-left: 4px solid var(--green);
+    }
+    [dir="rtl"] .toast.success {
+      border-left: none;
+      border-right: 4px solid var(--green);
+    }
+    .toast.fade-out {
+      animation: toastOut 0.3s ease forwards;
+    }
+
+    @keyframes toastIn {
+      from { opacity: 0; transform: translateY(-20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes toastOut {
+      from { opacity: 1; transform: translateY(0) scale(1); }
+      to { opacity: 0; transform: translateY(-20px) scale(0.95); }
+    }
+    
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Toast Container -->
+  <div id="toast-container"></div>
+
+  <!-- Login Screen -->
+  <div id="login-screen" class="screen active">
+    <div class="login-controls">
+      <button class="icon-btn" data-action="toggle-theme" id="login-theme-btn">🌙</button>
+      <button class="icon-btn" data-action="toggle-lang" data-t="lang_toggle">EN</button>
+    </div>
+    
+    <div class="login-card">
+      <h1 class="app-title serif">DaObserver</h1>
+      <p class="app-motto" data-t="motto">عينك على يومك 👁️</p>
+      
+      <div style="margin-bottom: 24px;">
+        <p style="color: var(--gold); font-size: 13px; margin-bottom: 16px; background: rgba(216, 189, 132, 0.1); padding: 12px; border-radius: var(--radius-sm); border: 1px solid rgba(216, 189, 132, 0.2);" data-t="demo_warning">
+          ⚠️ هذه نسخة تجريبية. يرجى عدم إدخال معلومات حساسة أو قيمة.
+        </p>
+        <button class="btn" data-action="login-google" style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg style="width:18px;height:18px" viewBox="0 0 24 24"><path fill="currentColor" d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" /></svg>
+          <span data-t="login_google">تسجيل الدخول بواسطة جوجل</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main App -->
+  <div id="app-screen" class="screen">
+    <!-- Header -->
+    <header class="header">
+      <button class="icon-btn" data-action="toggle-settings">⚙️</button>
+      <button class="icon-btn" data-action="logout">🚪</button>
+    </header>
+
+    <!-- Tab Panes -->
+    <div id="pane-today" class="pane active">
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">☀️</div>
+        <div class="placeholder-title" data-t="tab_today">اليوم</div>
+        <div class="placeholder-text" data-t="coming_soon">قريباً</div>
+      </div>
+    </div>
+    
+    <div id="pane-money" class="pane">
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">💰</div>
+        <div class="placeholder-title" data-t="tab_money">المال</div>
+        <div class="placeholder-text" data-t="coming_soon">قريباً</div>
+      </div>
+    </div>
+    
+    <div id="pane-body" class="pane">
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">💪</div>
+        <div class="placeholder-title" data-t="tab_body">الجسم</div>
+        <div class="placeholder-text" data-t="coming_soon">قريباً</div>
+      </div>
+    </div>
+    
+    <div id="pane-habits" class="pane">
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">🔥</div>
+        <div class="placeholder-title" data-t="tab_habits">العادات</div>
+        <div class="placeholder-text" data-t="coming_soon">قريباً</div>
+      </div>
+    </div>
+    
+    <div id="pane-brainstorm" class="pane">
+      <div class="placeholder-card">
+        <div class="placeholder-emoji">📝</div>
+        <div class="placeholder-title" data-t="tab_brainstorm">العصف</div>
+        <div class="placeholder-text" data-t="coming_soon">قريباً</div>
+      </div>
+    </div>
+
+    <!-- Settings Pane -->
+    <div id="pane-settings" class="pane">
+      <h2 style="margin-bottom: 24px;" data-t="settings_title">الإعدادات</h2>
+      
+      <div class="settings-section">
+        <div class="settings-title" data-t="settings_lang">اللغة / Language</div>
+        <div class="toggle-group">
+          <button class="toggle-btn" id="btn-lang-ar" data-action="set-lang" data-val="ar" data-t="lang_ar">العربية</button>
+          <button class="toggle-btn" id="btn-lang-en" data-action="set-lang" data-val="en" data-t="lang_en">English</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-title" data-t="settings_theme">المظهر / Theme</div>
+        <div class="toggle-group">
+          <button class="toggle-btn" id="btn-theme-dark" data-action="set-theme" data-val="dark" data-t="theme_dark">داكن 🌙</button>
+          <button class="toggle-btn" id="btn-theme-light" data-action="set-theme" data-val="light" data-t="theme_light">فاتح ☀️</button>
+        </div>
+      </div>
+
+      <button class="btn danger" data-action="logout" data-t="logout_btn" style="margin-top: 16px;">تسجيل الخروج</button>
+    </div>
+
+    <!-- Tab Bar -->
+    <nav class="tab-bar" id="main-tab-bar">
+      <div class="tab-item active" data-tab="today" id="tab-today">
+        <span class="emoji">☀️</span>
+        <span data-t="tab_today">اليوم</span>
+      </div>
+      <div class="tab-item" data-tab="money" id="tab-money">
+        <span class="emoji">💰</span>
+        <span data-t="tab_money">المال</span>
+      </div>
+      <div class="tab-item" data-tab="body" id="tab-body">
+        <span class="emoji">💪</span>
+        <span data-t="tab_body">الجسم</span>
+      </div>
+      <div class="tab-item" data-tab="habits" id="tab-habits">
+        <span class="emoji">🔥</span>
+        <span data-t="tab_habits">العادات</span>
+      </div>
+      <div class="tab-item" data-tab="brainstorm" id="tab-brainstorm">
+        <span class="emoji">📝</span>
+        <span data-t="tab_brainstorm">العصف</span>
+      </div>
+    </nav>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+    // --- FIREBASE CONFIG ---
+   const firebaseConfig = {
+  apiKey: "AIzaSyDeLwT2woAwE68rX9HrkLqsADAh6E7985M",
+  authDomain: "daobserver-mvp.firebaseapp.com",
+  projectId: "daobserver-mvp",
+  storageBucket: "daobserver-mvp.firebasestorage.app",
+  messagingSenderId: "962209894285",
+  appId: "1:962209894285:web:40405309a4b686678937c4"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+    try {
+      app = window.app = initializeApp(firebaseConfig);
+      auth = window.auth = getAuth(app);
+      db = window.db = getFirestore(app);
+    } catch(e) {
+      console.warn("Firebase not initialized. Provide config.");
+    }
+
+    // --- TRANSLATIONS ---
+    const i18n = {
+      ar: {
+        motto: "عينك على يومك 👁️",
+        demo_warning: "⚠️ هذه نسخة تجريبية. يرجى عدم إدخال معلومات حساسة أو قيمة.",
+        login_google: "تسجيل الدخول بواسطة جوجل",
+        tab_today: "اليوم",
+        tab_money: "المال",
+        tab_body: "الجسم",
+        tab_habits: "العادات",
+        tab_brainstorm: "العصف",
+        settings_title: "الإعدادات",
+        settings_lang: "اللغة",
+        settings_theme: "المظهر",
+        lang_ar: "العربية",
+        lang_en: "English",
+        theme_dark: "داكن 🌙",
+        theme_light: "فاتح ☀️",
+        logout_btn: "تسجيل الخروج",
+        coming_soon: "قريباً سيتم إضافة الميزات",
+        lang_toggle: "EN",
+        error_auth: "فشل تسجيل الدخول. تأكد من صحة البيانات.",
+        logout_confirm: "هل أنت متأكد من تسجيل الخروج؟",
+        login_success: "تم تسجيل الدخول بنجاح"
+      },
+      en: {
+        motto: "Your eye on your day 👁️",
+        demo_warning: "⚠️ This is a demo. Please do not enter sensitive or valuable information.",
+        login_google: "Sign in with Google",
+        tab_today: "Today",
+        tab_money: "Money",
+        tab_body: "Body",
+        tab_habits: "Habits",
+        tab_brainstorm: "Brainstorm",
+        settings_title: "Settings",
+        settings_lang: "Language",
+        settings_theme: "Theme",
+        lang_ar: "العربية",
+        lang_en: "English",
+        theme_dark: "Dark 🌙",
+        theme_light: "Light ☀️",
+        logout_btn: "Logout",
+        coming_soon: "Features coming soon",
+        lang_toggle: "AR",
+        error_auth: "Login failed. Check your credentials.",
+        logout_confirm: "Are you sure you want to logout?",
+        login_success: "Logged in successfully"
+      }
+    };
+
+    // --- STATE MANAGEMENT ---
+    const state = {
+      lang: localStorage.getItem('ds_lang') || 'ar',
+      theme: localStorage.getItem('ds_theme') || 'dark',
+      activeTab: localStorage.getItem('ds_tab') || 'today',
+      previousTab: 'today',
+      user: null,
+      session: null,
+    };
+
+    // --- CORE UTILITIES ---
+    function localDate(d = new Date()) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+      return `${y}-${m}-${dd}`;
+    }
+
+    function escHTML(str) {
+      if (!str) return '';
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+
+    let _busy = false;
+    async function withBusyLock(fn) {
+      if (_busy) return;
+      _busy = true;
+      try { return await fn(); }
+      finally { _busy = false; }
+    }
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = msg;
+      
+      container.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.classList.add('fade-out');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+
+    function showError(msg) {
+      showToast(msg, 'error');
+    }
+
+    function t(key) {
+      return i18n[state.lang][key] || key;
+    }
+
+    // --- UI UPDATES ---
+    function applyLanguage() {
+      document.documentElement.lang = state.lang;
+      document.documentElement.dir = state.lang === 'ar' ? 'rtl' : 'ltr';
+      
+      document.querySelectorAll('[data-t]').forEach(el => {
+        const key = el.getAttribute('data-t');
+        if (el.tagName === 'INPUT' && el.hasAttribute('placeholder')) {
+          el.placeholder = t(key); // Not currently using data-t for placeholders, but good for future
+        } else {
+          el.textContent = t(key);
+        }
+      });
+      
+      // Update settings toggles active state
+      document.getElementById('btn-lang-ar').classList.toggle('active', state.lang === 'ar');
+      document.getElementById('btn-lang-en').classList.toggle('active', state.lang === 'en');
+    }
+
+    function applyTheme() {
+      document.documentElement.setAttribute('data-theme', state.theme);
+      
+      // Update toggles
+      const themeBtn = document.getElementById('login-theme-btn');
+      if(themeBtn) themeBtn.textContent = state.theme === 'dark' ? '☀️' : '🌙';
+      
+      document.getElementById('btn-theme-dark').classList.toggle('active', state.theme === 'dark');
+      document.getElementById('btn-theme-light').classList.toggle('active', state.theme === 'light');
+    }
+
+    function toggleLanguage() {
+      setLanguage(state.lang === 'ar' ? 'en' : 'ar');
+    }
+
+    function setLanguage(lang) {
+      state.lang = lang;
+      localStorage.setItem('ds_lang', lang);
+      applyLanguage();
+    }
+
+    function toggleTheme() {
+      setTheme(state.theme === 'dark' ? 'light' : 'dark');
+    }
+
+    function setTheme(theme) {
+      state.theme = theme;
+      localStorage.setItem('ds_theme', theme);
+      applyTheme();
+    }
+
+    function switchTab(tabName) {
+      if (tabName !== 'settings') {
+        state.previousTab = tabName;
+        state.activeTab = tabName;
+        localStorage.setItem('ds_tab', tabName);
+        document.getElementById('main-tab-bar').classList.remove('hidden');
+      } else {
+        document.getElementById('main-tab-bar').classList.add('hidden');
+      }
+
+      // Hide all panes
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      
+      // Show selected pane
+      const pane = document.getElementById(`pane-${tabName}`);
+      if (pane) pane.classList.add('active');
+
+      // Update tab bar active state
+      document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
+      const activeTabEl = document.getElementById(`tab-${tabName}`);
+      if (activeTabEl) activeTabEl.classList.add('active');
+    }
+
+    function openSettings() {
+      const isSettingsOpen = document.getElementById('pane-settings').classList.contains('active');
+      if (isSettingsOpen) {
+        switchTab(state.previousTab);
+      } else {
+        switchTab('settings');
+      }
+    }
+
+    // --- AUTH FLOW ---
+    // --- AUTH FLOW ---
+    async function handleGoogleLogin() {
+      await withBusyLock(async () => {
+        if (!auth) {
+          // Mock login for UI development
+          setTimeout(() => {
+            showToast(t('login_success'));
+            showApp();
+          }, 800);
+          return;
+        }
+
+        try {
+          const provider = new GoogleAuthProvider();
+          const result = await signInWithPopup(auth, provider);
+          state.session = true;
+          state.user = result.user;
+          showToast(t('login_success'));
+          showApp();
+        } catch (error) {
+          showError(error.message || t('error_auth'));
+        }
+      });
+    }
+
+    async function confirmLogout() {
+      if (confirm(t('logout_confirm'))) {
+        if (auth) await signOut(auth);
+        state.session = null;
+        state.user = null;
+        showLogin();
+      }
+    }
+
+    function showApp() {
+      document.getElementById('login-screen').classList.remove('active');
+      document.getElementById('app-screen').classList.add('active');
+      switchTab(state.activeTab);
+    }
+
+    function showLogin() {
+      document.getElementById('app-screen').classList.remove('active');
+      document.getElementById('login-screen').classList.add('active');
+    }
+
+    // --- EVENT DELEGATION ---
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-action]');
+      if (!btn) return;
+      const action = btn.getAttribute('data-action');
+      const val = btn.getAttribute('data-val');
+
+      switch (action) {
+        case 'toggle-theme': toggleTheme(); break;
+        case 'toggle-lang': toggleLanguage(); break;
+        case 'toggle-settings': openSettings(); break;
+        case 'logout': confirmLogout(); break;
+        case 'set-lang': setLanguage(val); break;
+        case 'set-theme': setTheme(val); break;
+        case 'login-google': handleGoogleLogin(); break;
+      }
+    });
+
+    // Tab bar delegation
+    document.addEventListener('click', (e) => {
+      const tab = e.target.closest('[data-tab]');
+      if (!tab) return;
+      switchTab(tab.getAttribute('data-tab'));
+    });
+
+    // --- INITIALIZATION ---
+    document.addEventListener('DOMContentLoaded', () => {
+      applyLanguage();
+      applyTheme();
+      
+      if (auth) {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            state.session = true;
+            state.user = user;
+            showApp();
+          } else {
+            showLogin();
+          }
+        });
+      } else {
+        // Local testing fallback
+        showLogin();
+      }
+    });
+  </script>
+</body>
+</html>
