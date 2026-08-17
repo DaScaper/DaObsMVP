@@ -1,1168 +1,1364 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" class="dark">
-
+<html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>DaObserver</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>DaObserver</title>
+<meta name="theme-color" content="#0f172a">
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&family=Noto+Serif:wght@400;600;700&display=swap"
-        rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL@20..48,100..700,0..1&family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet"/>
 
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        // Joyful, elegant dark theme palette (Midnight Indigo & Vibrant Cyan/Pink)
-                        "primary": "#38bdf8", "primary-container": "#0284c7",
-                        "on-primary": "#0f172a",
-                        "secondary": "#f472b6", "secondary-container": "#db2777",
-                        "on-secondary": "#4a044e",
-                        "tertiary": "#a78bfa",
-                        "error": "#fb7185", "on-error": "#690005",
-                        "success": "#34d399",
-                        "background": "#0f172a", "on-background": "#f8fafc",
-                        "surface": "#1e293b", "on-surface": "#f1f5f9", "surface-variant": "#334155", "on-surface-variant": "#cbd5e1",
-                        "surface-container-lowest": "#0b0f19", "surface-container-low": "#0f172a", "surface-container": "#1e293b",
-                        "surface-container-high": "#334155", "surface-container-highest": "#475569",
-                        "outline": "#64748b", "outline-variant": "#475569", "outline-emerald": "rgba(56, 189, 248, 0.15)"
-                    },
-                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
-                    spacing: { "container-padding": "16px", "padding-container": "16px", "gap-md": "16px", "max-width": "440px", "gap-lg": "24px", "base": "4px", "gap-sm": "8px" },
-                    fontFamily: {
-                        "body-lg": ["Inter", "IBM Plex Sans Arabic", "sans-serif"], "label-md": ["IBM Plex Sans Arabic", "sans-serif"],
-                        "headline-lg": ["Noto Naskh Arabic", "Noto Serif", "serif"], "body-md": ["Inter", "IBM Plex Sans Arabic", "sans-serif"],
-                        "headline-md": ["Noto Naskh Arabic", "Noto Serif", "serif"], "headline-xl": ["Noto Naskh Arabic", "Noto Serif", "serif"],
-                        "body-sm": ["Inter", "IBM Plex Sans Arabic", "sans-serif"]
-                    },
-                    fontSize: {
-                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.5px", "fontWeight": "500" }],
-                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }], "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
-                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        body {
-            font-family: 'Inter', 'IBM Plex Sans Arabic', sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            -webkit-tap-highlight-color: transparent;
-        }
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        bg:        "var(--bg)",
+        surface:   "var(--surface)",
+        surface2:  "var(--surface-2)",
+        surface3:  "var(--surface-3)",
+        txt:       "var(--text)",
+        muted:     "var(--muted)",
+        line:      "var(--line)",
+        primary:   "var(--primary)",
+        secondary: "var(--secondary)",
+        success:   "var(--success)",
+        danger:    "var(--danger)"
+      },
+      maxWidth: { app: "440px" }
+    }
+  }
+}
+</script>
 
-        .naskh {
-            font-family: 'Noto Naskh Arabic', serif;
-        }
+<style>
+  /* ── Theme tokens. Everything reads from these, so the light theme
+       actually works instead of being a dead toggle. ─────────────── */
+  :root {
+    --bg:        #0f172a;
+    --surface:   #1e293b;
+    --surface-2: #334155;
+    --surface-3: #475569;
+    --text:      #f1f5f9;
+    --muted:     #94a3b8;
+    --line:      rgba(56,189,248,.15);
+    --primary:   #38bdf8;
+    --secondary: #f472b6;
+    --success:   #34d399;
+    --danger:    #fb7185;
+    --on-primary:#0f172a;
+    --shadow:    rgba(0,0,0,.4);
+  }
+  html.light {
+    --bg:        #f1f5f9;
+    --surface:   #ffffff;
+    --surface-2: #e2e8f0;
+    --surface-3: #cbd5e1;
+    --text:      #0f172a;
+    --muted:     #64748b;
+    --line:      rgba(14,165,233,.20);
+    --primary:   #0284c7;
+    --secondary: #db2777;
+    --success:   #059669;
+    --danger:    #e11d48;
+    --on-primary:#ffffff;
+    --shadow:    rgba(15,23,42,.12);
+  }
 
-        .hairline-border {
-            border: 1px solid rgba(56, 189, 248, 0.15);
-        }
+  body {
+    background: var(--bg); color: var(--text);
+    -webkit-tap-highlight-color: transparent;
+    transition: background-color .25s ease, color .25s ease;
+  }
+  html[lang="ar"] body { font-family: "IBM Plex Sans Arabic", system-ui, sans-serif; }
+  html[lang="en"] body { font-family: "Inter", system-ui, sans-serif; }
+  html[lang="ar"] .display { font-family: "Noto Naskh Arabic", serif; font-weight: 700; }
+  html[lang="en"] .display { font-family: "Inter", sans-serif; font-weight: 700; letter-spacing: -.01em; }
 
-        .hairline-border-active {
-            border: 1px solid rgba(56, 189, 248, 0.4);
-        }
+  .material-symbols-outlined { font-family: "Material Symbols Outlined"; font-variation-settings: 'FILL' 0; }
+  .hair   { border: 1px solid var(--line); }
+  .hair-a { border: 1px solid var(--primary); }
 
-        .hairline-border-b {
-            border-bottom: 1px solid rgba(56, 189, 248, 0.15);
-        }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
+  .screen { display: none; }
+  .screen.on { display: flex; }
+  .pane { display: none; }
+  .pane.on { display: flex; }
 
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
+  /* ── Motion ─────────────────────────────────────────────────────── */
+  @keyframes slideL { from { opacity:0; transform: translateX(-24px) } to { opacity:1; transform:none } }
+  @keyframes slideR { from { opacity:0; transform: translateX(24px) }  to { opacity:1; transform:none } }
+  @keyframes popIn  { from { opacity:0; transform: scale(.96) translateY(8px) } to { opacity:1; transform:none } }
+  @keyframes fadeIn { from { opacity:0 } to { opacity:1 } }
+  .pane.on.sl { animation: slideL .32s cubic-bezier(.2,.8,.2,1) both; }
+  .pane.on.sr { animation: slideR .32s cubic-bezier(.2,.8,.2,1) both; }
 
-        .screen {
-            display: none;
-        }
+  /* ── Toasts ─────────────────────────────────────────────────────── */
+  #toasts { position: fixed; top: 16px; left: 50%; transform: translateX(-50%);
+            width: calc(100% - 32px); max-width: 392px; z-index: 200;
+            display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
+  .toast { background: var(--surface); border: 1px solid var(--surface-2);
+           color: var(--text); padding: 13px 16px; border-radius: 10px;
+           box-shadow: 0 6px 28px var(--shadow); font-size: 14px;
+           display: flex; align-items: center; gap: 10px;
+           animation: popIn .28s cubic-bezier(.2,.8,.2,1) both; pointer-events: auto; }
+  .toast.err { border-inline-start: 4px solid var(--danger); }
+  .toast.ok  { border-inline-start: 4px solid var(--success); }
+  .toast.out { animation: fadeIn .22s ease reverse both; }
 
-        .screen.active {
-            display: flex;
-        }
+  /* ── Modal replaces prompt()/confirm() ──────────────────────────── */
+  #modal-root { position: fixed; inset: 0; z-index: 300; display: none;
+                align-items: flex-end; justify-content: center; }
+  #modal-root.on { display: flex; }
+  #modal-veil { position: absolute; inset: 0; background: rgba(2,6,23,.6);
+                backdrop-filter: blur(3px); animation: fadeIn .2s ease both; }
+  #modal-card { position: relative; width: 100%; max-width: 440px;
+                background: var(--surface); border-top: 1px solid var(--line);
+                border-radius: 20px 20px 0 0; padding: 22px 20px calc(22px + env(safe-area-inset-bottom));
+                animation: popIn .28s cubic-bezier(.2,.8,.2,1) both;
+                box-shadow: 0 -8px 40px var(--shadow); }
+  @media (min-width: 480px) {
+    #modal-root { align-items: center; }
+    #modal-card { border-radius: 20px; border: 1px solid var(--line); margin: 16px; }
+  }
 
-        /* Elegant Slide Transitions */
-        .pane {
-            display: none;
-        }
+  /* ── Inputs & buttons ───────────────────────────────────────────── */
+  .inp { width: 100%; background: var(--bg); border: 1px solid var(--line);
+         color: var(--text); padding: 12px 14px; border-radius: 11px;
+         font-size: 15px; font-family: inherit; outline: none;
+         transition: border-color .18s, box-shadow .18s; }
+  .inp:focus { border-color: var(--primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 18%, transparent); }
+  .inp::placeholder { color: var(--muted); }
 
-        .pane.active {
-            display: flex;
-        }
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:7px;
+         border-radius: 11px; font-weight: 600; font-size: 14px; padding: 11px 18px;
+         transition: transform .14s, background-color .18s, opacity .18s; }
+  .btn:active { transform: scale(.97); }
+  .btn:disabled { opacity: .5; pointer-events: none; }
+  .btn-p { background: var(--primary); color: var(--on-primary); }
+  .btn-g { background: color-mix(in srgb, var(--primary) 12%, transparent);
+           color: var(--primary); border: 1px solid color-mix(in srgb, var(--primary) 34%, transparent); }
+  .btn-d { background: color-mix(in srgb, var(--danger) 12%, transparent);
+           color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 34%, transparent); }
 
-        @keyframes slideFromLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
+  /* ── Bits ───────────────────────────────────────────────────────── */
+  .bar  { height: 6px; border-radius: 3px; background: var(--surface-2); overflow: hidden; }
+  .bar > i { display:block; height:100%; border-radius:3px; transition: width .45s cubic-bezier(.2,.8,.2,1); }
+  .dots { display: flex; gap: 3px; flex-wrap: wrap; }
+  .dot  { width: 10px; height: 10px; border-radius: 2px; background: var(--surface-2); }
+  .dot.f{ background: var(--primary); }
 
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+  .row { transition: opacity .2s, transform .2s; }
+  .row.gone { opacity: 0; transform: translateX(12px); }
 
-        @keyframes slideFromRight {
-            from {
-                opacity: 0;
-                transform: translateX(30px);
-            }
+  /* Skeletons instead of a bare loading string */
+  @keyframes shimmer { 0%{opacity:.45} 50%{opacity:.85} 100%{opacity:.45} }
+  .sk { background: var(--surface-2); border-radius: 8px; animation: shimmer 1.4s ease-in-out infinite; }
 
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
+  .editor { min-height: 220px; outline: none; padding: 16px; font-size: 15px; line-height: 1.8; }
+  .editor:empty:before { content: attr(data-ph); color: var(--muted); }
 
-        .pane.active.slide-left {
-            animation: slideFromLeft 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+  :focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 
-        .pane.active.slide-right {
-            animation: slideFromRight 0.4s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
-
-        #toast-container {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: calc(100% - 32px);
-            max-width: 392px;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            pointer-events: none;
-        }
-
-        .toast {
-            background: #1e293b;
-            border: 1px solid #334155;
-            color: #f1f5f9;
-            padding: 16px;
-            border-radius: 8px;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            animation: toastIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            pointer-events: auto;
-        }
-
-        .toast.error {
-            border-right: 4px solid #fb7185;
-        }
-
-        .toast.success {
-            border-right: 4px solid #34d399;
-        }
-
-        .toast.fade-out {
-            animation: toastOut 0.3s ease forwards;
-        }
-
-        @keyframes toastIn {
-            from {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.95);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes toastOut {
-            from {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-
-            to {
-                opacity: 0;
-                transform: translateY(-20px) scale(0.95);
-            }
-        }
-
-        .progress-bar {
-            height: 6px;
-            border-radius: 3px;
-            background: #334155;
-            overflow: hidden;
-        }
-
-        .progress-bar .fill {
-            height: 100%;
-            border-radius: 3px;
-            transition: width 0.4s ease;
-        }
-
-        .dot-grid {
-            display: flex;
-            gap: 3px;
-            flex-wrap: wrap;
-        }
-
-        .dot-grid .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 2px;
-        }
-
-        .note-editor {
-            min-height: 200px;
-            outline: none;
-            padding: 16px;
-            font-size: 15px;
-            line-height: 1.7;
-            color: #f1f5f9;
-        }
-
-        .note-editor:empty:before {
-            content: attr(data-placeholder);
-            color: #94a3b8;
-        }
-
-        .input-ds {
-            width: 100%;
-            background: #1e293b;
-            border: 1px solid rgba(56, 189, 248, 0.15);
-            color: #f1f5f9;
-            padding: 12px 14px;
-            border-radius: 11px;
-            font-size: 14px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .input-ds:focus {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
-        }
-
-        .input-ds::placeholder {
-            color: #94a3b8;
-        }
-    </style>
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  }
+</style>
 </head>
 
-<body class="bg-background text-on-background antialiased min-h-screen flex flex-col items-center">
-    <div id="toast-container"></div>
-    <div
-        class="w-full max-w-[440px] bg-surface relative flex flex-col min-h-screen shadow-2xl shadow-black/50 overflow-hidden">
+<body class="min-h-screen flex flex-col items-center">
+<div id="toasts"></div>
 
-        <!-- LOGIN SCREEN -->
-        <div id="login-screen" class="screen active flex-col justify-center p-6 h-screen relative bg-surface">
-            <div class="absolute top-6 left-6 right-6 flex justify-between z-10">
-                <button
-                    class="w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center hover:bg-surface-container-highest transition-colors"
-                    data-action="toggle-theme" id="login-theme-btn">🌙</button>
-                <button
-                    class="w-10 h-10 rounded-lg bg-surface-container-high border border-outline-variant flex items-center justify-center font-bold hover:bg-surface-container-highest transition-colors font-label-md"
-                    data-action="toggle-lang">EN</button>
-            </div>
-            <div class="bg-surface-container border border-outline-emerald rounded-2xl p-8 shadow-xl text-center">
-                <h1 class="font-headline-xl text-[28px] mb-2 text-primary naskh">DaObserver</h1>
-                <p class="font-body-sm text-on-surface-variant mb-8">عينك على يومك 👁️</p>
-                <div class="mb-2">
-                    <p
-                        class="text-[13px] text-secondary mb-6 bg-secondary/10 p-3 rounded-lg border border-secondary/20">
-                        ⚠️ هذه نسخة تجريبية. يرجى عدم إدخال معلومات حساسة أو قيمة.</p>
-                    <button
-                        class="w-full bg-primary text-on-primary py-4 rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors active:scale-95"
-                        data-action="login-google">
-                        <svg style="width:18px;height:18px" viewBox="0 0 24 24">
-                            <path fill="currentColor"
-                                d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z" />
-                        </svg>
-                        <span>تسجيل الدخول بواسطة جوجل</span>
-                    </button>
-                </div>
-            </div>
-        </div>
+<!-- ═══════════ MODAL ═══════════ -->
+<div id="modal-root" role="dialog" aria-modal="true">
+  <div id="modal-veil" data-act="modal-cancel"></div>
+  <div id="modal-card">
+    <h3 id="modal-title" class="display text-[19px] mb-1"></h3>
+    <p id="modal-msg" class="text-[14px] text-muted mb-4 leading-relaxed"></p>
+    <div id="modal-fields" class="flex flex-col gap-3 mb-5"></div>
+    <div class="flex gap-2">
+      <button id="modal-ok" class="btn btn-p flex-1"></button>
+      <button id="modal-cancel" class="btn btn-g flex-1" data-act="modal-cancel"></button>
+    </div>
+  </div>
+</div>
 
-        <!-- APP SCREEN -->
-        <div id="app-screen" class="screen hidden flex-col min-h-screen relative w-full pb-20">
-            <!-- Global Header (non-Today tabs) -->
-            <header id="global-header"
-                class="hidden bg-surface fixed top-0 w-full max-w-[440px] z-50 border-b border-outline-emerald flex justify-between items-center px-4 h-14">
-                <button data-action="back-from-pane" class="text-primary"><span
-                        class="material-symbols-outlined">arrow_forward</span></button>
-                <h1 class="font-headline-md text-headline-md font-bold text-primary naskh">DaObserver</h1>
-                <button data-action="toggle-settings" class="text-primary"><span class="material-symbols-outlined"
-                        style="font-variation-settings:'FILL' 1;">settings</span></button>
-            </header>
+<div class="w-full max-w-app bg-surface relative flex flex-col min-h-screen overflow-hidden">
 
-            <div id="panes-container" class="flex-1 flex flex-col w-full relative h-full overflow-y-auto">
-
-                <!-- ═══════════════ TODAY PANE ═══════════════ -->
-                <div id="pane-today" class="pane active flex-col w-full">
-                    <header class="relative w-full h-48 overflow-hidden rounded-b-xl shrink-0">
-                        <div class="absolute inset-0 bg-cover bg-center"
-                            style="background-image: url('./hero.jpg'); background-color: #0f172a;">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background">
-                            </div>
-                        </div>
-                        <div class="relative z-10 w-full h-full flex flex-col justify-between p-4">
-                            <div class="flex justify-between items-start w-full">
-                                <div class="flex flex-col"><span class="text-sm text-on-surface-variant/80"
-                                        id="hero-greeting">صباح الخير ☀️</span><span
-                                        class="font-headline-xl text-headline-xl text-primary mt-1"
-                                        id="hero-name">...</span></div>
-                                <div class="flex items-center gap-2">
-                                    <button data-action="toggle-settings"
-                                        class="h-8 px-3 rounded-[11px] bg-transparent hairline-border flex items-center justify-center text-primary hover:bg-primary/5 transition-colors"><span
-                                            class="material-symbols-outlined text-sm"
-                                            style="font-variation-settings:'FILL' 1;">settings</span></button>
-                                    <button data-action="logout"
-                                        class="h-8 px-3 rounded-[11px] bg-transparent hairline-border flex items-center justify-center text-primary font-label-md text-label-md hover:bg-primary/5 transition-colors">خروج</button>
-                                </div>
-                            </div>
-                        </div>
-                    </header>
-                    <nav id="top-tab-bar"
-                        class="sticky top-0 z-40 w-full bg-surface-container/80 backdrop-blur-md border-b border-outline-emerald px-2 py-3 flex justify-between items-center shrink-0 no-scrollbar overflow-x-auto gap-1">
-                    </nav>
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <div class="text-center"><span
-                                class="font-headline-md text-headline-md text-secondary/70 naskh">ميدانك اليوم.. كن سيد
-                                اللحظة</span></div>
-                        <!-- Overdue -->
-                        <section id="today-overdue"
-                            class="hidden w-full bg-surface-container-high border border-secondary/30 rounded-xl p-4 flex flex-col gap-3 relative overflow-hidden">
-                            <div class="absolute top-0 right-0 w-2 h-full bg-secondary/50"></div>
-                            <span class="font-label-md text-label-md text-secondary uppercase tracking-wider">⏳
-                                متأخرة</span>
-                            <div id="today-overdue-list" class="flex flex-col gap-3"></div>
-                        </section>
-                        <!-- Tasks -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-end border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">📋 مهام اليوم</h2>
-                                <span class="font-label-md text-label-md text-on-surface-variant"
-                                    id="today-date-display">...</span>
-                            </div>
-                            <div id="today-tasks-list" class="flex flex-col gap-3">
-                                <div class="text-on-surface-variant text-sm text-center py-4">جاري التحميل...</div>
-                            </div>
-                            <form id="form-add-task-today" class="flex gap-2"><input id="input-add-task-today"
-                                    class="input-ds flex-1" placeholder="أضف مهمة لليوم..." type="text"
-                                    required /><button type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary/20 transition-colors">أضِف</button>
-                            </form>
-                        </section>
-                        <!-- Habits -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">⚡ عاداتي اليوم</h2>
-                            </div>
-                            <div id="today-habits-list" class="flex flex-col gap-3">
-                                <div class="text-on-surface-variant text-sm text-center py-4">جاري التحميل...</div>
-                            </div>
-                        </section>
-                        <!-- Tomorrow -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="border-b border-outline-variant/30 pb-2 flex flex-col">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">🌙 خطة بكرة</h2>
-                                <span class="font-label-md text-label-md text-on-surface-variant/70 mt-0.5">اكتبها
-                                    الليلة، تستقبلك الصبح</span>
-                            </div>
-                            <form id="form-tomorrow" class="flex gap-2"><input id="input-tomorrow"
-                                    class="input-ds flex-1" placeholder="مهمة لبكرة..." type="text" required /><button
-                                    type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary/20 transition-colors">أضِف</button>
-                            </form>
-                            <div id="tomorrow-tasks-list" class="flex flex-col gap-3"></div>
-                        </section>
-                    </main>
-                </div>
-
-                <!-- ═══════════════ MONEY PANE ═══════════════ -->
-                <div id="pane-money" class="pane hidden flex-col w-full pt-16">
-                    <header class="relative w-full h-40 overflow-hidden shrink-0">
-                        <div class="absolute inset-0 bg-cover bg-center"
-                            style="background-image: url('./hero.jpg'); background-color: #0f172a;">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background">
-                            </div>
-                        </div>
-                        <div class="relative z-10 w-full h-full flex items-end p-4"><span
-                                class="font-headline-lg text-headline-lg text-secondary naskh">أموالك جنودك.. قُدها
-                                بصرامة</span></div>
-                    </header>
-                    <!-- Summary Cards -->
-                    <div class="flex gap-2 px-4 py-3">
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="money-total-debt">0</div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">متبقي ديون</div>
-                        </div>
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="money-active-debts">0
-                            </div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">مستحقات معلّقة</div>
-                        </div>
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="money-month-expense">0
-                            </div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">مصاريف الشهر</div>
-                        </div>
-                    </div>
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <!-- Debts -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">🏦 الديون</h2>
-                            </div>
-                            <div id="money-debts-list" class="flex flex-col gap-4">
-                                <div class="text-on-surface-variant text-sm text-center py-4">جاري التحميل...</div>
-                            </div>
-                            <button data-action="add-debt"
-                                class="w-full bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-3 font-label-md text-label-md hover:bg-primary/20 transition-colors">+
-                                إضافة دين</button>
-                        </section>
-                        <!-- Receivables -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">🧾 مستحقات المؤسسة
-                                </h2>
-                            </div>
-                            <div id="money-receivables-list" class="flex flex-col gap-3">
-                                <div class="text-on-surface-variant text-sm text-center py-4">جاري التحميل...</div>
-                            </div>
-                            <button data-action="add-receivable"
-                                class="w-full bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-3 font-label-md text-label-md hover:bg-primary/20 transition-colors">+
-                                إضافة مستحق</button>
-                        </section>
-                        <!-- Expenses -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">💸 مصاريف اليوم
-                                    (التسرّب)</h2><span class="font-label-md text-label-md text-on-surface-variant"
-                                    id="expense-budget-label">الحد: ---</span>
-                            </div>
-                            <div class="progress-bar">
-                                <div class="fill bg-primary" id="expense-progress" style="width:0%"></div>
-                            </div>
-                            <div class="flex justify-between text-[11px] text-on-surface-variant"><span
-                                    id="expense-today-total">0 ريال</span><span id="expense-budget-val"></span></div>
-                            <form id="form-expense" class="flex gap-2">
-                                <select id="expense-cat-select" class="input-ds flex-1" required>
-                                    <option value="">فئة...</option>
-                                </select>
-                                <input id="expense-amount" class="input-ds w-24" placeholder="المبلغ..." type="number"
-                                    step="0.01" required />
-                                <button type="submit"
-                                    class="bg-primary text-on-primary rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary-fixed transition-colors">سجّل</button>
-                            </form>
-                            <div id="money-expenses-list" class="flex flex-col gap-2"></div>
-                        </section>
-                    </main>
-                </div>
-
-                <!-- ═══════════════ BODY PANE ═══════════════ -->
-                <div id="pane-body" class="pane hidden flex-col w-full pt-16">
-                    <header class="relative w-full h-40 overflow-hidden shrink-0">
-                        <div class="absolute inset-0 bg-cover bg-center"
-                            style="background-image: url('./hero.jpg'); background-color: #0f172a;">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background">
-                            </div>
-                        </div>
-                        <div class="relative z-10 w-full h-full flex items-end p-4"><span
-                                class="font-headline-lg text-headline-lg text-primary naskh">جسدك درعك.. ابنِ كياناً لا
-                                يُقهر</span></div>
-                    </header>
-                    <!-- Stats -->
-                    <div class="flex gap-2 px-4 py-3">
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="body-week-workouts">0
-                            </div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">تمارين الأسبوع</div>
-                        </div>
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="body-streak">0</div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">أيام متتالية</div>
-                        </div>
-                        <div class="flex-1 bg-surface-container hairline-border rounded-xl p-3 text-center">
-                            <div class="font-headline-lg text-headline-lg text-on-surface" id="body-last-weight">--
-                            </div>
-                            <div class="text-[11px] text-on-surface-variant mt-1">آخر وزن</div>
-                        </div>
-                    </div>
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <!-- Workout Toggle -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex items-center gap-2 border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">🏋️ تمرين اليوم</h2>
-                            </div>
-                            <p class="text-sm text-on-surface-variant">سجل نشاطك للحفاظ على استمراريتك.</p>
-                            <button id="btn-toggle-workout" data-action="toggle-workout"
-                                class="w-full bg-primary/10 text-primary border border-primary/30 rounded-xl py-3 font-bold text-sm flex items-center justify-center gap-2 hover:bg-primary/20 transition-all">
-                                <span class="material-symbols-outlined text-[18px]">fitness_center</span> <span
-                                    id="workout-btn-text">سجّلت تمريني اليوم</span>
-                            </button>
-                            <div class="flex flex-col gap-2 items-center">
-                                <div id="body-workout-dots" class="dot-grid justify-center"></div>
-                                <span class="text-[11px] text-on-surface-variant">آخر 14 يوم</span>
-                            </div>
-                        </section>
-                        <!-- Weight -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">⚖️ الوزن</h2>
-                            </div>
-                            <form id="form-weight" class="flex gap-2 items-center">
-                                <input id="input-weight" class="input-ds flex-1" placeholder="82.5" type="number"
-                                    step="0.1" required />
-                                <button type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary/20 transition-colors">حفظ</button>
-                            </form>
-                            <div id="body-weight-history" class="flex flex-col gap-2"></div>
-                        </section>
-                    </main>
-                </div>
-
-                <!-- ═══════════════ HABITS PANE ═══════════════ -->
-                <div id="pane-habits" class="pane hidden flex-col w-full pt-16">
-                    <header class="relative w-full h-40 overflow-hidden shrink-0">
-                        <div class="absolute inset-0 bg-cover bg-center"
-                            style="background-image: url('./hero.jpg'); background-color: #0f172a;">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/80 to-background">
-                            </div>
-                        </div>
-                        <div class="relative z-10 w-full h-full flex items-end p-4"><span
-                                class="font-headline-lg text-headline-lg text-primary naskh">الانضباط حرية.. أنت حصيلة
-                                ما تكرره</span></div>
-                    </header>
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">🔥 عاداتي</h2>
-                                <span class="font-label-md text-label-md text-on-surface-variant" id="habits-count">0
-                                    عادات</span>
-                            </div>
-                            <div id="habits-full-list" class="flex flex-col gap-4">
-                                <div class="text-on-surface-variant text-sm text-center py-4">جاري التحميل...</div>
-                            </div>
-                            <form id="form-add-habit" class="flex gap-2">
-                                <input id="input-new-habit" class="input-ds flex-1" placeholder="عادة جديدة..."
-                                    type="text" required />
-                                <input id="input-habit-icon" class="input-ds w-16 text-center" placeholder="🎯"
-                                    type="text" maxlength="2" />
-                                <button type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary/20 transition-colors">أضِف</button>
-                            </form>
-                        </section>
-                    </main>
-                </div>
-
-                <!-- ═══════════════ BRAINSTORM PANE ═══════════════ -->
-                <div id="pane-brainstorm" class="pane hidden flex-col w-full pt-16">
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <!-- Folders -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">📂 المجلدات</h2>
-                            </div>
-                            <div id="brain-folders-list" class="flex flex-col gap-2"></div>
-                            <form id="form-add-folder" class="flex gap-2"><input id="input-new-folder"
-                                    class="input-ds flex-1" placeholder="مجلد جديد..." type="text" required /><button
-                                    type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary/20 transition-colors">أضِف</button>
-                            </form>
-                        </section>
-                        <!-- Notes List -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-4">
-                            <div class="flex justify-between items-center border-b border-outline-variant/30 pb-2">
-                                <h2 class="font-headline-md text-headline-md text-on-surface naskh">📝 الملاحظات</h2>
-                                <span class="font-label-md text-label-md text-on-surface-variant"
-                                    id="brain-folder-name">الكل</span>
-                            </div>
-                            <div id="brain-notes-list" class="flex flex-col gap-3"></div>
-                            <button data-action="new-note"
-                                class="w-full bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-3 font-label-md text-label-md hover:bg-primary/20 transition-colors">+
-                                ملاحظة جديدة</button>
-                        </section>
-                    </main>
-                    <!-- Note Editor Overlay -->
-                    <div id="note-editor-overlay"
-                        class="hidden fixed inset-0 z-[60] bg-surface flex flex-col w-full max-w-[440px] mx-auto">
-                        <header
-                            class="flex justify-between items-center px-4 h-14 border-b border-outline-emerald shrink-0">
-                            <div class="flex items-center gap-2">
-                                <button data-action="delete-note-current" class="text-error"><span
-                                        class="material-symbols-outlined text-[20px]">delete</span></button>
-                                <button data-action="pin-note" class="text-on-surface-variant"><span
-                                        class="material-symbols-outlined text-[20px]">push_pin</span></button>
-                            </div>
-                            <input id="note-title-input"
-                                class="bg-transparent border-none text-on-surface font-headline-md text-headline-md text-center flex-1 outline-none naskh"
-                                placeholder="عنوان الملاحظة" />
-                            <button data-action="close-note" class="text-primary"><span
-                                    class="material-symbols-outlined">arrow_forward</span></button>
-                        </header>
-                        <!-- Toolbar -->
-                        <div
-                            class="flex items-center gap-1 px-4 py-2 border-b border-outline-emerald bg-surface-container shrink-0">
-                            <button data-cmd="formatBlock" data-val="H1"
-                                class="px-2 py-1 rounded text-sm text-on-surface-variant hover:bg-surface-container-highest">H1</button>
-                            <button data-cmd="formatBlock" data-val="H2"
-                                class="px-2 py-1 rounded text-sm text-on-surface-variant hover:bg-surface-container-highest">H2</button>
-                            <button data-cmd="bold"
-                                class="px-2 py-1 rounded font-bold text-sm text-on-surface-variant hover:bg-surface-container-highest">B</button>
-                            <button data-cmd="italic"
-                                class="px-2 py-1 rounded italic text-sm text-on-surface-variant hover:bg-surface-container-highest">I</button>
-                            <button data-cmd="insertUnorderedList"
-                                class="px-2 py-1 rounded text-sm text-on-surface-variant hover:bg-surface-container-highest"><span
-                                    class="material-symbols-outlined text-[18px]">format_list_bulleted</span></button>
-                            <button data-cmd="insertOrderedList"
-                                class="px-2 py-1 rounded text-sm text-on-surface-variant hover:bg-surface-container-highest"><span
-                                    class="material-symbols-outlined text-[18px]">format_list_numbered</span></button>
-                            <button data-cmd="strikethrough"
-                                class="px-2 py-1 rounded line-through text-sm text-on-surface-variant hover:bg-surface-container-highest">X</button>
-                        </div>
-                        <div id="note-body-editor" class="note-editor flex-1 overflow-y-auto" contenteditable="true"
-                            data-placeholder="ابدأ الكتابة..."></div>
-                        <div
-                            class="flex items-center justify-between px-4 py-2 border-t border-outline-emerald bg-surface-container shrink-0">
-                            <span class="text-[11px] text-on-surface-variant" id="note-save-status">✓ حُفظ</span>
-                            <button data-action="save-note"
-                                class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-4 py-1 font-label-md text-label-md hover:bg-primary/20 transition-colors">حفظ</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ═══════════════ SETTINGS PANE ═══════════════ -->
-                <div id="pane-settings" class="pane hidden flex-col w-full pt-16">
-                    <main class="flex-1 p-4 flex flex-col gap-6 pb-10">
-                        <div class="flex items-center gap-2"><button data-action="back-settings"
-                                class="text-primary"><span
-                                    class="material-symbols-outlined">arrow_forward</span></button>
-                            <h2 class="font-headline-lg text-headline-lg text-primary naskh">⚙️ الإعدادات</h2>
-                        </div>
-                        <!-- Language -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">🌐 اللغة</h3>
-                            <div class="flex gap-2"><button data-action="set-lang" data-val="ar" id="btn-lang-ar"
-                                    class="flex-1 py-2 rounded-[11px] hairline-border text-center font-label-md text-label-md bg-primary/10 text-primary hairline-border-active">العربية</button><button
-                                    data-action="set-lang" data-val="en" id="btn-lang-en"
-                                    class="flex-1 py-2 rounded-[11px] hairline-border text-center font-label-md text-label-md text-on-surface-variant">English</button>
-                            </div>
-                            <p class="text-[11px] text-on-surface-variant">تغيير اللغة يعيد ويشمل واجهة بالكامل</p>
-                        </section>
-                        <!-- Theme -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">🎨 المظهر</h3>
-                            <div class="flex gap-2"><button data-action="set-theme" data-val="dark" id="btn-theme-dark"
-                                    class="flex-1 py-2 rounded-[11px] hairline-border text-center font-label-md text-label-md bg-primary/10 text-primary hairline-border-active">داكن
-                                    🌙</button><button data-action="set-theme" data-val="light" id="btn-theme-light"
-                                    class="flex-1 py-2 rounded-[11px] hairline-border text-center font-label-md text-label-md text-on-surface-variant">فاتح
-                                    ☀️</button></div>
-                        </section>
-                        <!-- Profile -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">👤 حسابي</h3>
-                            <div><label class="text-[11px] text-on-surface-variant block mb-1">الاسم</label><input
-                                    id="settings-name" class="input-ds" placeholder="فارس" /></div>
-                            <div><label class="text-[11px] text-on-surface-variant block mb-1">عنوان بطاقة
-                                    المستحقات</label><input id="settings-recv-title" class="input-ds"
-                                    placeholder="المحفظة الرئيسية" /></div>
-                            <button data-action="save-profile"
-                                class="bg-primary text-on-primary rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary-fixed transition-colors">🔄
-                                حفظ تغييرات</button>
-                        </section>
-                        <!-- Financial -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">💰 الإعدادات المالية
-                            </h3>
-                            <div><label class="text-[11px] text-on-surface-variant block mb-1">حد المصاريف اليومية
-                                    (ريال)</label><input id="settings-leak-budget" class="input-ds" placeholder="3500"
-                                    type="number" /></div>
-                            <button data-action="save-financial"
-                                class="bg-primary text-on-primary rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary-fixed transition-colors">🔄
-                                حفظ</button>
-                        </section>
-                        <!-- Nutrition -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">🍽️ أهداف التغذية</h3>
-                            <div class="flex gap-2">
-                                <div class="flex-1"><label
-                                        class="text-[11px] text-on-surface-variant block mb-1">سعرات</label><input
-                                        id="settings-cal" class="input-ds" type="number" placeholder="2200" /></div>
-                                <div class="flex-1"><label class="text-[11px] text-on-surface-variant block mb-1">بروتين
-                                        (g)</label><input id="settings-protein" class="input-ds" type="number"
-                                        placeholder="150" /></div>
-                                <div class="flex-1"><label class="text-[11px] text-on-surface-variant block mb-1">ماء
-                                        (ml)</label><input id="settings-water" class="input-ds" type="number"
-                                        placeholder="3000" /></div>
-                            </div>
-                            <button data-action="save-nutrition"
-                                class="bg-primary text-on-primary rounded-[11px] px-4 py-2 font-label-md text-label-md hover:bg-primary-fixed transition-colors">تحديث
-                                الأهداف</button>
-                        </section>
-                        <!-- Expense Categories -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">💳 فئات المصاريف</h3>
-                            <div id="settings-expense-cats" class="flex flex-col gap-2"></div>
-                            <form id="form-add-expense-cat" class="flex gap-2"><input id="input-new-expense-cat"
-                                    class="input-ds flex-1" placeholder="فئة جديدة..." required /><input
-                                    id="input-expense-cat-icon" class="input-ds w-14 text-center" placeholder="☕"
-                                    maxlength="2" /><button type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-3 py-2 text-sm">+</button>
-                            </form>
-                        </section>
-                        <!-- Debt Categories -->
-                        <section class="w-full bg-surface-container hairline-border rounded-xl p-4 flex flex-col gap-3">
-                            <h3 class="font-headline-md text-headline-md text-on-surface naskh">🏦 فئات الديون</h3>
-                            <div id="settings-debt-cats" class="flex flex-col gap-2"></div>
-                            <form id="form-add-debt-cat" class="flex gap-2"><input id="input-new-debt-cat"
-                                    class="input-ds flex-1" placeholder="فئة جديدة..." required /><button type="submit"
-                                    class="bg-primary/10 text-primary border border-primary/30 rounded-[11px] px-3 py-2 text-sm">+</button>
-                            </form>
-                        </section>
-                        <!-- Logout -->
-                        <button data-action="logout"
-                            class="w-full bg-error/10 text-error border border-error/30 rounded-xl py-3 font-bold text-sm hover:bg-error/20 transition-colors">تسجيل
-                            الخروج</button>
-                    </main>
-                </div>
-
-            </div>
-
-            <!-- BOTTOM NAV -->
-            <nav id="bottom-nav"
-                class="fixed bottom-0 w-full max-w-[440px] z-50 bg-surface-container/90 backdrop-blur-lg border-t border-outline-emerald flex justify-around items-center h-[72px] px-2 shadow-[0_-4px_24px_rgba(0,0,0,0.4)]">
-                <button
-                    class="nav-btn flex flex-col items-center justify-center transition-all p-2 rounded-lg text-primary font-bold"
-                    data-action="switch-tab" data-tab="today"><span class="material-symbols-outlined mb-0.5"
-                        style="font-variation-settings:'FILL' 1;">dashboard</span><span
-                        class="font-label-md text-label-md">اليوم</span></button>
-                <button
-                    class="nav-btn flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg"
-                    data-action="switch-tab" data-tab="money"><span
-                        class="material-symbols-outlined mb-0.5">payments</span><span
-                        class="font-label-md text-label-md">المال</span></button>
-                <button
-                    class="nav-btn flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg"
-                    data-action="switch-tab" data-tab="body"><span
-                        class="material-symbols-outlined mb-0.5">monitor_heart</span><span
-                        class="font-label-md text-label-md">الجسم</span></button>
-                <button
-                    class="nav-btn flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg"
-                    data-action="switch-tab" data-tab="habits"><span
-                        class="material-symbols-outlined mb-0.5">checklist</span><span
-                        class="font-label-md text-label-md">العادات</span></button>
-                <button
-                    class="nav-btn flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all p-2 rounded-lg"
-                    data-action="switch-tab" data-tab="brainstorm"><span
-                        class="material-symbols-outlined mb-0.5">psychology</span><span
-                        class="font-label-md text-label-md">العصف</span></button>
-            </nav>
-        </div>
+  <!-- ═══════════ LOGIN ═══════════ -->
+  <div id="s-login" class="screen on flex-col justify-center p-6 min-h-screen relative">
+    <div class="absolute top-6 inset-x-6 flex justify-between z-10">
+      <button class="w-10 h-10 rounded-lg bg-surface2 hair flex items-center justify-center" data-act="theme-flip" id="btn-theme-flip">🌙</button>
+      <button class="w-10 h-10 rounded-lg bg-surface2 hair flex items-center justify-center font-bold text-[13px]" data-act="lang-flip" id="btn-lang-flip">EN</button>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getFirestore, collection, query, where, getDocs, addDoc, updateDoc, deleteDoc, doc, setDoc, serverTimestamp, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+    <div class="bg-bg hair rounded-2xl p-8 text-center">
+      <h1 class="display text-[30px] text-primary mb-1">DaObserver</h1>
+      <p class="text-[14px] text-muted mb-7" data-t="tagline">عينك على يومك 👁️</p>
+      <p class="text-[13px] text-secondary mb-6 p-3 rounded-lg" style="background:color-mix(in srgb,var(--secondary) 10%,transparent);border:1px solid color-mix(in srgb,var(--secondary) 22%,transparent)" data-t="beta">⚠️ نسخة تجريبية. لا تُدخل معلومات حساسة.</p>
+      <button class="btn btn-p w-full !py-4" data-act="login">
+        <svg style="width:18px;height:18px" viewBox="0 0 24 24"><path fill="currentColor" d="M21.35,11.1H12.18V13.83H18.69C18.36,17.64 15.19,19.27 12.19,19.27C8.36,19.27 5,16.25 5,12C5,7.9 8.2,4.73 12.2,4.73C15.29,4.73 17.1,6.7 17.1,6.7L19,4.72C19,4.72 16.56,2 12.1,2C6.42,2 2.03,6.8 2.03,12C2.03,17.05 6.16,22 12.25,22C17.6,22 21.5,18.33 21.5,12.91C21.5,11.76 21.35,11.1 21.35,11.1V11.1Z"/></svg>
+        <span data-t="signin">تسجيل الدخول بواسطة جوجل</span>
+      </button>
+      <a href="./index.html" class="block text-[13px] text-muted mt-5 hover:text-primary transition-colors" data-t="backhome">← العودة للصفحة الرئيسية</a>
+    </div>
+  </div>
 
-        const firebaseConfig = { apiKey: "AIzaSyDeLwT2woAwE68rX9HrkLqsADAh6E7985M", authDomain: "daobserver-mvp.firebaseapp.com", projectId: "daobserver-mvp", storageBucket: "daobserver-mvp.firebasestorage.app", messagingSenderId: "962209894285", appId: "1:962209894285:web:40405309a4b686678937c4" };
-        let app, auth, db;
-        try { app = initializeApp(firebaseConfig); auth = getAuth(app); db = getFirestore(app); } catch (e) { console.warn("Firebase init failed"); }
+  <!-- ═══════════ APP ═══════════ -->
+  <div id="s-app" class="screen flex-col min-h-screen w-full pb-[76px]">
 
-        // ─── STATE ───
-        const state = { lang: localStorage.getItem('ds_lang') || 'ar', theme: localStorage.getItem('ds_theme') || 'dark', activeTab: localStorage.getItem('ds_tab') || 'today', previousTab: 'today', user: null, session: null, settings: {}, settingsDocId: null, currentNoteId: null, currentFolderId: null };
+    <header id="topbar" class="hidden bg-surface sticky top-0 w-full z-40 border-b border-[var(--line)] flex justify-between items-center px-4 h-14">
+      <button data-act="back" class="text-primary"><span class="material-symbols-outlined rtl:rotate-180">arrow_back</span></button>
+      <h1 class="display text-[17px] text-primary" id="topbar-title">DaObserver</h1>
+      <button data-act="go-settings" class="text-primary"><span class="material-symbols-outlined">settings</span></button>
+    </header>
 
-        // ─── UTILS ───
-        function localDate(d = new Date()) { const y = d.getFullYear(), m = String(d.getMonth() + 1).padStart(2, '0'), dd = String(d.getDate()).padStart(2, '0'); return `${y}-${m}-${dd}`; }
-        function addDays(s, n) { const d = new Date(s); d.setDate(d.getDate() + n); return localDate(d); }
-        function escHTML(s) { if (!s) return ''; const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-        let _busy = false; async function withBusyLock(fn) { if (_busy) return; _busy = true; try { return await fn(); } finally { _busy = false; } }
-        function showToast(m, t = 'success') { const c = document.getElementById('toast-container'), el = document.createElement('div'); el.className = `toast ${t}`; el.textContent = m; c.appendChild(el); setTimeout(() => { el.classList.add('fade-out'); setTimeout(() => el.remove(), 300); }, 3000); }
-        function showError(m) { showToast(m, 'error'); }
-        function uid() { return state.user?.uid; }
-        async function fetchAll(col, extra = []) { const constraints = [where("user_id", "==", uid()), ...extra]; const s = await getDocs(query(collection(db, col), ...constraints)); return s.docs.map(d => ({ id: d.id, ...d.data() })); }
+    <div class="flex-1 flex flex-col w-full">
 
-        // ─── THEME / LANG ───
-        function applyTheme() { document.documentElement.className = state.theme; const b = document.getElementById('login-theme-btn'); if (b) b.textContent = state.theme === 'dark' ? '☀️' : '🌙'; document.getElementById('btn-theme-dark')?.classList.toggle('bg-primary/10', state.theme === 'dark'); document.getElementById('btn-theme-dark')?.classList.toggle('text-primary', state.theme === 'dark'); document.getElementById('btn-theme-dark')?.classList.toggle('hairline-border-active', state.theme === 'dark'); document.getElementById('btn-theme-light')?.classList.toggle('bg-primary/10', state.theme === 'light'); document.getElementById('btn-theme-light')?.classList.toggle('text-primary', state.theme === 'light'); document.getElementById('btn-theme-light')?.classList.toggle('hairline-border-active', state.theme === 'light'); }
-        function setTheme(t) { state.theme = t; localStorage.setItem('ds_theme', t); applyTheme(); }
-        function setLang(l) { state.lang = l; localStorage.setItem('ds_lang', l); document.documentElement.lang = l; document.documentElement.dir = l === 'ar' ? 'rtl' : 'ltr'; document.getElementById('btn-lang-ar')?.classList.toggle('bg-primary/10', l === 'ar'); document.getElementById('btn-lang-ar')?.classList.toggle('text-primary', l === 'ar'); document.getElementById('btn-lang-ar')?.classList.toggle('hairline-border-active', l === 'ar'); document.getElementById('btn-lang-en')?.classList.toggle('bg-primary/10', l === 'en'); document.getElementById('btn-lang-en')?.classList.toggle('text-primary', l === 'en'); document.getElementById('btn-lang-en')?.classList.toggle('hairline-border-active', l === 'en'); }
-
-        // ─── TAB SWITCHING ───
-        const tabOrder = ['today', 'money', 'body', 'habits', 'brainstorm', 'settings'];
-        function switchTab(tabName) {
-            const currentIndex = tabOrder.indexOf(state.activeTab);
-            const newIndex = tabOrder.indexOf(tabName);
-            const direction = newIndex > currentIndex ? 'left' : 'right';
-
-            if (tabName !== 'settings') { state.previousTab = state.activeTab; state.activeTab = tabName; localStorage.setItem('ds_tab', tabName); document.getElementById('bottom-nav').classList.remove('hidden'); document.getElementById('global-header').classList.toggle('hidden', tabName === 'today'); }
-            else { document.getElementById('bottom-nav').classList.add('hidden'); document.getElementById('global-header').classList.add('hidden'); }
-
-            document.querySelectorAll('.pane').forEach(p => { p.classList.remove('active', 'slide-left', 'slide-right'); p.classList.add('hidden'); });
-            const pane = document.getElementById(`pane-${tabName}`);
-            if (pane) { pane.classList.remove('hidden'); pane.classList.add('active', `slide-${direction}`); }
-
-            document.querySelectorAll('.nav-btn').forEach(b => { b.classList.remove('text-primary', 'font-bold'); b.classList.add('text-on-surface-variant'); const s = b.querySelector('.material-symbols-outlined'); if (s) s.style.fontVariationSettings = "'FILL' 0"; });
-            const ab = document.querySelector(`.nav-btn[data-tab="${tabName}"]`); if (ab) { ab.classList.remove('text-on-surface-variant'); ab.classList.add('text-primary', 'font-bold'); const s = ab.querySelector('.material-symbols-outlined'); if (s) s.style.fontVariationSettings = "'FILL' 1"; }
-            // Build top tab bar for Today pane
-            buildTopTabBar(tabName);
-            // Load data on tab switch
-            if (tabName === 'today') loadTodayData();
-            else if (tabName === 'money') loadMoneyData();
-            else if (tabName === 'body') loadBodyData();
-            else if (tabName === 'habits') loadHabitsData();
-            else if (tabName === 'brainstorm') loadBrainData();
-            else if (tabName === 'settings') loadSettingsData();
-        }
-
-        function buildTopTabBar(active) {
-            const bar = document.getElementById('top-tab-bar'); if (!bar) return;
-            const tabs = [{ id: 'today', label: '☀️ اليوم' }, { id: 'money', label: '💰 المال' }, { id: 'body', label: '💪 الجسم' }, { id: 'habits', label: '🔥 العادات' }, { id: 'brainstorm', label: '📝 العصف' }];
-            bar.innerHTML = tabs.map(t => `<button class="flex items-center gap-1.5 px-3 py-1.5 rounded-full whitespace-nowrap font-label-md text-label-md transition-all ${t.id === active ? 'bg-primary/10 hairline-border-active text-primary' : 'bg-transparent text-on-surface-variant hover:text-on-surface'}" data-action="switch-tab" data-tab="${t.id}"><span>${t.label}</span></button>`).join('');
-        }
-
-        // ─── AUTH ───
-        async function handleGoogleLogin() { await withBusyLock(async () => { if (!auth) return; try { const p = new GoogleAuthProvider(); await signInWithPopup(auth, p); showToast('تم تسجيل الدخول بنجاح'); } catch (e) { showError(e.message); } }); }
-        async function confirmLogout() {
-            if (!confirm('هل أنت متأكد من تسجيل الخروج؟')) return;
-            try { if (auth) await signOut(auth); } catch (e) { showError('تعذّر تسجيل الخروج'); return; }
-            state.session = null; state.user = null;
-            location.replace('./index.html');
-        }
-        // ═══════════════════════════════════════════
-        //  TODAY TAB
-        // ═══════════════════════════════════════════
-        async function loadTodayData() {
-            if (!uid() || !db) return;
-            const today = localDate(), tomorrow = addDays(today, 1);
-            // Settings
-            const sets = await fetchAll("ds_settings");
-            if (sets.length) { state.settings = sets[0]; state.settingsDocId = sets[0].id; }
-            else { const name = state.user.displayName || "صديقي"; const ref = await addDoc(collection(db, "ds_settings"), { user_id: uid(), display_name: name, created_at: serverTimestamp() }); state.settings = { display_name: name }; state.settingsDocId = ref.id; }
-            const hour = new Date().getHours(); document.getElementById('hero-greeting').textContent = `${hour < 12 ? 'صباح الخير ☀️' : 'مساء الخير 🌙'} — عينك على يومك 👁️`;
-            document.getElementById('hero-name').textContent = escHTML(state.settings.display_name);
-            document.getElementById('today-date-display').textContent = new Intl.DateTimeFormat('ar-SA', { day: 'numeric', month: 'long' }).format(new Date());
-            // Tasks
-            const tasks = await fetchAll("ds_tasks");
-            const todayT = tasks.filter(t => t.for_date === today), tomorrowT = tasks.filter(t => t.for_date === tomorrow), overdueT = tasks.filter(t => t.for_date < today && !t.done);
-            renderTasks(todayT, 'today-tasks-list', false); renderTasks(tomorrowT, 'tomorrow-tasks-list', true); renderOverdue(overdueT);
-            // Habits
-            const habits = await fetchAll("ds_habits", [where("active", "==", true)]);
-            const logs = await fetchAll("ds_habit_logs", [where("on_date", "==", today)]);
-            const doneSet = new Set(logs.map(l => l.habit_id));
-            renderTodayHabits(habits, doneSet);
-        }
-
-        function renderTasks(tasks, cid, isTomorrow) {
-            const c = document.getElementById(cid);
-            if (!tasks.length) { c.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-2 opacity-50">لا توجد مهام</div>`; return; }
-            tasks.sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
-            c.innerHTML = tasks.map(t => {
-                if (isTomorrow) return `<div class="flex items-center gap-3 opacity-70 group"><div class="w-1.5 h-1.5 rounded-full bg-on-surface-variant shrink-0"></div><span class="text-sm text-on-surface flex-1 line-clamp-1">${escHTML(t.title)}</span><button data-action="delete-task" data-id="${t.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100 p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button></div>`;
-                if (t.done) return `<div class="flex items-center gap-3 group"><button data-action="toggle-task" data-id="${t.id}" data-val="false" class="w-[26px] h-[26px] shrink-0 rounded-md bg-primary/20 border border-primary flex items-center justify-center text-primary"><span class="material-symbols-outlined text-[16px]" style="font-variation-settings:'FILL' 1;">check</span></button><span class="text-sm text-on-surface-variant line-through flex-1 line-clamp-1">${escHTML(t.title)}</span><button data-action="delete-task" data-id="${t.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">delete</span></button></div>`;
-                return `<div class="flex items-center gap-3 group"><button data-action="toggle-task" data-id="${t.id}" data-val="true" class="w-[26px] h-[26px] shrink-0 rounded-md border border-outline flex items-center justify-center hover:border-primary/50 hover:bg-primary/5 transition-colors"></button><div class="flex items-center gap-2 flex-1 overflow-hidden">${t.due_time ? `<span class="shrink-0 px-1.5 py-0.5 rounded text-[10px] bg-surface-container-highest text-on-surface-variant whitespace-nowrap">⏰ ${t.due_time}</span>` : ''}<span class="text-sm text-on-surface line-clamp-1">${escHTML(t.title)}</span></div><button data-action="delete-task" data-id="${t.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">delete</span></button></div>`;
-            }).join('');
-        }
-        function renderOverdue(tasks) { const s = document.getElementById('today-overdue'), l = document.getElementById('today-overdue-list'); if (!tasks.length) { s.classList.add('hidden'); return; } s.classList.remove('hidden'); l.innerHTML = tasks.map(t => `<div class="flex items-center gap-3"><button data-action="toggle-task" data-id="${t.id}" data-val="true" class="w-[26px] h-[26px] shrink-0 rounded-md border border-secondary/50 flex items-center justify-center hover:bg-secondary/10"></button><span class="text-sm text-on-surface flex-1 line-clamp-1">${escHTML(t.title)}</span><span class="px-2 py-0.5 rounded text-[10px] bg-secondary/20 text-secondary whitespace-nowrap">${t.for_date}</span></div>`).join(''); }
-        function renderTodayHabits(habits, doneSet) {
-            const c = document.getElementById('today-habits-list');
-            if (!habits.length) { c.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-2 opacity-50">لا توجد عادات — أضفها من تبويب العادات</div>`; return; }
-            c.innerHTML = habits.map(h => { const done = doneSet.has(h.id); return `<div class="flex items-center gap-3 cursor-pointer" data-action="toggle-habit" data-id="${h.id}" data-val="${done ? 'false' : 'true'}"><div class="w-[30px] h-[30px] shrink-0 rounded-md ${done ? 'bg-primary/20 border-primary' : 'bg-surface-container-highest border-outline-variant'} border flex items-center justify-center">${h.icon ? `<span class="text-sm">${h.icon}</span>` : `<span class="material-symbols-outlined text-[18px] ${done ? 'text-primary' : 'text-on-surface-variant'}" ${done ? `style="font-variation-settings:'FILL' 1;"` : ''}>${done ? 'check' : 'radio_button_unchecked'}</span>`}</div><span class="text-sm ${done ? 'text-on-surface-variant line-through' : 'text-on-surface'} flex-1">${escHTML(h.name)}</span>${done ? `<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">check_circle</span>` : `<div class="w-5 h-5 rounded-full border border-outline-variant"></div>`}</div>`; }).join('');
-        }
-
-        // ═══════════════════════════════════════════
-        //  MONEY TAB
-        // ═══════════════════════════════════════════
-        async function loadMoneyData() {
-            if (!uid() || !db) return;
-            const today = localDate();
-            const debts = await fetchAll("ds_debts", [where("active", "==", true)]);
-            const payments = await fetchAll("ds_payments");
-            const receivables = await fetchAll("ds_receivables");
-            const expenses = await fetchAll("ds_expenses");
-            const expCats = await fetchAll("ds_expense_categories", [where("active", "==", true)]);
-            // Budget from settings
-            if (!state.settings.monthly_leak_budget) { const s = await fetchAll("ds_settings"); if (s.length) { state.settings = s[0]; state.settingsDocId = s[0].id; } }
-            const budget = state.settings.monthly_leak_budget || 0;
-
-            // Summary
-            let totalDebt = 0; debts.forEach(d => { const paid = payments.filter(p => p.debt_id === d.id).reduce((s, p) => s + (Number(p.amount) || 0), 0); totalDebt += Math.max(0, (Number(d.amount) || 0) - paid); });
-            const pendingRecv = receivables.filter(r => r.status === 'pending').length;
-            const monthStart = localDate().slice(0, 7); const monthExp = expenses.filter(e => (e.spent_on || '').startsWith(monthStart)).reduce((s, e) => s + (Number(e.amount) || 0), 0);
-            document.getElementById('money-total-debt').textContent = totalDebt.toLocaleString();
-            document.getElementById('money-active-debts').textContent = pendingRecv;
-            document.getElementById('money-month-expense').textContent = monthExp.toLocaleString();
-
-            // Debts
-            const dl = document.getElementById('money-debts-list');
-            if (!debts.length) { dl.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-2 opacity-50">لا توجد ديون</div>`; }
-            else { dl.innerHTML = debts.map(d => { const paid = payments.filter(p => p.debt_id === d.id).reduce((s, p) => s + (Number(p.amount) || 0), 0); const rem = Math.max(0, Number(d.amount) - paid); const pct = Number(d.amount) ? Math.round((paid / Number(d.amount)) * 100) : 0; return `<div class="bg-surface-container-high rounded-xl p-3 flex flex-col gap-2 hairline-border"><div class="flex justify-between items-start"><div><span class="text-sm font-bold text-on-surface">${escHTML(d.name)}</span><div class="text-[11px] text-on-surface-variant mt-0.5">${rem.toLocaleString()} متبقي من ${Number(d.amount).toLocaleString()}</div></div><div class="flex gap-1"><button data-action="pay-debt" data-id="${d.id}" class="text-primary text-[11px] px-2 py-1 rounded bg-primary/10 hover:bg-primary/20">💵</button><button data-action="delete-debt" data-id="${d.id}" class="text-error text-[11px] px-2 py-1 rounded bg-error/10 hover:bg-error/20">🗑</button></div></div><div class="progress-bar"><div class="fill bg-primary" style="width:${pct}%"></div></div><div class="text-[10px] text-on-surface-variant text-left">${pct}%</div>${d.note ? `<div class="text-[11px] text-on-surface-variant/60">${escHTML(d.note)}</div>` : ''}</div>`; }).join(''); }
-
-            // Receivables
-            const rl = document.getElementById('money-receivables-list');
-            if (!receivables.length) { rl.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-2 opacity-50">لا توجد مستحقات</div>`; }
-            else { rl.innerHTML = receivables.map(r => `<div class="flex items-center gap-3 group"><span class="text-sm ${r.status === 'paid' ? 'text-on-surface-variant line-through' : 'text-on-surface'} flex-1">${escHTML(r.name)}</span><span class="text-sm font-bold ${r.status === 'paid' ? 'text-success' : 'text-secondary'}">${Number(r.amount).toLocaleString()}</span><span class="text-[10px] px-2 py-0.5 rounded ${r.status === 'paid' ? 'bg-success/20 text-success' : 'bg-secondary/20 text-secondary'}">${r.status === 'paid' ? 'مدفوع' : 'معلّق'}</span><button data-action="toggle-recv" data-id="${r.id}" data-val="${r.status === 'paid' ? 'pending' : 'paid'}" class="text-on-surface-variant hover:text-primary opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">${r.status === 'paid' ? 'undo' : 'check'}</span></button><button data-action="delete-recv" data-id="${r.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">delete</span></button></div>`).join(''); }
-
-            // Expenses
-            const todayExp = expenses.filter(e => e.spent_on === today);
-            const todayTotal = todayExp.reduce((s, e) => s + (Number(e.amount) || 0), 0);
-            document.getElementById('expense-today-total').textContent = `${todayTotal.toLocaleString()} ريال`;
-            document.getElementById('expense-budget-label').textContent = `الحد: ${budget ? budget.toLocaleString() : '---'}`;
-            document.getElementById('expense-budget-val').textContent = budget ? `${budget.toLocaleString()} ريال` : '';
-            const pct = budget ? Math.min(100, Math.round((todayTotal / budget) * 100)) : 0;
-            const bar = document.getElementById('expense-progress'); bar.style.width = pct + '%'; bar.className = `fill ${pct > 90 ? 'bg-error' : pct > 60 ? 'bg-secondary' : 'bg-primary'}`;
-            // Cat select
-            const sel = document.getElementById('expense-cat-select'); sel.innerHTML = `<option value="">فئة...</option>` + expCats.map(c => `<option value="${c.id}">${c.icon || ''} ${escHTML(c.name)}</option>`).join('');
-            // Expense list
-            const el = document.getElementById('money-expenses-list');
-            el.innerHTML = todayExp.map(e => { const cat = expCats.find(c => c.id === e.category_id); return `<div class="flex items-center gap-3 group"><span class="text-sm text-on-surface-variant">${cat?.icon || '💳'}</span><span class="text-sm text-on-surface flex-1">${cat ? escHTML(cat.name) : 'بدون فئة'}</span><span class="text-sm font-bold text-on-surface">${Number(e.amount).toLocaleString()}</span><button data-action="delete-expense" data-id="${e.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[18px]">delete</span></button></div>`; }).join('');
-        }
-
-        // ═══════════════════════════════════════════
-        //  BODY TAB
-        // ═══════════════════════════════════════════
-        async function loadBodyData() {
-            if (!uid() || !db) return;
-            const today = localDate();
-            const workouts = await fetchAll("ds_workouts");
-            const weights = await fetchAll("ds_weights");
-            // Week workouts (Saturday-based)
-            const now = new Date(); const dayOfWeek = (now.getDay() + 1) % 7;// Sat=0
-            const satDate = new Date(now); satDate.setDate(now.getDate() - dayOfWeek); const weekStart = localDate(satDate);
-            const weekW = workouts.filter(w => w.on_date >= weekStart && w.on_date <= today).length;
-            document.getElementById('body-week-workouts').textContent = weekW;
-            // Streak
-            let streak = 0; let d = new Date();
-            while (true) { const ds = localDate(d); if (workouts.find(w => w.on_date === ds)) { streak++; d.setDate(d.getDate() - 1); } else break; }
-            document.getElementById('body-streak').textContent = streak;
-            // Last weight
-            weights.sort((a, b) => b.on_date.localeCompare(a.on_date));
-            document.getElementById('body-last-weight').textContent = weights.length ? weights[0].kg : '--';
-            // Workout button
-            const todayW = workouts.find(w => w.on_date === today);
-            const btn = document.getElementById('btn-toggle-workout');
-            if (todayW) { btn.classList.add('bg-primary', 'text-on-primary'); btn.classList.remove('bg-primary/10'); document.getElementById('workout-btn-text').textContent = '✅ سجّلت تمريني اليوم'; btn.setAttribute('data-workout-id', todayW.id); }
-            else { btn.classList.remove('bg-primary', 'text-on-primary'); btn.classList.add('bg-primary/10'); document.getElementById('workout-btn-text').textContent = 'سجّل تمريني اليوم'; btn.removeAttribute('data-workout-id'); }
-            // 14-day dots
-            const dotsContainer = document.getElementById('body-workout-dots'); dotsContainer.innerHTML = '';
-            for (let i = 13; i >= 0; i--) { const dd = addDays(today, -i); const has = workouts.find(w => w.on_date === dd); const dot = document.createElement('div'); dot.className = `dot ${has ? 'bg-primary' : 'bg-surface-container-highest'}`; dot.title = dd; dotsContainer.appendChild(dot); }
-            // Weight history
-            const wh = document.getElementById('body-weight-history');
-            const recent = weights.slice(0, 7);
-            wh.innerHTML = recent.map(w => `<div class="flex justify-between items-center text-sm"><span class="text-on-surface-variant">${w.on_date}</span><span class="text-on-surface font-bold">${w.kg} kg</span></div>`).join('');
-        }
-
-        // ═══════════════════════════════════════════
-        //  HABITS TAB
-        // ═══════════════════════════════════════════
-        async function loadHabitsData() {
-            if (!uid() || !db) return;
-            const today = localDate();
-            const habits = await fetchAll("ds_habits", [where("active", "==", true)]);
-            const allLogs = await fetchAll("ds_habit_logs");
-            document.getElementById('habits-count').textContent = `${habits.length} عادات`;
-            const c = document.getElementById('habits-full-list');
-            if (!habits.length) { c.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-4 opacity-50">لا توجد عادات — أضف واحدة!</div>`; return; }
-            c.innerHTML = habits.map(h => {
-                const hLogs = allLogs.filter(l => l.habit_id === h.id).map(l => l.on_date).sort();
-                const todayDone = hLogs.includes(today);
-                // Streak
-                let str = 0; let d = new Date(); while (true) { const ds = localDate(d); if (hLogs.includes(ds)) { str++; d.setDate(d.getDate() - 1); } else break; }
-                // Last 14 dots
-                let dots = ''; for (let i = 13; i >= 0; i--) { const dd = addDays(today, -i); dots += `<div class="dot ${hLogs.includes(dd) ? 'bg-primary' : 'bg-surface-container-highest'}"></div>`; }
-                return `<div class="bg-surface-container-high rounded-xl p-3 flex flex-col gap-2 hairline-border">
-          <div class="flex items-center gap-3">
-            <div class="flex items-center gap-3 flex-1 cursor-pointer" data-action="toggle-habit" data-id="${h.id}" data-val="${todayDone ? 'false' : 'true'}">
-              <div class="w-[30px] h-[30px] shrink-0 rounded-md ${todayDone ? 'bg-primary/20 border-primary' : 'bg-surface-container-highest border-outline-variant'} border flex items-center justify-center">${h.icon ? `<span class="text-sm">${h.icon}</span>` : `<span class="material-symbols-outlined text-[18px] ${todayDone ? 'text-primary' : 'text-on-surface-variant'}">${todayDone ? 'check' : 'radio_button_unchecked'}</span>`}</div>
-              <div class="flex flex-col flex-1"><span class="text-sm font-bold ${todayDone ? 'text-on-surface-variant line-through' : 'text-on-surface'}">${escHTML(h.name)}</span></div>
-            </div>
-            <span class="text-sm font-bold text-primary">${str} 🔥</span>
-            ${todayDone ? `<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1;">check_circle</span>` : `<div class="w-5 h-5 rounded-full border border-outline-variant cursor-pointer" data-action="toggle-habit" data-id="${h.id}" data-val="true"></div>`}
+      <!-- ─── TODAY ─── -->
+      <div id="p-today" class="pane on flex-col w-full">
+        <header class="relative w-full h-44 shrink-0 overflow-hidden rounded-b-2xl">
+          <div class="absolute inset-0" style="background:linear-gradient(160deg,#1b4763,var(--bg))">
+            <img src="./hero.png" alt="" class="w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
           </div>
-          <div class="dot-grid">${dots}</div>
-        </div>`;
-            }).join('');
-        }
+          <div class="absolute inset-0" style="background:linear-gradient(to bottom,transparent,var(--bg))"></div>
+          <div class="relative z-10 h-full flex flex-col justify-between p-4">
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="text-[13px] text-muted" id="greet">…</span>
+                <div class="display text-[26px] text-primary mt-0.5" id="uname">…</div>
+              </div>
+              <div class="flex gap-2">
+                <button data-act="go-settings" class="h-9 w-9 rounded-[11px] hair flex items-center justify-center text-primary bg-surface/60"><span class="material-symbols-outlined text-[18px]">settings</span></button>
+                <button data-act="logout" class="h-9 px-3 rounded-[11px] hair flex items-center justify-center text-primary text-[12px] bg-surface/60" data-t="logout">خروج</button>
+              </div>
+            </div>
+          </div>
+        </header>
 
-        // ═══════════════════════════════════════════
-        //  BRAINSTORM TAB
-        // ═══════════════════════════════════════════
-        async function loadBrainData() {
-            if (!uid() || !db) return;
-            const folders = await fetchAll("ds_note_folders");
-            const notes = await fetchAll("ds_notes");
-            // Folders
-            const fl = document.getElementById('brain-folders-list');
-            fl.innerHTML = `<button data-action="filter-folder" data-folder-id="" class="text-sm py-2 px-3 rounded-[11px] ${!state.currentFolderId ? 'bg-primary/10 text-primary hairline-border-active' : 'bg-surface-container-high text-on-surface-variant hairline-border'} hover:bg-primary/5 transition-colors">📁 الكل</button>` +
-                folders.map(f => `<button data-action="filter-folder" data-folder-id="${f.id}" class="text-sm py-2 px-3 rounded-[11px] ${state.currentFolderId === f.id ? 'bg-primary/10 text-primary hairline-border-active' : 'bg-surface-container-high text-on-surface-variant hairline-border'} hover:bg-primary/5 transition-colors flex items-center gap-2 group"><span>📁 ${escHTML(f.name)}</span><button data-action="delete-folder" data-id="${f.id}" class="text-error opacity-0 group-hover:opacity-100 hover:text-error"><span class="material-symbols-outlined text-[14px]">close</span></button></button>`).join('');
-            document.getElementById('brain-folder-name').textContent = state.currentFolderId ? folders.find(f => f.id === state.currentFolderId)?.name || 'الكل' : 'الكل';
-            // Notes
-            const filtered = state.currentFolderId ? notes.filter(n => n.folder_id === state.currentFolderId) : notes;
-            filtered.sort((a, b) => { if (a.pinned && !b.pinned) return -1; if (!a.pinned && b.pinned) return 1; return (b.updated_at?.seconds || 0) - (a.updated_at?.seconds || 0); });
-            const nl = document.getElementById('brain-notes-list');
-            if (!filtered.length) { nl.innerHTML = `<div class="text-on-surface-variant text-sm text-center py-4 opacity-50">لا توجد ملاحظات</div>`; }
-            else {
-                nl.innerHTML = filtered.map(n => `<div class="bg-surface-container-high rounded-xl p-3 hairline-border cursor-pointer flex items-start gap-3 group" data-action="open-note" data-id="${n.id}">
-        ${n.pinned ? '<span class="text-secondary text-sm mt-0.5">📌</span>' : ''}
-        <div class="flex-1 min-w-0"><div class="text-sm font-bold text-on-surface line-clamp-1">${escHTML(n.title || 'بدون عنوان')}</div><div class="text-[11px] text-on-surface-variant line-clamp-2 mt-1">${(n.body_html || '').replace(/<[^>]*>/g, '').slice(0, 80)}</div></div>
-        <button data-action="delete-note" data-id="${n.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100 shrink-0 mt-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
-      </div>`).join('');
-            }
-        }
+        <nav id="tabstrip" class="sticky top-0 z-30 w-full bg-surface/85 backdrop-blur border-b border-[var(--line)] px-2 py-2.5 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0"></nav>
 
-        function openNoteEditor(noteData) {
-            state.currentNoteId = noteData?.id || null;
-            document.getElementById('note-title-input').value = noteData?.title || '';
-            document.getElementById('note-body-editor').innerHTML = noteData?.body_html || '';
-            document.getElementById('note-editor-overlay').classList.remove('hidden');
-            document.getElementById('note-save-status').textContent = '';
-        }
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <p class="text-center display text-[16px] text-secondary/80" data-t="motto1">ميدانك اليوم.. كن سيد اللحظة</p>
 
-        async function saveCurrentNote() {
-            const title = document.getElementById('note-title-input').value.trim();
-            const body = document.getElementById('note-body-editor').innerHTML;
-            if (!title && !body.replace(/<[^>]*>/g, '').trim()) return;
-            await withBusyLock(async () => {
-                const data = { user_id: uid(), title: title || 'بدون عنوان', body_html: body, updated_at: serverTimestamp() };
-                if (state.currentNoteId) { await updateDoc(doc(db, "ds_notes", state.currentNoteId), data); }
-                else { data.folder_id = state.currentFolderId || null; data.pinned = false; data.created_at = serverTimestamp(); const ref = await addDoc(collection(db, "ds_notes"), data); state.currentNoteId = ref.id; }
-                document.getElementById('note-save-status').textContent = '✓ حُفظ';
-            });
-        }
+          <section id="overdue-box" class="hidden bg-surface2 rounded-xl p-4 flex flex-col gap-3 relative overflow-hidden" style="border:1px solid color-mix(in srgb,var(--secondary) 30%,transparent)">
+            <span class="text-[12px] font-bold text-secondary" data-t="overdue">⏳ متأخرة</span>
+            <div id="overdue-list" class="flex flex-col gap-3"></div>
+          </section>
 
-        // ═══════════════════════════════════════════
-        //  SETTINGS TAB
-        // ═══════════════════════════════════════════
-        async function loadSettingsData() {
-            if (!uid() || !db) return;
-            const sets = await fetchAll("ds_settings");
-            if (sets.length) { state.settings = sets[0]; state.settingsDocId = sets[0].id; }
-            document.getElementById('settings-name').value = state.settings.display_name || '';
-            document.getElementById('settings-recv-title').value = state.settings.recv_title || '';
-            document.getElementById('settings-leak-budget').value = state.settings.monthly_leak_budget || '';
-            document.getElementById('settings-cal').value = state.settings.cal_target || '';
-            document.getElementById('settings-protein').value = state.settings.protein_target || '';
-            document.getElementById('settings-water').value = state.settings.water_target_ml || '';
-            // Expense cats
-            const eCats = await fetchAll("ds_expense_categories");
-            document.getElementById('settings-expense-cats').innerHTML = eCats.map(c => `<div class="flex items-center gap-2 group"><span class="text-sm">${c.icon || '💳'}</span><span class="text-sm text-on-surface flex-1">${escHTML(c.name)}</span><button data-action="delete-expense-cat" data-id="${c.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[16px]">close</span></button></div>`).join('');
-            // Debt cats
-            const dCats = await fetchAll("ds_debt_categories");
-            document.getElementById('settings-debt-cats').innerHTML = dCats.map(c => `<div class="flex items-center gap-2 group"><span class="text-sm text-on-surface flex-1">${escHTML(c.name)}</span><button data-action="delete-debt-cat" data-id="${c.id}" class="text-on-surface-variant hover:text-error opacity-0 group-hover:opacity-100"><span class="material-symbols-outlined text-[16px]">close</span></button></div>`).join('');
-            // Apply lang/theme toggles
-            setLang(state.lang); setTheme(state.theme);
-        }
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <div class="flex justify-between items-end border-b border-[var(--line)] pb-2">
+              <h2 class="display text-[18px]" data-t="tasksToday">📋 مهام اليوم</h2>
+              <span class="text-[12px] text-muted" id="today-date">…</span>
+            </div>
+            <div id="task-list" class="flex flex-col gap-3"></div>
+            <form id="f-task" class="flex gap-2">
+              <input id="i-task" class="inp flex-1" data-t-ph="addTask" placeholder="أضف مهمة لليوم…" required maxlength="120">
+              <button class="btn btn-g" data-t="add">أضِف</button>
+            </form>
+          </section>
 
-        // ═══════════════════════════════════════════
-        //  EVENT DELEGATION
-        // ═══════════════════════════════════════════
-        document.addEventListener('click', async (e) => {
-            const btn = e.target.closest('[data-action]'); if (!btn) return;
-            const action = btn.getAttribute('data-action'), id = btn.getAttribute('data-id'), val = btn.getAttribute('data-val');
-            // Global
-            if (action === 'toggle-theme') { setTheme(state.theme === 'dark' ? 'light' : 'dark'); }
-            else if (action === 'toggle-lang') { setLang(state.lang === 'ar' ? 'en' : 'ar'); }
-            else if (action === 'switch-tab') { switchTab(btn.getAttribute('data-tab')); }
-            else if (action === 'toggle-settings') { switchTab('settings'); }
-            else if (action === 'back-settings' || action === 'back-from-pane') { switchTab(state.previousTab || 'today'); }
-            else if (action === 'logout') { confirmLogout(); }
-            else if (action === 'login-google') { handleGoogleLogin(); }
-            else if (action === 'set-lang') { setLang(val); }
-            else if (action === 'set-theme') { setTheme(val); }
-            // Today
-            else if (action === 'toggle-task') { await withBusyLock(async () => { await updateDoc(doc(db, "ds_tasks", id), { done: val === 'true' }); loadTodayData(); }); }
-            else if (action === 'delete-task') { if (confirm('حذف المهمة؟')) { await withBusyLock(async () => { await deleteDoc(doc(db, "ds_tasks", id)); loadTodayData(); }); } }
-            else if (action === 'toggle-habit') {
-                await withBusyLock(async () => {
-                    const today = localDate(); const habitId = btn.closest('[data-id]')?.getAttribute('data-id') || id; const isDone = btn.closest('[data-val]')?.getAttribute('data-val') || val;
-                    if (isDone === 'true') { await addDoc(collection(db, "ds_habit_logs"), { user_id: uid(), habit_id: habitId, on_date: today, created_at: serverTimestamp() }); }
-                    else { const q = query(collection(db, "ds_habit_logs"), where("user_id", "==", uid()), where("habit_id", "==", habitId), where("on_date", "==", today)); const snaps = await getDocs(q); for (const d of snaps.docs) await deleteDoc(doc(db, "ds_habit_logs", d.id)); }
-                    if (state.activeTab === 'habits') loadHabitsData(); else loadTodayData();
-                });
-            }
-            // Money
-            else if (action === 'add-debt') { const name = prompt('اسم الدين'); if (!name) return; const amount = prompt('المبلغ الإجمالي'); if (!amount) return; await addDoc(collection(db, "ds_debts"), { user_id: uid(), name, amount: Number(amount), active: true, created_at: serverTimestamp() }); loadMoneyData(); }
-            else if (action === 'pay-debt') { const amount = prompt('مبلغ الدفعة'); if (!amount) return; await addDoc(collection(db, "ds_payments"), { user_id: uid(), debt_id: id, amount: Number(amount), paid_on: localDate(), created_at: serverTimestamp() }); loadMoneyData(); }
-            else if (action === 'delete-debt') { if (confirm('حذف هذا الدين؟')) { await deleteDoc(doc(db, "ds_debts", id)); loadMoneyData(); } }
-            else if (action === 'add-receivable') { const name = prompt('اسم المستحق'); if (!name) return; const amount = prompt('المبلغ'); if (!amount) return; await addDoc(collection(db, "ds_receivables"), { user_id: uid(), name, amount: Number(amount), status: 'pending', created_at: serverTimestamp() }); loadMoneyData(); }
-            else if (action === 'toggle-recv') { await updateDoc(doc(db, "ds_receivables", id), { status: val }); loadMoneyData(); }
-            else if (action === 'delete-recv') { if (confirm('حذف؟')) { await deleteDoc(doc(db, "ds_receivables", id)); loadMoneyData(); } }
-            else if (action === 'delete-expense') { if (confirm('حذف المصروف؟')) { await deleteDoc(doc(db, "ds_expenses", id)); loadMoneyData(); } }
-            // Body
-            else if (action === 'toggle-workout') {
-                await withBusyLock(async () => {
-                    const wid = btn.getAttribute('data-workout-id');
-                    if (wid) { await deleteDoc(doc(db, "ds_workouts", wid)); }
-                    else { await addDoc(collection(db, "ds_workouts"), { user_id: uid(), on_date: localDate(), created_at: serverTimestamp() }); }
-                    loadBodyData();
-                });
-            }
-            // Brainstorm
-            else if (action === 'new-note') { openNoteEditor(null); }
-            else if (action === 'open-note') { const notes = await fetchAll("ds_notes"); const n = notes.find(x => x.id === id); if (n) openNoteEditor(n); }
-            else if (action === 'close-note') { await saveCurrentNote(); document.getElementById('note-editor-overlay').classList.add('hidden'); loadBrainData(); }
-            else if (action === 'save-note') { await saveCurrentNote(); }
-            else if (action === 'delete-note') { if (confirm('حذف الملاحظة؟')) { await deleteDoc(doc(db, "ds_notes", id)); loadBrainData(); } }
-            else if (action === 'delete-note-current') { if (state.currentNoteId && confirm('حذف الملاحظة؟')) { await deleteDoc(doc(db, "ds_notes", state.currentNoteId)); document.getElementById('note-editor-overlay').classList.add('hidden'); loadBrainData(); } }
-            else if (action === 'pin-note') { if (state.currentNoteId) { const notes = await fetchAll("ds_notes"); const n = notes.find(x => x.id === state.currentNoteId); if (n) await updateDoc(doc(db, "ds_notes", state.currentNoteId), { pinned: !n.pinned }); } }
-            else if (action === 'filter-folder') { state.currentFolderId = btn.getAttribute('data-folder-id') || null; loadBrainData(); }
-            else if (action === 'delete-folder') { if (confirm('حذف المجلد؟')) { await deleteDoc(doc(db, "ds_note_folders", id)); if (state.currentFolderId === id) state.currentFolderId = null; loadBrainData(); } }
-            // Settings
-            else if (action === 'save-profile') { if (state.settingsDocId) { await updateDoc(doc(db, "ds_settings", state.settingsDocId), { display_name: document.getElementById('settings-name').value, recv_title: document.getElementById('settings-recv-title').value }); showToast('تم الحفظ'); } }
-            else if (action === 'save-financial') { if (state.settingsDocId) { await updateDoc(doc(db, "ds_settings", state.settingsDocId), { monthly_leak_budget: Number(document.getElementById('settings-leak-budget').value) || 0 }); showToast('تم الحفظ'); } }
-            else if (action === 'save-nutrition') { if (state.settingsDocId) { await updateDoc(doc(db, "ds_settings", state.settingsDocId), { cal_target: Number(document.getElementById('settings-cal').value) || 0, protein_target: Number(document.getElementById('settings-protein').value) || 0, water_target_ml: Number(document.getElementById('settings-water').value) || 0 }); showToast('تم الحفظ'); } }
-            else if (action === 'delete-expense-cat') { if (confirm('حذف الفئة؟')) { await deleteDoc(doc(db, "ds_expense_categories", id)); loadSettingsData(); } }
-            else if (action === 'delete-debt-cat') { if (confirm('حذف الفئة؟')) { await deleteDoc(doc(db, "ds_debt_categories", id)); loadSettingsData(); } }
-        });
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="habitsToday">⚡ عاداتي اليوم</h2>
+            <div id="today-habits" class="flex flex-col gap-3"></div>
+          </section>
 
-        // Toolbar commands (contenteditable)
-        document.addEventListener('click', (e) => { const btn = e.target.closest('[data-cmd]'); if (!btn) return; const cmd = btn.getAttribute('data-cmd'), val = btn.getAttribute('data-val') || null; document.execCommand(cmd, false, val); });
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <div class="border-b border-[var(--line)] pb-2">
+              <h2 class="display text-[18px]" data-t="tomorrow">🌙 خطة بكرة</h2>
+              <span class="text-[12px] text-muted" data-t="tomorrowHint">اكتبها الليلة، تستقبلك الصبح</span>
+            </div>
+            <form id="f-tom" class="flex gap-2">
+              <input id="i-tom" class="inp flex-1" data-t-ph="addTom" placeholder="مهمة لبكرة…" required maxlength="120">
+              <button class="btn btn-g" data-t="add">أضِف</button>
+            </form>
+            <div id="tom-list" class="flex flex-col gap-3"></div>
+          </section>
+        </main>
+      </div>
 
-        // ─── FORMS ───
-        document.getElementById('form-add-task-today')?.addEventListener('submit', async (e) => { e.preventDefault(); const inp = document.getElementById('input-add-task-today'); const t = inp.value.trim(); if (!t) return; await withBusyLock(async () => { inp.disabled = true; await addDoc(collection(db, "ds_tasks"), { user_id: uid(), title: t, for_date: localDate(), done: false, created_at: serverTimestamp() }); inp.value = ''; inp.disabled = false; loadTodayData(); }); });
-        document.getElementById('form-tomorrow')?.addEventListener('submit', async (e) => { e.preventDefault(); const inp = document.getElementById('input-tomorrow'); const t = inp.value.trim(); if (!t) return; await withBusyLock(async () => { inp.disabled = true; await addDoc(collection(db, "ds_tasks"), { user_id: uid(), title: t, for_date: addDays(localDate(), 1), done: false, created_at: serverTimestamp() }); inp.value = ''; inp.disabled = false; loadTodayData(); }); });
-        document.getElementById('form-expense')?.addEventListener('submit', async (e) => { e.preventDefault(); const cat = document.getElementById('expense-cat-select').value; const amt = document.getElementById('expense-amount').value; if (!cat || !amt) return; await withBusyLock(async () => { await addDoc(collection(db, "ds_expenses"), { user_id: uid(), category_id: cat, amount: Number(amt), spent_on: localDate(), created_at: serverTimestamp() }); document.getElementById('expense-amount').value = ''; loadMoneyData(); }); });
-        document.getElementById('form-weight')?.addEventListener('submit', async (e) => {
-            e.preventDefault(); const kg = document.getElementById('input-weight').value; if (!kg) return; await withBusyLock(async () => {
-                const today = localDate(); const existing = await fetchAll("ds_weights", [where("on_date", "==", today)]);
-                if (existing.length) { await updateDoc(doc(db, "ds_weights", existing[0].id), { kg: Number(kg) }); }
-                else { await addDoc(collection(db, "ds_weights"), { user_id: uid(), on_date: today, kg: Number(kg), created_at: serverTimestamp() }); }
-                document.getElementById('input-weight').value = ''; loadBodyData();
-            });
-        });
-        document.getElementById('form-add-habit')?.addEventListener('submit', async (e) => { e.preventDefault(); const name = document.getElementById('input-new-habit').value.trim(); if (!name) return; const icon = document.getElementById('input-habit-icon').value.trim(); await withBusyLock(async () => { await addDoc(collection(db, "ds_habits"), { user_id: uid(), name, icon: icon || null, active: true, sort_order: 0, created_at: serverTimestamp() }); document.getElementById('input-new-habit').value = ''; document.getElementById('input-habit-icon').value = ''; loadHabitsData(); }); });
-        document.getElementById('form-add-folder')?.addEventListener('submit', async (e) => { e.preventDefault(); const name = document.getElementById('input-new-folder').value.trim(); if (!name) return; await withBusyLock(async () => { await addDoc(collection(db, "ds_note_folders"), { user_id: uid(), name, sort_order: 0, created_at: serverTimestamp() }); document.getElementById('input-new-folder').value = ''; loadBrainData(); }); });
-        document.getElementById('form-add-expense-cat')?.addEventListener('submit', async (e) => { e.preventDefault(); const name = document.getElementById('input-new-expense-cat').value.trim(); if (!name) return; const icon = document.getElementById('input-expense-cat-icon').value.trim(); await withBusyLock(async () => { await addDoc(collection(db, "ds_expense_categories"), { user_id: uid(), name, icon: icon || null, active: true, sort_order: 0, created_at: serverTimestamp() }); document.getElementById('input-new-expense-cat').value = ''; document.getElementById('input-expense-cat-icon').value = ''; loadSettingsData(); }); });
-        document.getElementById('form-add-debt-cat')?.addEventListener('submit', async (e) => { e.preventDefault(); const name = document.getElementById('input-new-debt-cat').value.trim(); if (!name) return; await withBusyLock(async () => { await addDoc(collection(db, "ds_debt_categories"), { user_id: uid(), name, count_in_total: true, sort_order: 0, created_at: serverTimestamp() }); document.getElementById('input-new-debt-cat').value = ''; loadSettingsData(); }); });
+      <!-- ─── MONEY ─── -->
+      <div id="p-money" class="pane flex-col w-full">
+        <div class="px-4 pt-4"><p class="display text-[16px] text-secondary/80 text-center" data-t="motto2">أموالك جنودك.. قُدها بصرامة</p></div>
+        <div class="grid grid-cols-3 gap-2 px-4 py-3">
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="m-debt">0</div><div class="text-[11px] text-muted mt-1" data-t="debtLeft">متبقي ديون</div></div>
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="m-recv">0</div><div class="text-[11px] text-muted mt-1" data-t="pending">مستحقات معلّقة</div></div>
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="m-month">0</div><div class="text-[11px] text-muted mt-1" data-t="monthSpend">مصاريف الشهر</div></div>
+        </div>
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="debts">🏦 الديون</h2>
+            <div id="debt-list" class="flex flex-col gap-3"></div>
+            <button class="btn btn-g w-full" data-act="add-debt" data-t="addDebt">+ إضافة دين</button>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="recvs">🧾 المستحقات</h2>
+            <div id="recv-list" class="flex flex-col gap-3"></div>
+            <button class="btn btn-g w-full" data-act="add-recv" data-t="addRecv">+ إضافة مستحق</button>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b border-[var(--line)] pb-2">
+              <h2 class="display text-[18px]" data-t="spend">💸 مصاريف اليوم</h2>
+              <span class="text-[12px] text-muted" id="budget-label"></span>
+            </div>
+            <div class="bar"><i id="budget-bar" style="width:0%;background:var(--primary)"></i></div>
+            <div class="flex justify-between text-[11px] text-muted"><span id="spend-today">0</span><span id="budget-val"></span></div>
+            <form id="f-exp" class="flex gap-2">
+              <select id="i-exp-cat" class="inp flex-1" required></select>
+              <input id="i-exp-amt" class="inp w-24" data-t-ph="amount" placeholder="المبلغ" type="number" step="0.01" min="0" required>
+              <button class="btn btn-p" data-t="log">سجّل</button>
+            </form>
+            <div id="exp-list" class="flex flex-col gap-2"></div>
+          </section>
+        </main>
+      </div>
 
-        // ─── BOOTSTRAP ───
-        document.addEventListener('DOMContentLoaded', () => {
-            applyTheme(); setLang(state.lang);
-            if (auth) {
-                onAuthStateChanged(auth, (user) => {
-                    if (user) { state.session = true; state.user = user; document.getElementById('login-screen').classList.remove('active'); document.getElementById('login-screen').classList.add('hidden'); document.getElementById('app-screen').classList.remove('hidden'); document.getElementById('app-screen').classList.add('active'); switchTab(state.activeTab); }
-                    else { document.getElementById('app-screen').classList.remove('active'); document.getElementById('app-screen').classList.add('hidden'); document.getElementById('login-screen').classList.remove('hidden'); document.getElementById('login-screen').classList.add('active'); }
-                });
-            }
-        });
-    </script>
+      <!-- ─── BODY ─── -->
+      <div id="p-body" class="pane flex-col w-full">
+        <div class="px-4 pt-4"><p class="display text-[16px] text-primary/80 text-center" data-t="motto3">جسدك درعك.. ابنِ كياناً لا يُقهر</p></div>
+        <div class="grid grid-cols-3 gap-2 px-4 py-3">
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="b-week">0</div><div class="text-[11px] text-muted mt-1" data-t="weekWork">تمارين الأسبوع</div></div>
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="b-streak">0</div><div class="text-[11px] text-muted mt-1" data-t="streak">أيام متتالية</div></div>
+          <div class="bg-bg hair rounded-xl p-3 text-center"><div class="display text-[20px]" id="b-weight">--</div><div class="text-[11px] text-muted mt-1" data-t="lastWeight">آخر وزن</div></div>
+        </div>
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="workout">🏋️ تمرين اليوم</h2>
+            <button id="btn-workout" class="btn btn-g w-full !py-3.5" data-act="workout">
+              <span class="material-symbols-outlined text-[18px]">fitness_center</span>
+              <span id="workout-txt" data-t="logWorkout">سجّلت تمريني اليوم</span>
+            </button>
+            <div class="flex flex-col items-center gap-2">
+              <div id="work-dots" class="dots justify-center"></div>
+              <span class="text-[11px] text-muted" data-t="last14">آخر ١٤ يوم</span>
+            </div>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="weight">⚖️ الوزن</h2>
+            <form id="f-weight" class="flex gap-2">
+              <input id="i-weight" class="inp flex-1" placeholder="82.5" type="number" step="0.1" min="20" max="400" required>
+              <button class="btn btn-g" data-t="save">حفظ</button>
+            </form>
+            <div id="weight-list" class="flex flex-col gap-2"></div>
+          </section>
+        </main>
+      </div>
+
+      <!-- ─── HABITS ─── -->
+      <div id="p-habits" class="pane flex-col w-full">
+        <div class="px-4 pt-4"><p class="display text-[16px] text-primary/80 text-center" data-t="motto4">الانضباط حرية.. أنت حصيلة ما تكرره</p></div>
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b border-[var(--line)] pb-2">
+              <h2 class="display text-[18px]" data-t="myHabits">🔥 عاداتي</h2>
+              <span class="text-[12px] text-muted" id="habit-count"></span>
+            </div>
+            <div id="habit-list" class="flex flex-col gap-3"></div>
+            <form id="f-habit" class="flex gap-2">
+              <input id="i-habit" class="inp flex-1" data-t-ph="newHabit" placeholder="عادة جديدة…" required maxlength="60">
+              <input id="i-habit-icon" class="inp w-16 text-center" placeholder="🎯" maxlength="2">
+              <button class="btn btn-g" data-t="add">أضِف</button>
+            </form>
+          </section>
+        </main>
+      </div>
+
+      <!-- ─── NOTES ─── -->
+      <div id="p-notes" class="pane flex-col w-full">
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <h2 class="display text-[18px] border-b border-[var(--line)] pb-2" data-t="folders">📂 المجلدات</h2>
+            <div id="folder-list" class="flex flex-wrap gap-2"></div>
+            <form id="f-folder" class="flex gap-2">
+              <input id="i-folder" class="inp flex-1" data-t-ph="newFolder" placeholder="مجلد جديد…" required maxlength="40">
+              <button class="btn btn-g" data-t="add">أضِف</button>
+            </form>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-4">
+            <div class="flex justify-between items-center border-b border-[var(--line)] pb-2">
+              <h2 class="display text-[18px]" data-t="notes">📝 الملاحظات</h2>
+              <span class="text-[12px] text-muted" id="folder-name"></span>
+            </div>
+            <div id="note-list" class="flex flex-col gap-3"></div>
+            <button class="btn btn-g w-full" data-act="new-note" data-t="newNote">+ ملاحظة جديدة</button>
+          </section>
+        </main>
+
+        <div id="note-editor" class="hidden fixed inset-0 z-[150] bg-surface flex-col w-full max-w-app mx-auto">
+          <header class="flex justify-between items-center px-3 h-14 border-b border-[var(--line)] shrink-0 gap-2">
+            <div class="flex gap-1">
+              <button data-act="note-del" class="p-2 text-danger"><span class="material-symbols-outlined text-[20px]">delete</span></button>
+              <button data-act="note-pin" id="pin-btn" class="p-2 text-muted"><span class="material-symbols-outlined text-[20px]">push_pin</span></button>
+            </div>
+            <input id="note-title" class="bg-transparent border-0 text-center flex-1 outline-none display text-[17px] min-w-0" data-t-ph="noteTitle" placeholder="عنوان الملاحظة">
+            <button data-act="note-close" class="p-2 text-primary"><span class="material-symbols-outlined rtl:rotate-180">arrow_back</span></button>
+          </header>
+          <div class="flex items-center gap-1 px-3 py-2 border-b border-[var(--line)] bg-bg shrink-0 overflow-x-auto no-scrollbar">
+            <button data-cmd="formatBlock" data-val="H2" class="px-2.5 py-1 rounded text-[13px] text-muted hover:bg-surface2">H2</button>
+            <button data-cmd="bold" class="px-2.5 py-1 rounded font-bold text-[13px] text-muted hover:bg-surface2">B</button>
+            <button data-cmd="italic" class="px-2.5 py-1 rounded italic text-[13px] text-muted hover:bg-surface2">I</button>
+            <button data-cmd="strikeThrough" class="px-2.5 py-1 rounded line-through text-[13px] text-muted hover:bg-surface2">S</button>
+            <button data-cmd="insertUnorderedList" class="px-2 py-1 rounded text-muted hover:bg-surface2"><span class="material-symbols-outlined text-[17px]">format_list_bulleted</span></button>
+            <button data-cmd="insertOrderedList" class="px-2 py-1 rounded text-muted hover:bg-surface2"><span class="material-symbols-outlined text-[17px]">format_list_numbered</span></button>
+          </div>
+          <div id="note-body" class="editor flex-1 overflow-y-auto" contenteditable="true" data-ph="ابدأ الكتابة…"></div>
+          <div class="flex items-center justify-between px-4 py-2.5 border-t border-[var(--line)] bg-bg shrink-0">
+            <span class="text-[11px] text-muted" id="save-state"></span>
+            <button class="btn btn-g !py-1.5 !px-4" data-act="note-save" data-t="save">حفظ</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── SETTINGS ─── -->
+      <div id="p-settings" class="pane flex-col w-full">
+        <main class="flex-1 p-4 flex flex-col gap-5 pb-8">
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-3">
+            <h3 class="display text-[17px]" data-t="language">🌐 اللغة</h3>
+            <div class="flex gap-2">
+              <button data-act="set-lang" data-val="ar" id="lang-ar" class="btn btn-g flex-1">العربية</button>
+              <button data-act="set-lang" data-val="en" id="lang-en" class="btn btn-g flex-1">English</button>
+            </div>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-3">
+            <h3 class="display text-[17px]" data-t="theme">🎨 المظهر</h3>
+            <div class="flex gap-2">
+              <button data-act="set-theme" data-val="dark" id="th-dark" class="btn btn-g flex-1" data-t="dark">داكن 🌙</button>
+              <button data-act="set-theme" data-val="light" id="th-light" class="btn btn-g flex-1" data-t="light">فاتح ☀️</button>
+            </div>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-3">
+            <h3 class="display text-[17px]" data-t="account">👤 حسابي</h3>
+            <label class="text-[11px] text-muted" data-t="name">الاسم</label>
+            <input id="set-name" class="inp" maxlength="40">
+            <button class="btn btn-p" data-act="save-profile" data-t="save">حفظ</button>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-3">
+            <h3 class="display text-[17px]" data-t="moneySet">💰 الإعدادات المالية</h3>
+            <label class="text-[11px] text-muted" data-t="dailyLimit">حد المصاريف اليومية (ريال)</label>
+            <input id="set-budget" class="inp" type="number" min="0" placeholder="200">
+            <button class="btn btn-p" data-act="save-budget" data-t="save">حفظ</button>
+          </section>
+          <section class="bg-bg hair rounded-xl p-4 flex flex-col gap-3">
+            <h3 class="display text-[17px]" data-t="expCats">💳 فئات المصاريف</h3>
+            <div id="cat-list" class="flex flex-col gap-2"></div>
+            <form id="f-cat" class="flex gap-2">
+              <input id="i-cat" class="inp flex-1" data-t-ph="newCat" placeholder="فئة جديدة…" required maxlength="30">
+              <input id="i-cat-icon" class="inp w-14 text-center" placeholder="☕" maxlength="2">
+              <button class="btn btn-g">+</button>
+            </form>
+          </section>
+          <button class="btn btn-d w-full !py-3.5" data-act="logout" data-t="logoutFull">تسجيل الخروج</button>
+          <p class="text-center text-[11px] text-muted pb-4">DaObserver · <span data-t="beta2">نسخة تجريبية</span></p>
+        </main>
+      </div>
+
+    </div>
+
+    <nav id="botnav" class="fixed bottom-0 w-full max-w-app z-40 bg-surface/92 backdrop-blur border-t border-[var(--line)] flex justify-around items-center h-[76px] px-1" style="box-shadow:0 -4px 24px var(--shadow);padding-bottom:env(safe-area-inset-bottom)"></nav>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, getDoc, addDoc, updateDoc,
+         deleteDoc, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:"AIzaSyDeLwT2woAwE68rX9HrkLqsADAh6E7985M",
+  authDomain:"daobserver-mvp.firebaseapp.com",
+  projectId:"daobserver-mvp",
+  storageBucket:"daobserver-mvp.firebasestorage.app",
+  messagingSenderId:"962209894285",
+  appId:"1:962209894285:web:40405309a4b686678937c4"
+};
+
+let auth = null, db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app); db = getFirestore(app);
+} catch (e) { console.error("Firebase init failed", e); }
+
+/* ══════════════ i18n ══════════════ */
+const I18N = {
+ar:{
+ tagline:"عينك على يومك 👁️", beta:"⚠️ نسخة تجريبية. لا تُدخل معلومات حساسة.",
+ signin:"تسجيل الدخول بواسطة جوجل", backhome:"← العودة للصفحة الرئيسية",
+ logout:"خروج", logoutFull:"تسجيل الخروج", add:"أضِف", save:"حفظ", log:"سجّل",
+ cancel:"إلغاء", del:"حذف", confirm:"تأكيد",
+ motto1:"ميدانك اليوم.. كن سيد اللحظة", motto2:"أموالك جنودك.. قُدها بصرامة",
+ motto3:"جسدك درعك.. ابنِ كياناً لا يُقهر", motto4:"الانضباط حرية.. أنت حصيلة ما تكرره",
+ overdue:"⏳ متأخرة", tasksToday:"📋 مهام اليوم", addTask:"أضف مهمة لليوم…",
+ habitsToday:"⚡ عاداتي اليوم", tomorrow:"🌙 خطة بكرة", tomorrowHint:"اكتبها الليلة، تستقبلك الصبح",
+ addTom:"مهمة لبكرة…", noTasks:"لا توجد مهام", noHabits:"لا توجد عادات — أضفها من تبويب العادات",
+ debtLeft:"متبقي ديون", pending:"مستحقات معلّقة", monthSpend:"مصاريف الشهر",
+ debts:"🏦 الديون", addDebt:"+ إضافة دين", recvs:"🧾 المستحقات", addRecv:"+ إضافة مستحق",
+ spend:"💸 مصاريف اليوم", amount:"المبلغ", noDebts:"لا توجد ديون", noRecvs:"لا توجد مستحقات",
+ noExp:"لا مصاريف اليوم", limit:"الحد", paid:"مدفوع", unpaid:"معلّق", remaining:"متبقي من",
+ weekWork:"تمارين الأسبوع", streak:"أيام متتالية", lastWeight:"آخر وزن",
+ workout:"🏋️ تمرين اليوم", logWorkout:"سجّلت تمريني اليوم", didWorkout:"✅ سجّلت تمريني اليوم",
+ last14:"آخر ١٤ يوم", weight:"⚖️ الوزن", noWeight:"لا سجلات وزن",
+ myHabits:"🔥 عاداتي", newHabit:"عادة جديدة…", habitsN:"عادات",
+ folders:"📂 المجلدات", newFolder:"مجلد جديد…", notes:"📝 الملاحظات", newNote:"+ ملاحظة جديدة",
+ all:"الكل", noNotes:"لا توجد ملاحظات", noteTitle:"عنوان الملاحظة", untitled:"بدون عنوان",
+ language:"🌐 اللغة", theme:"🎨 المظهر", dark:"داكن 🌙", light:"فاتح ☀️",
+ account:"👤 حسابي", name:"الاسم", moneySet:"💰 الإعدادات المالية",
+ dailyLimit:"حد المصاريف اليومية (ريال)", expCats:"💳 فئات المصاريف", newCat:"فئة جديدة…",
+ beta2:"نسخة تجريبية", settings:"⚙️ الإعدادات",
+ tToday:"☀️ اليوم", tMoney:"💰 المال", tBody:"💪 الجسم", tHabits:"🔥 العادات", tNotes:"📝 العصف",
+ nToday:"اليوم", nMoney:"المال", nBody:"الجسم", nHabits:"العادات", nNotes:"العصف",
+ morning:"صباح الخير ☀️", evening:"مساء الخير 🌙", friend:"صديقي",
+ saved:"تم الحفظ", deleted:"تم الحذف", signedIn:"تم تسجيل الدخول",
+ errLoad:"تعذّر تحميل البيانات. تحقق من اتصالك.",
+ errSave:"تعذّر الحفظ. حاول مرة أخرى.",
+ errPerm:"لا تملك صلاحية الوصول. راجع قواعد قاعدة البيانات.",
+ errNum:"أدخل رقماً صحيحاً",
+ askLogout:"هل أنت متأكد من تسجيل الخروج؟",
+ delTask:"حذف هذه المهمة؟", delHabit:"حذف هذه العادة وكل سجلاتها؟",
+ delDebt:"حذف هذا الدين؟", delNote:"حذف هذه الملاحظة؟", delFolder:"حذف هذا المجلد؟",
+ delCat:"حذف هذه الفئة؟", delGeneric:"لا يمكن التراجع عن هذا الإجراء.",
+ newDebt:"دين جديد", debtName:"اسم الدين", totalAmount:"المبلغ الإجمالي",
+ payment:"تسجيل دفعة", payAmount:"مبلغ الدفعة",
+ newRecv:"مستحق جديد", recvName:"اسم المستحق",
+ savedNote:"✓ حُفظ", saving:"…يحفظ", noCats:"أضف فئة من الإعدادات أولاً"
+},
+en:{
+ tagline:"Your eye on your day 👁️", beta:"⚠️ Beta. Don't enter sensitive information.",
+ signin:"Sign in with Google", backhome:"← Back to home",
+ logout:"Sign out", logoutFull:"Sign out", add:"Add", save:"Save", log:"Log",
+ cancel:"Cancel", del:"Delete", confirm:"Confirm",
+ motto1:"Today is your field. Own the moment.", motto2:"Your money is your army. Command it.",
+ motto3:"Your body is your armour. Build it.", motto4:"Discipline is freedom. You are what you repeat.",
+ overdue:"⏳ Overdue", tasksToday:"📋 Today's tasks", addTask:"Add a task for today…",
+ habitsToday:"⚡ Today's habits", tomorrow:"🌙 Tomorrow's plan", tomorrowHint:"Write it tonight, meet it in the morning",
+ addTom:"A task for tomorrow…", noTasks:"No tasks", noHabits:"No habits yet — add one in the Habits tab",
+ debtLeft:"Debt left", pending:"Pending", monthSpend:"This month",
+ debts:"🏦 Debts", addDebt:"+ Add debt", recvs:"🧾 Receivables", addRecv:"+ Add receivable",
+ spend:"💸 Today's spending", amount:"Amount", noDebts:"No debts", noRecvs:"No receivables",
+ noExp:"Nothing spent today", limit:"Limit", paid:"Paid", unpaid:"Pending", remaining:"left of",
+ weekWork:"This week", streak:"Day streak", lastWeight:"Last weight",
+ workout:"🏋️ Today's workout", logWorkout:"Log today's workout", didWorkout:"✅ Workout logged",
+ last14:"Last 14 days", weight:"⚖️ Weight", noWeight:"No weight entries",
+ myHabits:"🔥 My habits", newHabit:"New habit…", habitsN:"habits",
+ folders:"📂 Folders", newFolder:"New folder…", notes:"📝 Notes", newNote:"+ New note",
+ all:"All", noNotes:"No notes", noteTitle:"Note title", untitled:"Untitled",
+ language:"🌐 Language", theme:"🎨 Appearance", dark:"Dark 🌙", light:"Light ☀️",
+ account:"👤 Account", name:"Name", moneySet:"💰 Money settings",
+ dailyLimit:"Daily spending limit (SAR)", expCats:"💳 Expense categories", newCat:"New category…",
+ beta2:"Beta", settings:"⚙️ Settings",
+ tToday:"☀️ Today", tMoney:"💰 Money", tBody:"💪 Body", tHabits:"🔥 Habits", tNotes:"📝 Notes",
+ nToday:"Today", nMoney:"Money", nBody:"Body", nHabits:"Habits", nNotes:"Notes",
+ morning:"Good morning ☀️", evening:"Good evening 🌙", friend:"friend",
+ saved:"Saved", deleted:"Deleted", signedIn:"Signed in",
+ errLoad:"Couldn't load your data. Check your connection.",
+ errSave:"Couldn't save. Try again.",
+ errPerm:"You don't have access. Check your database rules.",
+ errNum:"Enter a valid number",
+ askLogout:"Sign out of DaObserver?",
+ delTask:"Delete this task?", delHabit:"Delete this habit and all its history?",
+ delDebt:"Delete this debt?", delNote:"Delete this note?", delFolder:"Delete this folder?",
+ delCat:"Delete this category?", delGeneric:"This can't be undone.",
+ newDebt:"New debt", debtName:"Debt name", totalAmount:"Total amount",
+ payment:"Log a payment", payAmount:"Payment amount",
+ newRecv:"New receivable", recvName:"Receivable name",
+ savedNote:"✓ Saved", saving:"Saving…", noCats:"Add a category in Settings first"
+}};
+
+const S = {
+  lang: load("lang","ar"), theme: load("theme","dark"),
+  tab: load("tab","today"), prevTab: "today",
+  user: null, settings: {}, folderId: null, noteId: null,
+  cache: {}, busy: false
+};
+function load(k,d){ try { return localStorage.getItem("do_"+k) || d; } catch { return d; } }
+function save(k,v){ try { localStorage.setItem("do_"+k,v); } catch {} }
+const t = k => (I18N[S.lang] && I18N[S.lang][k]) || (I18N.ar[k]) || k;
+
+/* ══════════════ helpers ══════════════ */
+const $  = s => document.querySelector(s);
+const $$ = s => [...document.querySelectorAll(s)];
+const uid = () => S.user?.uid;
+
+function dstr(d = new Date()) {
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+}
+function shift(base, n) { const d = new Date(base); d.setDate(d.getDate()+n); return dstr(d); }
+function esc(s) { const d = document.createElement("div"); d.textContent = s ?? ""; return d.innerHTML; }
+function num(v) { const n = Number(String(v ?? "").trim()); return Number.isFinite(n) && n >= 0 ? n : null; }
+function money(n) { return Number(n||0).toLocaleString(S.lang === "ar" ? "ar-EG" : "en-US"); }
+
+function toast(msg, kind = "ok") {
+  const el = document.createElement("div");
+  el.className = `toast ${kind}`;
+  el.innerHTML = `<span class="material-symbols-outlined text-[18px]" style="color:var(--${kind==="err"?"danger":"success"})">${kind==="err"?"error":"check_circle"}</span><span>${esc(msg)}</span>`;
+  $("#toasts").appendChild(el);
+  setTimeout(() => { el.classList.add("out"); setTimeout(() => el.remove(), 240); }, 2800);
+}
+
+/* Turns a Firestore error into something a person can act on, instead of
+   leaving a skeleton spinning forever with the reason only in the console. */
+function fail(e, fallbackKey = "errLoad") {
+  console.error(e);
+  const code = e?.code || "";
+  if (code.includes("permission-denied")) return toast(t("errPerm"), "err");
+  if (code.includes("unavailable") || code.includes("network")) return toast(t("errLoad"), "err");
+  toast(t(fallbackKey), "err");
+}
+
+let lock = false;
+async function once(fn) {
+  if (lock) return;
+  lock = true;
+  try { return await fn(); }
+  catch (e) { fail(e, "errSave"); }
+  finally { lock = false; }
+}
+
+/* ══════════════ modal (replaces prompt/confirm) ══════════════ */
+let modalResolve = null;
+function closeModal(val) {
+  $("#modal-root").classList.remove("on");
+  if (modalResolve) { modalResolve(val); modalResolve = null; }
+}
+function ask({ title, msg = "", fields = [], okText, danger = false }) {
+  return new Promise(resolve => {
+    modalResolve = resolve;
+    $("#modal-title").textContent = title;
+    $("#modal-msg").textContent = msg;
+    $("#modal-msg").style.display = msg ? "" : "none";
+    const box = $("#modal-fields");
+    box.innerHTML = fields.map((f,i) =>
+      `<div><label class="text-[11px] text-muted block mb-1.5">${esc(f.label)}</label>
+       <input class="inp" data-fi="${i}" type="${f.type||"text"}"
+              ${f.type==="number"?'step="0.01" min="0" inputmode="decimal"':""}
+              maxlength="${f.max||80}" placeholder="${esc(f.ph||"")}" value="${esc(f.value||"")}"></div>`
+    ).join("");
+    box.style.display = fields.length ? "" : "none";
+    const ok = $("#modal-ok");
+    ok.textContent = okText || t("confirm");
+    ok.className = "btn flex-1 " + (danger ? "btn-d" : "btn-p");
+    $("#modal-cancel").textContent = t("cancel");
+    $("#modal-root").classList.add("on");
+    setTimeout(() => box.querySelector("input")?.focus(), 60);
+  });
+}
+async function confirmAsk(titleKey) {
+  return await ask({ title: t(titleKey), msg: t("delGeneric"), okText: t("del"), danger: true }) !== null;
+}
+$("#modal-ok").addEventListener("click", () => {
+  const inputs = $$("#modal-fields input");
+  closeModal(inputs.length ? inputs.map(i => i.value.trim()) : []);
+});
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && $("#modal-root").classList.contains("on")) closeModal(null);
+  if (e.key === "Enter" && $("#modal-root").classList.contains("on")) $("#modal-ok").click();
+});
+
+/* ══════════════ data layer ══════════════ */
+/* Collections are cached per session, so switching tabs doesn't refetch
+   everything. invalidate() drops a collection after a write. */
+async function all(col) {
+  if (S.cache[col]) return S.cache[col];
+  const snap = await getDocs(query(collection(db, col), where("user_id","==",uid())));
+  S.cache[col] = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  return S.cache[col];
+}
+function invalidate(...cols) { cols.forEach(c => delete S.cache[c]); }
+
+async function loadSettings() {
+  const ref = doc(db, "ds_settings", uid());   // stable ID — no duplicate docs
+  const snap = await getDoc(ref);
+  if (snap.exists()) S.settings = snap.data();
+  else {
+    S.settings = { user_id: uid(), display_name: S.user.displayName || t("friend") };
+    await setDoc(ref, { ...S.settings, created_at: serverTimestamp() });
+  }
+}
+async function patchSettings(patch) {
+  await setDoc(doc(db, "ds_settings", uid()), { user_id: uid(), ...patch }, { merge: true });
+  Object.assign(S.settings, patch);
+}
+
+/* Streak that tolerates "haven't logged yet today".
+   The old version restarted from zero every morning. */
+function streakOf(dateSet) {
+  const today = dstr();
+  const cur = new Date();
+  if (!dateSet.has(today)) cur.setDate(cur.getDate() - 1);
+  let n = 0;
+  while (dateSet.has(dstr(cur))) { n++; cur.setDate(cur.getDate() - 1); }
+  return n;
+}
+function dotRow(dateSet, days = 14) {
+  let h = "";
+  for (let i = days - 1; i >= 0; i--) {
+    const d = shift(dstr(), -i);
+    h += `<div class="dot ${dateSet.has(d) ? "f" : ""}" title="${d}"></div>`;
+  }
+  return h;
+}
+const skel = (n = 3) => Array.from({length:n}, () =>
+  `<div class="flex items-center gap-3"><div class="sk w-[26px] h-[26px]"></div><div class="sk h-3 flex-1"></div></div>`).join("");
+const empty = key => `<p class="text-[13px] text-muted text-center py-3 opacity-70">${t(key)}</p>`;
+
+/* ══════════════ theme + language ══════════════ */
+function applyTheme(v) {
+  S.theme = v; save("theme", v);
+  document.documentElement.classList.toggle("light", v === "light");
+  $("#btn-theme-flip").textContent = v === "dark" ? "☀️" : "🌙";
+  $("#th-dark")?.classList.toggle("btn-p", v === "dark");
+  $("#th-dark")?.classList.toggle("btn-g", v !== "dark");
+  $("#th-light")?.classList.toggle("btn-p", v === "light");
+  $("#th-light")?.classList.toggle("btn-g", v !== "light");
+  document.querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", v === "light" ? "#f1f5f9" : "#0f172a");
+}
+function applyLang(v) {
+  S.lang = v; save("lang", v);
+  document.documentElement.lang = v;
+  document.documentElement.dir = v === "ar" ? "rtl" : "ltr";
+  $$("[data-t]").forEach(el => el.textContent = t(el.dataset.t));
+  $$("[data-t-ph]").forEach(el => el.placeholder = t(el.dataset.tPh));
+  $("#btn-lang-flip").textContent = v === "ar" ? "EN" : "ع";
+  $("#lang-ar")?.classList.toggle("btn-p", v === "ar");
+  $("#lang-ar")?.classList.toggle("btn-g", v !== "ar");
+  $("#lang-en")?.classList.toggle("btn-p", v === "en");
+  $("#lang-en")?.classList.toggle("btn-g", v !== "en");
+  buildNav(); buildStrip();
+  if (S.user) renderTab(S.tab);
+}
+
+/* ══════════════ navigation ══════════════ */
+const TABS = [
+  { id:"today",  icon:"dashboard",     k:"nToday", s:"tToday" },
+  { id:"money",  icon:"payments",      k:"nMoney", s:"tMoney" },
+  { id:"body",   icon:"monitor_heart", k:"nBody",  s:"tBody"  },
+  { id:"habits", icon:"checklist",     k:"nHabits",s:"tHabits"},
+  { id:"notes",  icon:"psychology",    k:"nNotes", s:"tNotes" }
+];
+function buildNav() {
+  $("#botnav").innerHTML = TABS.map(x => `
+    <button class="flex flex-col items-center justify-center gap-0.5 p-2 rounded-lg transition-colors ${x.id===S.tab?"text-primary":"text-muted"}"
+            data-act="tab" data-tab="${x.id}">
+      <span class="material-symbols-outlined text-[22px]" style="font-variation-settings:'FILL' ${x.id===S.tab?1:0}">${x.icon}</span>
+      <span class="text-[11px] font-medium">${t(x.k)}</span>
+    </button>`).join("");
+}
+function buildStrip() {
+  $("#tabstrip").innerHTML = TABS.map(x => `
+    <button class="px-3 py-1.5 rounded-full whitespace-nowrap text-[13px] font-medium transition-colors ${x.id===S.tab?"hair-a text-primary":"text-muted"}"
+            style="${x.id===S.tab?"background:color-mix(in srgb,var(--primary) 12%,transparent)":""}"
+            data-act="tab" data-tab="${x.id}">${t(x.s)}</button>`).join("");
+}
+const ORDER = ["today","money","body","habits","notes","settings"];
+function go(tab) {
+  const dir = ORDER.indexOf(tab) > ORDER.indexOf(S.tab) ? "sl" : "sr";
+  if (tab !== "settings") { S.prevTab = S.tab; S.tab = tab; save("tab", tab); }
+  $$(".pane").forEach(p => p.classList.remove("on","sl","sr"));
+  const pane = $("#p-" + tab);
+  if (pane) { pane.classList.add("on", dir); }
+  $("#topbar").classList.toggle("hidden", tab === "today");
+  $("#botnav").classList.toggle("hidden", tab === "settings");
+  $("#topbar-title").textContent = tab === "settings" ? t("settings") : "DaObserver";
+  buildNav(); buildStrip();
+  window.scrollTo({ top: 0, behavior: "instant" });
+  renderTab(tab);
+}
+function renderTab(tab) {
+  ({ today: rToday, money: rMoney, body: rBody, habits: rHabits,
+     notes: rNotes, settings: rSettings }[tab] || (()=>{}))();
+}
+
+/* ══════════════ TODAY ══════════════ */
+async function rToday() {
+  $("#task-list").innerHTML = skel(3);
+  $("#today-habits").innerHTML = skel(2);
+  const h = new Date().getHours();
+  $("#greet").textContent = h < 12 ? t("morning") : t("evening");
+  $("#today-date").textContent = new Intl.DateTimeFormat(S.lang==="ar"?"ar-SA":"en-GB",
+    { day:"numeric", month:"long" }).format(new Date());
+  try {
+    if (!S.settings.display_name) await loadSettings();
+    $("#uname").textContent = S.settings.display_name || t("friend");
+
+    const today = dstr(), tom = shift(today, 1);
+    const [tasks, habits, logs] = await Promise.all([
+      all("ds_tasks"), all("ds_habits"), all("ds_habit_logs")
+    ]);
+    const done = new Set(logs.filter(l => l.on_date === today).map(l => l.habit_id));
+
+    drawTasks(tasks.filter(x => x.for_date === today), "#task-list", false);
+    drawTasks(tasks.filter(x => x.for_date === tom),   "#tom-list", true);
+
+    const late = tasks.filter(x => x.for_date < today && !x.done);
+    $("#overdue-box").classList.toggle("hidden", !late.length);
+    $("#overdue-list").innerHTML = late.map(x => `
+      <div class="flex items-center gap-3">
+        <button data-act="task" data-id="${x.id}" data-val="1"
+                class="w-[26px] h-[26px] shrink-0 rounded-md" style="border:1px solid color-mix(in srgb,var(--secondary) 55%,transparent)"></button>
+        <span class="text-[14px] flex-1 truncate">${esc(x.title)}</span>
+        <span class="text-[10px] px-2 py-0.5 rounded text-secondary" style="background:color-mix(in srgb,var(--secondary) 18%,transparent)">${x.for_date}</span>
+      </div>`).join("");
+
+    const live = habits.filter(x => x.active !== false);
+    $("#today-habits").innerHTML = live.length ? live.map(x => {
+      const on = done.has(x.id);
+      return `<div class="flex items-center gap-3 cursor-pointer" data-act="habit" data-id="${x.id}" data-val="${on?0:1}">
+        <div class="w-[30px] h-[30px] shrink-0 rounded-md flex items-center justify-center ${on?"hair-a":"hair"}"
+             style="background:${on?"color-mix(in srgb,var(--primary) 18%,transparent)":"var(--surface-2)"}">
+          ${x.icon ? `<span class="text-[15px]">${esc(x.icon)}</span>`
+                   : `<span class="material-symbols-outlined text-[18px] ${on?"text-primary":"text-muted"}">${on?"check":"radio_button_unchecked"}</span>`}
+        </div>
+        <span class="text-[14px] flex-1 ${on?"text-muted line-through":""}">${esc(x.name)}</span>
+        ${on ? `<span class="material-symbols-outlined text-primary text-[20px]" style="font-variation-settings:'FILL' 1">check_circle</span>`
+             : `<div class="w-5 h-5 rounded-full hair"></div>`}
+      </div>`;
+    }).join("") : empty("noHabits");
+  } catch (e) {
+    fail(e);
+    $("#task-list").innerHTML = empty("errLoad");
+    $("#today-habits").innerHTML = "";
+  }
+}
+function drawTasks(list, sel, isTom) {
+  const el = $(sel);
+  if (!list.length) { el.innerHTML = empty("noTasks"); return; }
+  el.innerHTML = list.map(x => isTom ? `
+    <div class="row flex items-center gap-3 opacity-75" data-row="${x.id}">
+      <div class="w-1.5 h-1.5 rounded-full shrink-0" style="background:var(--muted)"></div>
+      <span class="text-[14px] flex-1 truncate">${esc(x.title)}</span>
+      <button data-act="task-del" data-id="${x.id}" class="text-muted p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+    </div>` : `
+    <div class="row flex items-center gap-3" data-row="${x.id}">
+      <button data-act="task" data-id="${x.id}" data-val="${x.done?0:1}"
+              class="w-[26px] h-[26px] shrink-0 rounded-md flex items-center justify-center ${x.done?"hair-a":"hair"}"
+              style="background:${x.done?"color-mix(in srgb,var(--primary) 20%,transparent)":"transparent"}">
+        ${x.done?`<span class="material-symbols-outlined text-[15px] text-primary" style="font-variation-settings:'FILL' 1">check</span>`:""}
+      </button>
+      <span class="text-[14px] flex-1 truncate ${x.done?"text-muted line-through":""}">${esc(x.title)}</span>
+      <button data-act="task-del" data-id="${x.id}" class="text-muted p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+    </div>`).join("");
+}
+
+/* ══════════════ MONEY ══════════════ */
+async function rMoney() {
+  $("#debt-list").innerHTML = skel(2);
+  try {
+    if (!S.settings.display_name) await loadSettings();
+    const [debts, pays, recvs, exps, cats] = await Promise.all([
+      all("ds_debts"), all("ds_payments"), all("ds_receivables"),
+      all("ds_expenses"), all("ds_expense_categories")
+    ]);
+    const live = debts.filter(d => d.active !== false);
+    const liveCats = cats.filter(c => c.active !== false);
+    const today = dstr(), month = today.slice(0,7);
+
+    let owed = 0;
+    live.forEach(d => {
+      const paid = pays.filter(p => p.debt_id === d.id).reduce((s,p) => s + (num(p.amount)||0), 0);
+      owed += Math.max(0, (num(d.amount)||0) - paid);
+    });
+    $("#m-debt").textContent  = money(owed);
+    $("#m-recv").textContent  = recvs.filter(r => r.status !== "paid").length;
+    $("#m-month").textContent = money(exps.filter(e => (e.spent_on||"").startsWith(month))
+                                          .reduce((s,e) => s + (num(e.amount)||0), 0));
+
+    $("#debt-list").innerHTML = live.length ? live.map(d => {
+      const total = num(d.amount) || 0;
+      const paid  = pays.filter(p => p.debt_id === d.id).reduce((s,p) => s + (num(p.amount)||0), 0);
+      const pct   = total ? Math.min(100, Math.round(paid/total*100)) : 0;
+      return `<div class="bg-surface2 rounded-xl p-3 flex flex-col gap-2 hair">
+        <div class="flex justify-between items-start gap-2">
+          <div class="min-w-0">
+            <div class="text-[14px] font-bold truncate">${esc(d.name)}</div>
+            <div class="text-[11px] text-muted mt-0.5">${money(Math.max(0,total-paid))} ${t("remaining")} ${money(total)}</div>
+          </div>
+          <div class="flex gap-1 shrink-0">
+            <button data-act="pay" data-id="${d.id}" class="btn btn-g !py-1 !px-2.5 !text-[12px]">💵</button>
+            <button data-act="debt-del" data-id="${d.id}" class="btn btn-d !py-1 !px-2.5 !text-[12px]">🗑</button>
+          </div>
+        </div>
+        <div class="bar"><i style="width:${pct}%;background:var(--primary)"></i></div>
+        <div class="text-[10px] text-muted text-end">${pct}%</div>
+      </div>`;
+    }).join("") : empty("noDebts");
+
+    $("#recv-list").innerHTML = recvs.length ? recvs.map(r => {
+      const on = r.status === "paid";
+      return `<div class="flex items-center gap-2.5">
+        <span class="text-[14px] flex-1 truncate ${on?"text-muted line-through":""}">${esc(r.name)}</span>
+        <span class="text-[14px] font-bold ${on?"text-success":"text-secondary"}">${money(r.amount)}</span>
+        <button data-act="recv" data-id="${r.id}" data-val="${on?"pending":"paid"}" class="text-muted p-1">
+          <span class="material-symbols-outlined text-[18px]">${on?"undo":"check"}</span></button>
+        <button data-act="recv-del" data-id="${r.id}" class="text-muted p-1">
+          <span class="material-symbols-outlined text-[18px]">delete</span></button>
+      </div>`;
+    }).join("") : empty("noRecvs");
+
+    const budget = num(S.settings.daily_leak_budget ?? S.settings.monthly_leak_budget) || 0;
+    const todays = exps.filter(e => e.spent_on === today);
+    const sum = todays.reduce((s,e) => s + (num(e.amount)||0), 0);
+    const pct = budget ? Math.min(100, Math.round(sum/budget*100)) : 0;
+    $("#spend-today").textContent  = money(sum);
+    $("#budget-label").textContent = `${t("limit")}: ${budget ? money(budget) : "—"}`;
+    $("#budget-val").textContent   = budget ? money(budget) : "";
+    const bar = $("#budget-bar");
+    bar.style.width = pct + "%";
+    bar.style.background = pct > 90 ? "var(--danger)" : pct > 65 ? "var(--secondary)" : "var(--primary)";
+
+    $("#i-exp-cat").innerHTML = liveCats.length
+      ? liveCats.map(c => `<option value="${c.id}">${esc(c.icon||"💳")} ${esc(c.name)}</option>`).join("")
+      : `<option value="">${t("noCats")}</option>`;
+
+    $("#exp-list").innerHTML = todays.length ? todays.map(e => {
+      const c = liveCats.find(x => x.id === e.category_id);
+      return `<div class="flex items-center gap-3">
+        <span>${esc(c?.icon || "💳")}</span>
+        <span class="text-[14px] flex-1 truncate">${c ? esc(c.name) : "—"}</span>
+        <span class="text-[14px] font-bold">${money(e.amount)}</span>
+        <button data-act="exp-del" data-id="${e.id}" class="text-muted p-1"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+      </div>`;
+    }).join("") : empty("noExp");
+  } catch (e) { fail(e); $("#debt-list").innerHTML = empty("errLoad"); }
+}
+
+/* ══════════════ BODY ══════════════ */
+async function rBody() {
+  try {
+    const [works, weights] = await Promise.all([all("ds_workouts"), all("ds_weights")]);
+    const days = new Set(works.map(w => w.on_date));
+    const today = dstr();
+
+    const now = new Date();
+    const back = (now.getDay() + 1) % 7;               // week starts Saturday
+    const weekStart = shift(today, -back);
+    $("#b-week").textContent   = works.filter(w => w.on_date >= weekStart && w.on_date <= today).length;
+    $("#b-streak").textContent = streakOf(days);
+
+    const sorted = [...weights].sort((a,b) => String(b.on_date).localeCompare(String(a.on_date)));
+    $("#b-weight").textContent = sorted[0]?.kg ?? "--";
+
+    const has = days.has(today);
+    $("#workout-txt").textContent = has ? t("didWorkout") : t("logWorkout");
+    $("#btn-workout").className = "btn w-full !py-3.5 " + (has ? "btn-p" : "btn-g");
+    $("#btn-workout").dataset.wid = has ? (works.find(w => w.on_date === today)?.id || "") : "";
+    $("#work-dots").innerHTML = dotRow(days);
+
+    $("#weight-list").innerHTML = sorted.length
+      ? sorted.slice(0,7).map(w => `<div class="flex justify-between text-[14px]">
+          <span class="text-muted">${w.on_date}</span><span class="font-bold">${w.kg} kg</span></div>`).join("")
+      : empty("noWeight");
+  } catch (e) { fail(e); }
+}
+
+/* ══════════════ HABITS ══════════════ */
+async function rHabits() {
+  $("#habit-list").innerHTML = skel(3);
+  try {
+    const [habits, logs] = await Promise.all([all("ds_habits"), all("ds_habit_logs")]);
+    const live = habits.filter(h => h.active !== false);
+    $("#habit-count").textContent = `${live.length} ${t("habitsN")}`;
+    const today = dstr();
+    $("#habit-list").innerHTML = live.length ? live.map(h => {
+      const days = new Set(logs.filter(l => l.habit_id === h.id).map(l => l.on_date));
+      const on = days.has(today);
+      return `<div class="bg-surface2 rounded-xl p-3 flex flex-col gap-2.5 hair">
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-3 flex-1 min-w-0 cursor-pointer" data-act="habit" data-id="${h.id}" data-val="${on?0:1}">
+            <div class="w-[30px] h-[30px] shrink-0 rounded-md flex items-center justify-center ${on?"hair-a":"hair"}"
+                 style="background:${on?"color-mix(in srgb,var(--primary) 18%,transparent)":"var(--bg)"}">
+              ${h.icon ? `<span class="text-[15px]">${esc(h.icon)}</span>`
+                       : `<span class="material-symbols-outlined text-[18px] ${on?"text-primary":"text-muted"}">${on?"check":"radio_button_unchecked"}</span>`}
+            </div>
+            <span class="text-[14px] font-bold truncate ${on?"text-muted line-through":""}">${esc(h.name)}</span>
+          </div>
+          <span class="text-[14px] font-bold text-primary shrink-0">${streakOf(days)} 🔥</span>
+          <button data-act="habit-del" data-id="${h.id}" class="text-muted p-1 shrink-0">
+            <span class="material-symbols-outlined text-[18px]">delete</span></button>
+        </div>
+        <div class="dots">${dotRow(days)}</div>
+      </div>`;
+    }).join("") : empty("noHabits");
+  } catch (e) { fail(e); $("#habit-list").innerHTML = empty("errLoad"); }
+}
+
+/* ══════════════ NOTES ══════════════ */
+async function rNotes() {
+  try {
+    const [folders, notes] = await Promise.all([all("ds_note_folders"), all("ds_notes")]);
+    /* Flat buttons — the old markup nested a <button> inside a <button>,
+       which the parser silently un-nested and broke the layout. */
+    $("#folder-list").innerHTML =
+      `<button class="btn ${!S.folderId?"btn-p":"btn-g"} !py-2 !px-3 !text-[13px]" data-act="folder" data-id="">📁 ${t("all")}</button>` +
+      folders.map(f => `
+        <span class="inline-flex items-center rounded-[11px] overflow-hidden ${S.folderId===f.id?"hair-a":"hair"}"
+              style="background:${S.folderId===f.id?"color-mix(in srgb,var(--primary) 12%,transparent)":"transparent"}">
+          <button class="px-3 py-2 text-[13px] ${S.folderId===f.id?"text-primary":"text-muted"}"
+                  data-act="folder" data-id="${f.id}">📁 ${esc(f.name)}</button>
+          <button class="px-2 py-2 text-muted" data-act="folder-del" data-id="${f.id}">
+            <span class="material-symbols-outlined text-[15px]">close</span></button>
+        </span>`).join("");
+
+    $("#folder-name").textContent = S.folderId
+      ? (folders.find(f => f.id === S.folderId)?.name || t("all")) : t("all");
+
+    const list = (S.folderId ? notes.filter(n => n.folder_id === S.folderId) : notes)
+      .sort((a,b) => (b.pinned?1:0)-(a.pinned?1:0) || (b.updated_at?.seconds||0)-(a.updated_at?.seconds||0));
+
+    $("#note-list").innerHTML = list.length ? list.map(n => `
+      <div class="bg-surface2 rounded-xl p-3 hair cursor-pointer flex items-start gap-3" data-act="note-open" data-id="${n.id}">
+        ${n.pinned ? `<span class="text-secondary text-[13px] mt-0.5">📌</span>` : ""}
+        <div class="flex-1 min-w-0">
+          <div class="text-[14px] font-bold truncate">${esc(n.title || t("untitled"))}</div>
+          <div class="text-[11px] text-muted mt-1 line-clamp-2">${esc((n.body_html||"").replace(/<[^>]*>/g," ").trim().slice(0,90))}</div>
+        </div>
+        <button data-act="note-del-list" data-id="${n.id}" class="text-muted p-1 shrink-0">
+          <span class="material-symbols-outlined text-[18px]">delete</span></button>
+      </div>`).join("") : empty("noNotes");
+  } catch (e) { fail(e); $("#note-list").innerHTML = empty("errLoad"); }
+}
+
+let noteTimer = null, notePinned = false;
+function openNote(n) {
+  S.noteId = n?.id || null;
+  notePinned = !!n?.pinned;
+  $("#note-title").value = n?.title || "";
+  $("#note-body").innerHTML = n?.body_html || "";
+  $("#pin-btn").style.color = notePinned ? "var(--secondary)" : "var(--muted)";
+  $("#save-state").textContent = "";
+  const box = $("#note-editor");
+  box.classList.remove("hidden"); box.classList.add("flex");
+}
+function closeNote() {
+  const box = $("#note-editor");
+  box.classList.add("hidden"); box.classList.remove("flex");
+}
+/* Real autosave. The old build showed "✓ حُفظ" on open without saving anything. */
+function queueSave() {
+  $("#save-state").textContent = t("saving");
+  clearTimeout(noteTimer);
+  noteTimer = setTimeout(() => saveNote(true), 900);
+}
+async function saveNote(quiet) {
+  const title = $("#note-title").value.trim();
+  const body  = $("#note-body").innerHTML;
+  if (!title && !body.replace(/<[^>]*>/g,"").trim()) return;
+  try {
+    const data = { user_id: uid(), title: title || t("untitled"), body_html: body,
+                   pinned: notePinned, updated_at: serverTimestamp() };
+    if (S.noteId) await updateDoc(doc(db,"ds_notes",S.noteId), data);
+    else {
+      data.folder_id = S.folderId || null;
+      data.created_at = serverTimestamp();
+      S.noteId = (await addDoc(collection(db,"ds_notes"), data)).id;
+    }
+    invalidate("ds_notes");
+    $("#save-state").textContent = t("savedNote");
+    if (!quiet) toast(t("saved"));
+  } catch (e) { $("#save-state").textContent = ""; fail(e, "errSave"); }
+}
+$("#note-title").addEventListener("input", queueSave);
+$("#note-body").addEventListener("input", queueSave);
+
+/* ══════════════ SETTINGS ══════════════ */
+async function rSettings() {
+  try {
+    await loadSettings();
+    $("#set-name").value   = S.settings.display_name || "";
+    $("#set-budget").value = S.settings.daily_leak_budget ?? S.settings.monthly_leak_budget ?? "";
+    const cats = (await all("ds_expense_categories")).filter(c => c.active !== false);
+    $("#cat-list").innerHTML = cats.length ? cats.map(c => `
+      <div class="flex items-center gap-2.5">
+        <span>${esc(c.icon||"💳")}</span>
+        <span class="text-[14px] flex-1 truncate">${esc(c.name)}</span>
+        <button data-act="cat-del" data-id="${c.id}" class="text-muted p-1">
+          <span class="material-symbols-outlined text-[16px]">close</span></button>
+      </div>`).join("") : "";
+    applyTheme(S.theme); applyLang(S.lang);
+  } catch (e) { fail(e); }
+}
+
+/* ══════════════ events ══════════════ */
+document.addEventListener("click", async ev => {
+  const cmd = ev.target.closest("[data-cmd]");
+  if (cmd) { document.execCommand(cmd.dataset.cmd, false, cmd.dataset.val || null); queueSave(); return; }
+
+  const b = ev.target.closest("[data-act]");
+  if (!b) return;
+  const { act, id, val } = b.dataset;
+
+  if (act === "modal-cancel") return closeModal(null);
+  if (act === "theme-flip")   return applyTheme(S.theme === "dark" ? "light" : "dark");
+  if (act === "set-theme")    return applyTheme(val);
+  if (act === "lang-flip")    return applyLang(S.lang === "ar" ? "en" : "ar");
+  if (act === "set-lang")     return applyLang(val);
+  if (act === "tab")          return go(b.dataset.tab);
+  if (act === "go-settings")  return go("settings");
+  if (act === "back")         return go(S.prevTab || "today");
+
+  if (act === "login") return once(async () => {
+    await signInWithPopup(auth, new GoogleAuthProvider());
+    toast(t("signedIn"));
+  });
+
+  if (act === "logout") {
+    if (await ask({ title: t("askLogout"), okText: t("logout"), danger: true }) === null) return;
+    try { if (auth) await signOut(auth); } catch (e) { return fail(e, "errSave"); }
+    S.cache = {}; S.user = null;
+    location.replace("./index.html");
+    return;
+  }
+
+  /* ── tasks ── */
+  if (act === "task") return once(async () => {
+    await updateDoc(doc(db,"ds_tasks",id), { done: val === "1" });
+    invalidate("ds_tasks"); rToday();
+  });
+  if (act === "task-del") {
+    if (!await confirmAsk("delTask")) return;
+    return once(async () => {
+      document.querySelector(`[data-row="${id}"]`)?.classList.add("gone");
+      await deleteDoc(doc(db,"ds_tasks",id));
+      invalidate("ds_tasks"); toast(t("deleted")); rToday();
+    });
+  }
+
+  /* ── habits ── */
+  if (act === "habit") return once(async () => {
+    const today = dstr();
+    if (val === "1") {
+      await addDoc(collection(db,"ds_habit_logs"),
+        { user_id: uid(), habit_id: id, on_date: today, created_at: serverTimestamp() });
+    } else {
+      const snap = await getDocs(query(collection(db,"ds_habit_logs"),
+        where("user_id","==",uid()), where("habit_id","==",id), where("on_date","==",today)));
+      await Promise.all(snap.docs.map(d => deleteDoc(doc(db,"ds_habit_logs",d.id))));
+    }
+    invalidate("ds_habit_logs");
+    S.tab === "habits" ? rHabits() : rToday();
+  });
+  if (act === "habit-del") {
+    if (!await confirmAsk("delHabit")) return;
+    return once(async () => {
+      const snap = await getDocs(query(collection(db,"ds_habit_logs"),
+        where("user_id","==",uid()), where("habit_id","==",id)));
+      await Promise.all(snap.docs.map(d => deleteDoc(doc(db,"ds_habit_logs",d.id))));
+      await deleteDoc(doc(db,"ds_habits",id));
+      invalidate("ds_habits","ds_habit_logs"); toast(t("deleted")); rHabits();
+    });
+  }
+
+  /* ── money ── */
+  if (act === "add-debt") {
+    const r = await ask({ title: t("newDebt"), fields:[
+      { label:t("debtName"), max:60 }, { label:t("totalAmount"), type:"number" }] });
+    if (!r) return;
+    const amt = num(r[1]);
+    if (!r[0] || amt === null) return toast(t("errNum"), "err");
+    return once(async () => {
+      await addDoc(collection(db,"ds_debts"),
+        { user_id: uid(), name: r[0], amount: amt, active: true, created_at: serverTimestamp() });
+      invalidate("ds_debts"); toast(t("saved")); rMoney();
+    });
+  }
+  if (act === "pay") {
+    const r = await ask({ title: t("payment"), fields:[{ label:t("payAmount"), type:"number" }] });
+    if (!r) return;
+    const amt = num(r[0]);
+    if (amt === null || amt === 0) return toast(t("errNum"), "err");
+    return once(async () => {
+      await addDoc(collection(db,"ds_payments"),
+        { user_id: uid(), debt_id: id, amount: amt, paid_on: dstr(), created_at: serverTimestamp() });
+      invalidate("ds_payments"); toast(t("saved")); rMoney();
+    });
+  }
+  if (act === "debt-del") {
+    if (!await confirmAsk("delDebt")) return;
+    return once(async () => {
+      await deleteDoc(doc(db,"ds_debts",id));
+      invalidate("ds_debts"); toast(t("deleted")); rMoney();
+    });
+  }
+  if (act === "add-recv") {
+    const r = await ask({ title: t("newRecv"), fields:[
+      { label:t("recvName"), max:60 }, { label:t("amount"), type:"number" }] });
+    if (!r) return;
+    const amt = num(r[1]);
+    if (!r[0] || amt === null) return toast(t("errNum"), "err");
+    return once(async () => {
+      await addDoc(collection(db,"ds_receivables"),
+        { user_id: uid(), name: r[0], amount: amt, status: "pending", created_at: serverTimestamp() });
+      invalidate("ds_receivables"); toast(t("saved")); rMoney();
+    });
+  }
+  if (act === "recv") return once(async () => {
+    await updateDoc(doc(db,"ds_receivables",id), { status: val });
+    invalidate("ds_receivables"); rMoney();
+  });
+  if (act === "recv-del") return once(async () => {
+    await deleteDoc(doc(db,"ds_receivables",id));
+    invalidate("ds_receivables"); toast(t("deleted")); rMoney();
+  });
+  if (act === "exp-del") return once(async () => {
+    await deleteDoc(doc(db,"ds_expenses",id));
+    invalidate("ds_expenses"); toast(t("deleted")); rMoney();
+  });
+
+  /* ── body ── */
+  if (act === "workout") return once(async () => {
+    const wid = b.dataset.wid;
+    if (wid) await deleteDoc(doc(db,"ds_workouts",wid));
+    else await addDoc(collection(db,"ds_workouts"),
+      { user_id: uid(), on_date: dstr(), created_at: serverTimestamp() });
+    invalidate("ds_workouts"); rBody();
+  });
+
+  /* ── notes ── */
+  if (act === "folder")  { S.folderId = id || null; return rNotes(); }
+  if (act === "folder-del") {
+    if (!await confirmAsk("delFolder")) return;
+    return once(async () => {
+      await deleteDoc(doc(db,"ds_note_folders",id));
+      if (S.folderId === id) S.folderId = null;
+      invalidate("ds_note_folders"); toast(t("deleted")); rNotes();
+    });
+  }
+  if (act === "new-note") return openNote(null);
+  if (act === "note-open") {
+    try {
+      const snap = await getDoc(doc(db,"ds_notes",id));   // one read, not all notes
+      if (snap.exists()) openNote({ id: snap.id, ...snap.data() });
+    } catch (e) { fail(e); }
+    return;
+  }
+  if (act === "note-close") { await saveNote(true); closeNote(); return rNotes(); }
+  if (act === "note-save")  return saveNote(false);
+  if (act === "note-pin") {
+    notePinned = !notePinned;
+    $("#pin-btn").style.color = notePinned ? "var(--secondary)" : "var(--muted)";
+    return queueSave();
+  }
+  if (act === "note-del") {
+    if (!S.noteId) { closeNote(); return; }
+    if (!await confirmAsk("delNote")) return;
+    return once(async () => {
+      await deleteDoc(doc(db,"ds_notes",S.noteId));
+      S.noteId = null; invalidate("ds_notes"); closeNote(); toast(t("deleted")); rNotes();
+    });
+  }
+  if (act === "note-del-list") {
+    ev.stopPropagation();
+    if (!await confirmAsk("delNote")) return;
+    return once(async () => {
+      await deleteDoc(doc(db,"ds_notes",id));
+      invalidate("ds_notes"); toast(t("deleted")); rNotes();
+    });
+  }
+
+  /* ── settings ── */
+  if (act === "save-profile") return once(async () => {
+    const v = $("#set-name").value.trim();
+    if (!v) return toast(t("errNum"), "err");
+    await patchSettings({ display_name: v }); toast(t("saved")); rToday();
+  });
+  if (act === "save-budget") return once(async () => {
+    const v = num($("#set-budget").value);
+    if (v === null) return toast(t("errNum"), "err");
+    await patchSettings({ daily_leak_budget: v }); toast(t("saved"));
+  });
+  if (act === "cat-del") {
+    if (!await confirmAsk("delCat")) return;
+    return once(async () => {
+      await deleteDoc(doc(db,"ds_expense_categories",id));
+      invalidate("ds_expense_categories"); toast(t("deleted")); rSettings();
+    });
+  }
+});
+
+/* ── forms ── */
+function onForm(sel, fn) {
+  $(sel)?.addEventListener("submit", e => { e.preventDefault(); once(() => fn()); });
+}
+onForm("#f-task", async () => {
+  const i = $("#i-task"), v = i.value.trim(); if (!v) return;
+  await addDoc(collection(db,"ds_tasks"),
+    { user_id: uid(), title: v, for_date: dstr(), done: false, created_at: serverTimestamp() });
+  i.value = ""; invalidate("ds_tasks"); rToday();
+});
+onForm("#f-tom", async () => {
+  const i = $("#i-tom"), v = i.value.trim(); if (!v) return;
+  await addDoc(collection(db,"ds_tasks"),
+    { user_id: uid(), title: v, for_date: shift(dstr(),1), done: false, created_at: serverTimestamp() });
+  i.value = ""; invalidate("ds_tasks"); rToday();
+});
+onForm("#f-exp", async () => {
+  const cat = $("#i-exp-cat").value, amt = num($("#i-exp-amt").value);
+  if (!cat) return toast(t("noCats"), "err");
+  if (amt === null || amt === 0) return toast(t("errNum"), "err");
+  await addDoc(collection(db,"ds_expenses"),
+    { user_id: uid(), category_id: cat, amount: amt, spent_on: dstr(), created_at: serverTimestamp() });
+  $("#i-exp-amt").value = ""; invalidate("ds_expenses"); rMoney();
+});
+onForm("#f-weight", async () => {
+  const kg = num($("#i-weight").value);
+  if (kg === null || kg === 0) return toast(t("errNum"), "err");
+  const today = dstr();
+  const existing = (await all("ds_weights")).find(w => w.on_date === today);
+  if (existing) await updateDoc(doc(db,"ds_weights",existing.id), { kg });
+  else await addDoc(collection(db,"ds_weights"),
+    { user_id: uid(), on_date: today, kg, created_at: serverTimestamp() });
+  $("#i-weight").value = ""; invalidate("ds_weights"); toast(t("saved")); rBody();
+});
+onForm("#f-habit", async () => {
+  const n = $("#i-habit").value.trim(); if (!n) return;
+  await addDoc(collection(db,"ds_habits"),
+    { user_id: uid(), name: n, icon: $("#i-habit-icon").value.trim() || null,
+      active: true, created_at: serverTimestamp() });
+  $("#i-habit").value = ""; $("#i-habit-icon").value = "";
+  invalidate("ds_habits"); rHabits();
+});
+onForm("#f-folder", async () => {
+  const n = $("#i-folder").value.trim(); if (!n) return;
+  await addDoc(collection(db,"ds_note_folders"),
+    { user_id: uid(), name: n, created_at: serverTimestamp() });
+  $("#i-folder").value = ""; invalidate("ds_note_folders"); rNotes();
+});
+onForm("#f-cat", async () => {
+  const n = $("#i-cat").value.trim(); if (!n) return;
+  await addDoc(collection(db,"ds_expense_categories"),
+    { user_id: uid(), name: n, icon: $("#i-cat-icon").value.trim() || null,
+      active: true, created_at: serverTimestamp() });
+  $("#i-cat").value = ""; $("#i-cat-icon").value = "";
+  invalidate("ds_expense_categories"); rSettings();
+});
+
+/* ══════════════ boot ══════════════ */
+applyTheme(S.theme);
+applyLang(S.lang);
+
+if (!auth) {
+  toast(t("errLoad"), "err");
+} else {
+  onAuthStateChanged(auth, async user => {
+    if (user) {
+      S.user = user; S.cache = {};
+      $("#s-login").classList.remove("on");
+      $("#s-app").classList.add("on");
+      try { await loadSettings(); } catch (e) { fail(e); }
+      go(S.tab);
+    } else {
+      /* Stay here and show the login screen — redirecting to index.html
+         would bounce anyone arriving from the landing page straight back. */
+      S.user = null; S.cache = {};
+      $("#s-app").classList.remove("on");
+      $("#s-login").classList.add("on");
+    }
+  });
+}
+</script>
 </body>
-
 </html>
