@@ -23,6 +23,7 @@
 
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -59,8 +60,6 @@
     }
 
     body {
-      background: #eef4f9;
-      color: #0d2436;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -282,7 +281,7 @@
   </style>
 </head>
 
-<body class="antialiased">
+<body class="bg-page dark:bg-ink text-ink dark:text-page dark:bg-ink dark:text-page transition-colors duration-300" class="antialiased">
 
   <!-- ═══════════ TOP BAR ═══════════ -->
   <div class="bg-ink text-white">
@@ -299,9 +298,9 @@
 
       <div class="flex items-center gap-2 sm:gap-4">
         <span class="hidden md:block text-[13px] text-brand-3" data-i18n="top.badge">مشروع تخرّج · جامعة القصيم</span>
-        <span class="hidden md:block w-px h-6 bg-white/15"></span>
+        <span class="hidden md:block w-px h-6 bg-white dark:bg-ink-2/15"></span>
         <button id="lang-toggle"
-          class="h-9 px-3 rounded border border-white/25 text-[13px] font-semibold hover:bg-white/10 transition-colors">
+          class="h-9 px-3 rounded border border-white/25 text-[13px] font-semibold hover:bg-white dark:bg-ink-2/10 transition-colors">
           English
         </button>
         <a href="./app.html" class="btn btn-primary !py-2.5 !px-5 !text-[14px]">
@@ -340,11 +339,11 @@
 
         <div class="reveal">
           <span class="u-eyebrow bracket" data-i18n="hero.eyebrow">مشروع تعليمي مفتوح</span>
-          <h1 class="u-display text-[42px] sm:text-[54px] lg:text-[60px] leading-[1.08] mt-5 text-ink">
+          <h1 class="u-display text-[42px] sm:text-[54px] lg:text-[60px] leading-[1.08] mt-5 text-ink dark:text-page">
             <span data-i18n="hero.title1">عينك على يومك</span><br>
             <span class="text-brand" data-i18n="hero.title2">في مكان واحد</span>
           </h1>
-          <p class="u-body text-[17px] leading-[1.85] text-muted mt-6 max-w-[30rem]" data-i18n="hero.sub">
+          <p class="u-body text-[17px] leading-[1.85] text-muted dark:text-gray-300 mt-6 max-w-[30rem]" data-i18n="hero.sub">
             مهامك، مالك، جسمك وعاداتك — أربع جهات تسحبك كل يوم، جمعناها في تطبيق واحد بسيط. مجاني بالكامل، وبُني كمشروع
             تعلّم من الصفر حتى الإطلاق.
           </p>
@@ -352,7 +351,7 @@
             <a href="./app.html" class="btn btn-primary" data-i18n="hero.cta1">ابدأ الآن مجاناً</a>
             <a href="#modules" class="btn btn-ghost" data-i18n="hero.cta2">شاهد الوحدات</a>
           </div>
-          <p class="u-body text-[13px] text-muted-2 mt-5 flex items-center gap-2">
+          <p class="u-body text-[13px] text-muted dark:text-gray-300-2 mt-5 flex items-center gap-2">
             <span class="material-symbols-outlined text-[17px]">lock</span>
             <span data-i18n="hero.note">تسجيل الدخول بحساب جوجل · لا بطاقة ولا اشتراك</span>
           </p>
@@ -369,15 +368,15 @@
 
     <!-- Feature row overlaps the hero's bottom edge -->
     <div class="max-w-shell mx-auto px-5 relative z-10 mt-12 lg:mt-4 translate-y-px">
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line shadow-soft">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line dark:border-ink-3 shadow-soft">
         <!-- card 1 -->
         <div class="card !border-0 p-7 reveal">
           <div class="h-11 w-11 asset-missing" data-icon>
             <img src="./assets/icon-1.png" alt="" class="h-11 w-11 object-contain">
             <span class="ph !border-0 material-symbols-outlined !text-[32px] text-brand">checklist</span>
           </div>
-          <h3 class="u-display text-[18px] mt-5 text-ink" data-i18n="f1.t">متابعة يومية</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="f1.d">مهام اليوم وخطة الغد في شاشة
+          <h3 class="u-display text-[18px] mt-5 text-ink dark:text-page" data-i18n="f1.t">متابعة يومية</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="f1.d">مهام اليوم وخطة الغد في شاشة
             واحدة، مع تنبيه للمتأخر منها.</p>
         </div>
         <!-- card 2 -->
@@ -386,8 +385,8 @@
             <img src="./assets/icon-2.png" alt="" class="h-11 w-11 object-contain">
             <span class="ph !border-0 material-symbols-outlined !text-[32px] text-brand">payments</span>
           </div>
-          <h3 class="u-display text-[18px] mt-5 text-ink" data-i18n="f2.t">وعي مالي</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="f2.d">ديونك، مستحقاتك، ومصاريف اليوم
+          <h3 class="u-display text-[18px] mt-5 text-ink dark:text-page" data-i18n="f2.t">وعي مالي</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="f2.d">ديونك، مستحقاتك، ومصاريف اليوم
             مقابل حدّ تضعه بنفسك.</p>
         </div>
         <!-- card 3 -->
@@ -396,8 +395,8 @@
             <img src="./assets/icon-3.png" alt="" class="h-11 w-11 object-contain">
             <span class="ph !border-0 material-symbols-outlined !text-[32px] text-brand">fitness_center</span>
           </div>
-          <h3 class="u-display text-[18px] mt-5 text-ink" data-i18n="f3.t">انضباط جسدي</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="f3.d">سجّل تمرينك ووزنك، وتابع سلسلة
+          <h3 class="u-display text-[18px] mt-5 text-ink dark:text-page" data-i18n="f3.t">انضباط جسدي</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="f3.d">سجّل تمرينك ووزنك، وتابع سلسلة
             أيامك المتصلة.</p>
         </div>
         <!-- card 4 -->
@@ -406,8 +405,8 @@
             <img src="./assets/icon-4.png" alt="" class="h-11 w-11 object-contain">
             <span class="ph !border-0 material-symbols-outlined !text-[32px] text-brand">local_fire_department</span>
           </div>
-          <h3 class="u-display text-[18px] mt-5 text-ink" data-i18n="f4.t">عادات تتراكم</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="f4.d">تتبّع بسيط بنقطة واحدة في اليوم
+          <h3 class="u-display text-[18px] mt-5 text-ink dark:text-page" data-i18n="f4.t">عادات تتراكم</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="f4.d">تتبّع بسيط بنقطة واحدة في اليوم
             — الاستمرارية تبني نفسها.</p>
         </div>
       </div>
@@ -431,20 +430,20 @@
 
   <!-- ═══════════ STACK STRIP ═══════════ -->
   <section class="max-w-shell mx-auto px-5 py-14">
-    <p class="u-body text-center text-[13px] text-muted-2 mb-7" data-i18n="stack.label">بُني بأدوات مفتوحة ومجانية</p>
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-px bg-line border border-line">
-      <div class="bg-page py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink-3">Firebase</span></div>
-      <div class="bg-page py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink-3">Firestore</span></div>
-      <div class="bg-page py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink-3">Tailwind CSS</span></div>
-      <div class="bg-page py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink-3">Google Sign-In</span>
+    <p class="u-body text-center text-[13px] text-muted dark:text-gray-300-2 mb-7" data-i18n="stack.label">بُني بأدوات مفتوحة ومجانية</p>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-px bg-line border border-line dark:border-ink-3">
+      <div class="bg-page dark:bg-ink py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink dark:text-page-3">Firebase</span></div>
+      <div class="bg-page dark:bg-ink py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink dark:text-page-3">Firestore</span></div>
+      <div class="bg-page dark:bg-ink py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink dark:text-page-3">Tailwind CSS</span></div>
+      <div class="bg-page dark:bg-ink py-6 px-4 text-center"><span class="u-latin text-[15px] text-ink dark:text-page-3">Google Sign-In</span>
       </div>
-      <div class="bg-page py-6 px-4 text-center col-span-2 md:col-span-1"><span
-          class="u-latin text-[15px] text-ink-3">Vanilla JS</span></div>
+      <div class="bg-page dark:bg-ink py-6 px-4 text-center col-span-2 md:col-span-1"><span
+          class="u-latin text-[15px] text-ink dark:text-page-3">Vanilla JS</span></div>
     </div>
   </section>
 
   <!-- ═══════════ WHY ═══════════ -->
-  <section id="why" class="bg-white border-y border-line py-20">
+  <section id="why" class="bg-white dark:bg-ink-2 border-y border-line dark:border-ink-3 py-20">
     <div class="max-w-shell mx-auto px-5 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
       <div class="reveal asset-missing" id="about-wrap">
@@ -454,29 +453,29 @@
 
       <div class="reveal">
         <span class="u-eyebrow bracket" data-i18n="why.eyebrow">عن المشروع</span>
-        <h2 class="u-display text-[32px] sm:text-[38px] leading-[1.2] mt-5 text-ink" data-i18n="why.t">بدأ كتمرين،
+        <h2 class="u-display text-[32px] sm:text-[38px] leading-[1.2] mt-5 text-ink dark:text-page" data-i18n="why.t">بدأ كتمرين،
           وانتهى كأداة أستخدمها كل يوم</h2>
-        <p class="u-body text-[16px] leading-[1.9] text-muted mt-5" data-i18n="why.d1">
+        <p class="u-body text-[16px] leading-[1.9] text-muted dark:text-gray-300 mt-5" data-i18n="why.d1">
           كنت أتنقّل بين أربعة تطبيقات: واحد للمهام، وآخر للمصاريف، وثالث للتمرين، ودفتر للملاحظات. لا أحد منها يعرف عن
           الآخر شيئاً، ولا أحد منها مصمّم للعربية أصلاً.
         </p>
-        <p class="u-body text-[16px] leading-[1.9] text-muted mt-4" data-i18n="why.d2">
+        <p class="u-body text-[16px] leading-[1.9] text-muted dark:text-gray-300 mt-4" data-i18n="why.d2">
           <span class="u-latin">DaObserver</span> هو محاولة لجمعها كلها في سطح واحد — وفي الوقت نفسه مشروع أتعلّم منه
           بناء تطبيق كامل من الفكرة حتى النشر.
         </p>
 
-        <div class="grid grid-cols-3 gap-px bg-line border border-line mt-9">
-          <div class="bg-white py-6 px-3 text-center">
-            <div class="u-display text-[30px] text-ink">5</div>
-            <div class="u-body text-[12px] text-muted mt-1" data-i18n="why.s1">وحدات</div>
+        <div class="grid grid-cols-3 gap-px bg-line border border-line dark:border-ink-3 mt-9">
+          <div class="bg-white dark:bg-ink-2 py-6 px-3 text-center">
+            <div class="u-display text-[30px] text-ink dark:text-page">5</div>
+            <div class="u-body text-[12px] text-muted dark:text-gray-300 mt-1" data-i18n="why.s1">وحدات</div>
           </div>
-          <div class="bg-white py-6 px-3 text-center">
-            <div class="u-display text-[30px] text-ink">12</div>
-            <div class="u-body text-[12px] text-muted mt-1" data-i18n="why.s2">مجموعة بيانات</div>
+          <div class="bg-white dark:bg-ink-2 py-6 px-3 text-center">
+            <div class="u-display text-[30px] text-ink dark:text-page">12</div>
+            <div class="u-body text-[12px] text-muted dark:text-gray-300 mt-1" data-i18n="why.s2">مجموعة بيانات</div>
           </div>
-          <div class="bg-white py-6 px-3 text-center">
+          <div class="bg-white dark:bg-ink-2 py-6 px-3 text-center">
             <div class="u-display text-[30px] text-brand">0</div>
-            <div class="u-body text-[12px] text-muted mt-1" data-i18n="why.s3">ريال للاستخدام</div>
+            <div class="u-body text-[12px] text-muted dark:text-gray-300 mt-1" data-i18n="why.s3">ريال للاستخدام</div>
           </div>
         </div>
       </div>
@@ -490,9 +489,9 @@
       <div class="flex flex-wrap items-end justify-between gap-4 mb-10 reveal">
         <div>
           <span class="u-eyebrow bracket" data-i18n="mod.eyebrow">الوحدات</span>
-          <h2 class="u-display text-[32px] sm:text-[38px] mt-4 text-ink" data-i18n="mod.t">خمس شاشات، لا أكثر</h2>
+          <h2 class="u-display text-[32px] sm:text-[38px] mt-4 text-ink dark:text-page" data-i18n="mod.t">خمس شاشات، لا أكثر</h2>
         </div>
-        <p class="u-body text-[14px] text-muted max-w-[24rem]" data-i18n="mod.sub">كل وحدة تجيب على سؤال واحد. لا
+        <p class="u-body text-[14px] text-muted dark:text-gray-300 max-w-[24rem]" data-i18n="mod.sub">كل وحدة تجيب على سؤال واحد. لا
           إعدادات مدفونة ولا قوائم متشعّبة.</p>
       </div>
 
@@ -505,8 +504,8 @@
           </div>
           <div class="p-6">
             <span class="u-eyebrow" data-i18n="m1.k">اليوم</span>
-            <h3 class="u-display text-[19px] mt-2.5 text-ink" data-i18n="m1.t">ماذا عليّ الآن؟</h3>
-            <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="m1.d">مهام اليوم، المتأخرات، وخطة
+            <h3 class="u-display text-[19px] mt-2.5 text-ink dark:text-page" data-i18n="m1.t">ماذا عليّ الآن؟</h3>
+            <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="m1.d">مهام اليوم، المتأخرات، وخطة
               الغد التي تكتبها الليلة فتستقبلك في الصباح.</p>
           </div>
         </article>
@@ -518,8 +517,8 @@
           </div>
           <div class="p-6">
             <span class="u-eyebrow" data-i18n="m2.k">المال</span>
-            <h3 class="u-display text-[19px] mt-2.5 text-ink" data-i18n="m2.t">أين يذهب؟</h3>
-            <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="m2.d">ديون بنسبة سداد مرئية،
+            <h3 class="u-display text-[19px] mt-2.5 text-ink dark:text-page" data-i18n="m2.t">أين يذهب؟</h3>
+            <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="m2.d">ديون بنسبة سداد مرئية،
               مستحقات معلّقة، ومصاريف يومية مقابل حدّ تضعه.</p>
           </div>
         </article>
@@ -531,8 +530,8 @@
           </div>
           <div class="p-6">
             <span class="u-eyebrow" data-i18n="m3.k">الجسم</span>
-            <h3 class="u-display text-[19px] mt-2.5 text-ink" data-i18n="m3.t">هل أنا مستمر؟</h3>
-            <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="m3.d">زر واحد لتسجيل التمرين، وسجل
+            <h3 class="u-display text-[19px] mt-2.5 text-ink dark:text-page" data-i18n="m3.t">هل أنا مستمر؟</h3>
+            <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="m3.d">زر واحد لتسجيل التمرين، وسجل
               وزن، وخريطة نقاط لآخر أربعة عشر يوماً.</p>
           </div>
         </article>
@@ -540,16 +539,16 @@
         <article class="card p-6 reveal">
           <span class="material-symbols-outlined text-[26px] text-brand">local_fire_department</span>
           <span class="u-eyebrow block mt-4" data-i18n="m4.k">العادات</span>
-          <h3 class="u-display text-[19px] mt-2 text-ink" data-i18n="m4.t">ما الذي أكرّره؟</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="m4.d">عادات تضيفها بنفسك، كل واحدة
+          <h3 class="u-display text-[19px] mt-2 text-ink dark:text-page" data-i18n="m4.t">ما الذي أكرّره؟</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="m4.d">عادات تضيفها بنفسك، كل واحدة
             بسلسلة أيام وخريطة نقاط خاصة بها.</p>
         </article>
 
         <article class="card p-6 reveal">
           <span class="material-symbols-outlined text-[26px] text-brand">psychology</span>
           <span class="u-eyebrow block mt-4" data-i18n="m5.k">العصف</span>
-          <h3 class="u-display text-[19px] mt-2 text-ink" data-i18n="m5.t">أين أكتب الفكرة؟</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2.5" data-i18n="m5.d">ملاحظات منسّقة داخل مجلدات، مع
+          <h3 class="u-display text-[19px] mt-2 text-ink dark:text-page" data-i18n="m5.t">أين أكتب الفكرة؟</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2.5" data-i18n="m5.d">ملاحظات منسّقة داخل مجلدات، مع
             تثبيت للمهم منها.</p>
         </article>
 
@@ -566,41 +565,41 @@
   </section>
 
   <!-- ═══════════ HOW IT WAS BUILT ═══════════ -->
-  <section id="build" class="bg-white border-y border-line py-20">
+  <section id="build" class="bg-white dark:bg-ink-2 border-y border-line dark:border-ink-3 py-20">
     <div class="max-w-shell mx-auto px-5">
       <div class="text-center mb-12 reveal">
         <span class="u-eyebrow bracket" data-i18n="build.eyebrow">من الصفر إلى الإطلاق</span>
-        <h2 class="u-display text-[32px] sm:text-[38px] mt-4 text-ink" data-i18n="build.t">أربع مراحل، بالترتيب</h2>
+        <h2 class="u-display text-[32px] sm:text-[38px] mt-4 text-ink dark:text-page" data-i18n="build.t">أربع مراحل، بالترتيب</h2>
       </div>
 
-      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
-        <li class="bg-white p-7 reveal">
+      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line dark:border-ink-3">
+        <li class="bg-white dark:bg-ink-2 p-7 reveal">
           <span class="u-latin text-[13px] text-brand-3">01</span>
-          <h3 class="u-display text-[17px] mt-3 text-ink" data-i18n="b1.t">التصميم</h3>
-          <p class="u-body text-[13.5px] leading-[1.8] text-muted mt-2" data-i18n="b1.d">توليد الشاشات وربطها كتدفّق
+          <h3 class="u-display text-[17px] mt-3 text-ink dark:text-page" data-i18n="b1.t">التصميم</h3>
+          <p class="u-body text-[13.5px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="b1.d">توليد الشاشات وربطها كتدفّق
             قابل للتجربة قبل كتابة أي سطر.</p>
-          <span class="u-latin text-[12px] text-muted-2 mt-4 block">Stitch</span>
+          <span class="u-latin text-[12px] text-muted dark:text-gray-300-2 mt-4 block">Stitch</span>
         </li>
-        <li class="bg-white p-7 reveal">
+        <li class="bg-white dark:bg-ink-2 p-7 reveal">
           <span class="u-latin text-[13px] text-brand-3">02</span>
-          <h3 class="u-display text-[17px] mt-3 text-ink" data-i18n="b2.t">البناء</h3>
-          <p class="u-body text-[13.5px] leading-[1.8] text-muted mt-2" data-i18n="b2.d">تحويل التصميم إلى واجهة تعمل،
+          <h3 class="u-display text-[17px] mt-3 text-ink dark:text-page" data-i18n="b2.t">البناء</h3>
+          <p class="u-body text-[13.5px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="b2.d">تحويل التصميم إلى واجهة تعمل،
             خطوة بخطوة ومع مراجعة كل تغيير.</p>
-          <span class="u-latin text-[12px] text-muted-2 mt-4 block">Antigravity</span>
+          <span class="u-latin text-[12px] text-muted dark:text-gray-300-2 mt-4 block">Antigravity</span>
         </li>
-        <li class="bg-white p-7 reveal">
+        <li class="bg-white dark:bg-ink-2 p-7 reveal">
           <span class="u-latin text-[13px] text-brand-3">03</span>
-          <h3 class="u-display text-[17px] mt-3 text-ink" data-i18n="b3.t">القاعدة</h3>
-          <p class="u-body text-[13.5px] leading-[1.8] text-muted mt-2" data-i18n="b3.d">تسجيل دخول وقاعدة بيانات لحظية،
+          <h3 class="u-display text-[17px] mt-3 text-ink dark:text-page" data-i18n="b3.t">القاعدة</h3>
+          <p class="u-body text-[13.5px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="b3.d">تسجيل دخول وقاعدة بيانات لحظية،
             مع قواعد وصول تعزل بيانات كل مستخدم.</p>
-          <span class="u-latin text-[12px] text-muted-2 mt-4 block">Firebase</span>
+          <span class="u-latin text-[12px] text-muted dark:text-gray-300-2 mt-4 block">Firebase</span>
         </li>
-        <li class="bg-white p-7 reveal">
+        <li class="bg-white dark:bg-ink-2 p-7 reveal">
           <span class="u-latin text-[13px] text-brand-3">04</span>
-          <h3 class="u-display text-[17px] mt-3 text-ink" data-i18n="b4.t">النشر</h3>
-          <p class="u-body text-[13.5px] leading-[1.8] text-muted mt-2" data-i18n="b4.d">استضافة ثابتة مجانية، وتحديث
+          <h3 class="u-display text-[17px] mt-3 text-ink dark:text-page" data-i18n="b4.t">النشر</h3>
+          <p class="u-body text-[13.5px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="b4.d">استضافة ثابتة مجانية، وتحديث
             مباشر مع كل دفعة جديدة.</p>
-          <span class="u-latin text-[12px] text-muted-2 mt-4 block">GitHub Pages</span>
+          <span class="u-latin text-[12px] text-muted dark:text-gray-300-2 mt-4 block">GitHub Pages</span>
         </li>
       </ol>
     </div>
@@ -611,27 +610,27 @@
     <div class="max-w-shell mx-auto px-5 grid lg:grid-cols-3 gap-8">
       <div class="reveal">
         <span class="u-eyebrow bracket" data-i18n="pv.eyebrow">بياناتك</span>
-        <h2 class="u-display text-[30px] leading-[1.25] mt-4 text-ink" data-i18n="pv.t">اقرأ هذا قبل أن تسجّل الدخول
+        <h2 class="u-display text-[30px] leading-[1.25] mt-4 text-ink dark:text-page" data-i18n="pv.t">اقرأ هذا قبل أن تسجّل الدخول
         </h2>
       </div>
 
       <div class="lg:col-span-2 grid sm:grid-cols-2 gap-6">
         <div class="card p-6 reveal">
           <span class="material-symbols-outlined text-[24px] text-brand">shield_person</span>
-          <h3 class="u-display text-[16px] mt-4 text-ink" data-i18n="pv1.t">بياناتك لك وحدك</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2" data-i18n="pv1.d">كل سجل مرتبط بمعرّف حسابك،
+          <h3 class="u-display text-[16px] mt-4 text-ink dark:text-page" data-i18n="pv1.t">بياناتك لك وحدك</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="pv1.d">كل سجل مرتبط بمعرّف حسابك،
             وقواعد الوصول تمنع أي حساب آخر من قراءته.</p>
         </div>
         <div class="card p-6 reveal">
           <span class="material-symbols-outlined text-[24px] text-brand">block</span>
-          <h3 class="u-display text-[16px] mt-4 text-ink" data-i18n="pv2.t">لا بيع ولا تتبّع</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2" data-i18n="pv2.d">لا إعلانات، ولا أدوات تحليل
+          <h3 class="u-display text-[16px] mt-4 text-ink dark:text-page" data-i18n="pv2.t">لا بيع ولا تتبّع</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="pv2.d">لا إعلانات، ولا أدوات تحليل
             خارجية، ولا مشاركة مع طرف ثالث.</p>
         </div>
         <div class="card p-6 sm:col-span-2 !border-accent/40 bg-accent/5 reveal">
           <span class="material-symbols-outlined text-[24px] text-accent">warning</span>
-          <h3 class="u-display text-[16px] mt-4 text-ink" data-i18n="pv3.t">هذه نسخة تجريبية</h3>
-          <p class="u-body text-[14px] leading-[1.8] text-muted mt-2" data-i18n="pv3.d">التطبيق مشروع تعليمي قيد
+          <h3 class="u-display text-[16px] mt-4 text-ink dark:text-page" data-i18n="pv3.t">هذه نسخة تجريبية</h3>
+          <p class="u-body text-[14px] leading-[1.8] text-muted dark:text-gray-300 mt-2" data-i18n="pv3.d">التطبيق مشروع تعليمي قيد
             التطوير، وقد تُحذف البيانات أو يتغيّر شكلها بين الإصدارات. لا تُدخل معلومات حساسة أو أرقاماً لا تحتمل
             الضياع.</p>
         </div>
@@ -878,6 +877,19 @@
     applyLang(saved);
   </script>
 
+
+  <script>
+    // Dark mode logic
+    const toggleDarkMode = () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    };
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  </script>
 </body>
 
 </html>
